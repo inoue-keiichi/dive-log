@@ -33,6 +33,9 @@ export default function Home() {
         <DiveLogList
           diveLogs={diveLogs}
           addNewDiveLog={() => router.push("/diveLog/new")}
+          editDivingLog={(id: number) =>
+            router.push({ pathname: "/diveLog/[id]", query: { id } })
+          }
         />
       </main>
     </>
