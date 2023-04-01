@@ -1,22 +1,28 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import DiveLogList from "@/components/templates/divLogList";
 import DiveLogForm from "@/components/templates/diveLogForm";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { DiveLog } from "@/domains/diveLog";
 
-export default function New() {
+type Props = {
+  diveLog: DiveLog;
+};
+
+function Exist(props: Props) {
+  const { diveLog } = props;
+
   const router = useRouter();
   const { register, handleSubmit } = useForm<DiveLog>();
   const onSubmit = async (data: DiveLog) => {
-    await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/diveLogs`, {
-      method: "PUT",
-      body: JSON.stringify(data),
-    });
-    router.push("/");
+    await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/diveLogs/${router.query.id}`,
+      {
+        method: "PUT",
+        body: JSON.stringify(data),
+      }
+    );
+    router.push("/diveLogs");
   };
 
   return (
@@ -29,6 +35,7 @@ export default function New() {
       </Head>
       <main className={styles.main}>
         <DiveLogForm
+          diveLog={diveLog}
           register={register}
           addNewDiveLog={handleSubmit(onSubmit)}
         />
@@ -36,3 +43,14 @@ export default function New() {
     </>
   );
 }
+
+// TODO: context の型って何？
+export async function getServerSideProps(context: any) {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_HOST}/api/diveLogs/${context.query.id}`
+  );
+  const diveLog = (await res.json()) as DiveLog;
+  return { props: { diveLog } };
+}
+
+export default Exist;

@@ -1,26 +1,32 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import DiveLogList from "@/components/templates/divLogList";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { DiveLog } from "@/domains/diveLog";
+import { CircularProgress, Stack, TextField, Button } from "@mui/material";
 
 export default function Home() {
   const router = useRouter();
-  const [diveLogs, setDiveLogs] = useState<DiveLog[]>([]);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    const data = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/diveLogs`);
-      //TODO: zod
-      const body = (await res.json()) as DiveLog[];
-      setDiveLogs(body);
-    };
-    data();
-  }, []);
-
+  // if (error) {
+  //   return (
+  //     <main className={styles.main}>
+  //       <p>Error: {error.message}</p>
+  //     </main>
+  //   );
+  // }
+  // if (loading) {
+  //   return (
+  //     <main className={styles.main}>
+  //       <CircularProgress />
+  //     </main>
+  //   );
+  // }
+  // if () {
+  //   router.push("/diveLogs");
+  // }
   return (
     <>
       <Head>
@@ -30,13 +36,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <DiveLogList
-          diveLogs={diveLogs}
-          addNewDiveLog={() => router.push("/diveLog/new")}
-          editDivingLog={(id: number) =>
-            router.push({ pathname: "/diveLog/[id]", query: { id } })
-          }
-        />
+        <Stack spacing={2}>
+          <TextField label="メールアドレス" variant="outlined" />
+          <TextField label="パスワード" variant="outlined" />
+          <Button variant="contained" onClick={() => {}}>
+            ログイン
+          </Button>
+          <Button variant="contained" onClick={() => {}}>
+            新規作成
+          </Button>
+        </Stack>
       </main>
     </>
   );
