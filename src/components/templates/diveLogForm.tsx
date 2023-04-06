@@ -35,7 +35,7 @@ const DiveLogForm: FC<Props> = (props) => {
         defaultValue={diveLog?.transparency}
         {...register("transparency")}
       />
-      <Button variant="contained" onClick={addNewDiveLog}>
+      <Button variant="contained" type="submit">
         追加
       </Button>
     </Stack>

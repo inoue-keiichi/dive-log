@@ -8,14 +8,18 @@ export default async function handler(
   res: NextApiResponse<{}>
 ) {
   if (req.method === "PUT") {
-    const { point, waterTemprature, transparency } = JSON.parse(req.body) as {
+    const { userId, point, waterTemprature, transparency } = JSON.parse(
+      req.body
+    ) as {
+      userId: string;
       point: string;
       waterTemprature: string;
       transparency: string;
     };
     // TODO: zod
-    await prisma.diveLogs.update({
+    await prisma.diveLog.update({
       data: {
+        userId,
         point,
         waterTemprature: Number(waterTemprature),
         transparency: Number(transparency),
@@ -27,7 +31,7 @@ export default async function handler(
   }
 
   if (req.method === "GET") {
-    const diveLog = await prisma.diveLogs.findFirst({
+    const diveLog = await prisma.diveLog.findFirst({
       where: { id: Number(req.query.id) },
     });
     if (!diveLog) {

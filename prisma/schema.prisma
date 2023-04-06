@@ -10,9 +10,20 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model DiveLogs {
+model DiveLog {
   id              Int    @id @default(autoincrement())
+  user            User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String
   point           String
   waterTemprature Float?
   transparency    Float?
+
+  @@map("diveLogs")
+}
+
+model User {
+  id       String    @id
+  DiveLogs DiveLog[]
+
+  @@map("users")
 }

@@ -6,6 +6,11 @@ import DiveLogList from "@/components/templates/divLogList";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { DiveLog } from "@/domains/diveLog";
+import {
+  createServerSupabaseClient,
+  withPageAuth,
+} from "@supabase/auth-helpers-nextjs";
+import { GetServerSidePropsContext } from "next";
 
 export default function Home() {
   const router = useRouter();

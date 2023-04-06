@@ -7,15 +7,19 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{}>
 ) {
-  if (req.method === "PUT") {
+  if (req.method === "POST") {
     // TODO: zod
-    const { point, waterTemprature, transparency } = JSON.parse(req.body) as {
+    const { userId, point, waterTemprature, transparency } = JSON.parse(
+      req.body
+    ) as {
+      userId: string;
       point: string;
       waterTemprature: string;
       transparency: string;
     };
-    await prisma.diveLogs.create({
+    await prisma.diveLog.create({
       data: {
+        userId,
         point,
         waterTemprature: Number(waterTemprature),
         transparency: Number(transparency),
@@ -26,7 +30,7 @@ export default async function handler(
   }
 
   if (req.method === "GET") {
-    const diveLogs = await prisma.diveLogs.findMany();
+    const diveLogs = await prisma.diveLog.findMany();
     return res.status(200).json(diveLogs);
   }
 
