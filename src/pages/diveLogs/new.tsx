@@ -1,9 +1,6 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import DiveLogList from "@/components/templates/divLogList";
-import DiveLogForm from "@/components/templates/diveLogForm";
+import DiveLogForm from "@/components/templates/DiveLogForm";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { DiveLog } from "@/domains/diveLog";
@@ -33,10 +30,7 @@ export default function New() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <DiveLogForm
-          register={register}
-          addNewDiveLog={handleSubmit(onSubmit)}
-        />
+        <DiveLogForm onSubmit={onSubmit} />
       </main>
     </>
   );

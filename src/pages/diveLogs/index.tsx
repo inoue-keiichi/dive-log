@@ -1,20 +1,10 @@
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import DiveLogList from "@/components/templates/divLogList";
+import DiveLogList from "@/components/templates/DiveLogList";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { DiveLog } from "@/domains/diveLog";
-import {
-  createServerSupabaseClient,
-  withPageAuth,
-} from "@supabase/auth-helpers-nextjs";
-import {
-  GetServerSidePropsContext,
-  NextApiRequest,
-  NextApiResponse,
-} from "next";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { GetServerSidePropsContext } from "next";
 import { useUser } from "@supabase/auth-helpers-react";
 
 type Props = {
@@ -64,9 +54,18 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const {
     data: { user },
   } = await supabaseServerClient.auth.getUser();
+
+  if (!user) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
   const query = new URLSearchParams();
-  // TODO: null ならログイン画面へリダイレクトしたい
-  query.append("userId", user!.id);
+  query.append("userId", user.id);
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_HOST}/api/diveLogs?${query}`
   );

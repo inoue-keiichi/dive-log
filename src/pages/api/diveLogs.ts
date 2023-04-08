@@ -33,6 +33,7 @@ export default async function handler(
     // TODO: zod
     const diveLogs = await prisma.diveLog.findMany({
       where: { userId: req.query.userId as string },
+      orderBy: { id: "desc" },
     });
     return res.status(200).json(diveLogs);
   }

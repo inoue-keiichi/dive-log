@@ -1,19 +1,20 @@
 import { DiveLog } from "@/domains/diveLog";
 import { Button, Stack, TextField } from "@mui/material";
 import { FC } from "react";
-import { UseFormRegister } from "react-hook-form";
+import { useForm, UseFormRegister } from "react-hook-form";
 
 type Props = {
   diveLog?: DiveLog;
-  register: UseFormRegister<DiveLog>;
-  addNewDiveLog: () => void;
+  onSubmit: (diveLog: DiveLog) => void;
 };
 
 const DiveLogForm: FC<Props> = (props) => {
-  const { diveLog, register, addNewDiveLog } = props;
+  const { diveLog, onSubmit } = props;
+
+  const { register, handleSubmit } = useForm<DiveLog>();
 
   return (
-    <Stack spacing={2} component="form" onSubmit={addNewDiveLog}>
+    <Stack spacing={2} component="form" onSubmit={handleSubmit(onSubmit)}>
       <TextField
         id="outlined-basic"
         label="ポイント"
@@ -36,7 +37,7 @@ const DiveLogForm: FC<Props> = (props) => {
         {...register("transparency")}
       />
       <Button variant="contained" type="submit">
-        追加
+        {diveLog ? "上書き" : "追加"}
       </Button>
     </Stack>
   );

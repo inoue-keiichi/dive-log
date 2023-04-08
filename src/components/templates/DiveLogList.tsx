@@ -19,13 +19,13 @@ type Props = {
 
 const DiveLogList: FC<Props> = (props) => {
   const { diveLogs, addNewDiveLog, editDivingLog } = props;
+
   return (
     <Stack spacing={2}>
-      {/* TODO: 可能であればkeyは意味のある値にする */}
-      {diveLogs.map((d, index) => {
-        const { id, point, waterTemprature, transparency } = d;
+      {diveLogs.map((diveLog) => {
+        const { id, point, waterTemprature, transparency } = diveLog;
         return (
-          <Card key={index}>
+          <Card key={id}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 {point}
@@ -38,7 +38,7 @@ const DiveLogList: FC<Props> = (props) => {
               <Button
                 variant="contained"
                 size="small"
-                onClick={() => editDivingLog(d.id)}
+                onClick={() => editDivingLog(diveLog.id)}
               >
                 編集
               </Button>

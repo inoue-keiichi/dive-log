@@ -1,11 +1,10 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
-import DiveLogList from "@/components/templates/divLogList";
+import DiveLogList from "@/components/templates/DiveLogList";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { CircularProgress, Stack, TextField, Button } from "@mui/material";
 import SignIn from "@/components/templates/signInForm";
-import { AccountAuth } from "@/domains/auth";
 import { useForm } from "react-hook-form";
 import { Auth } from "@supabase/auth-ui-react";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
