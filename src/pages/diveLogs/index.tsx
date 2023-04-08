@@ -10,21 +10,33 @@ import {
   createServerSupabaseClient,
   withPageAuth,
 } from "@supabase/auth-helpers-nextjs";
-import { GetServerSidePropsContext } from "next";
+import {
+  GetServerSidePropsContext,
+  NextApiRequest,
+  NextApiResponse,
+} from "next";
+import { useUser } from "@supabase/auth-helpers-react";
 
-export default function Home() {
+type Props = {
+  diveLogs: DiveLog[];
+};
+
+export default function Home(props: Props) {
+  const { diveLogs } = props;
+
+  const user = useUser();
   const router = useRouter();
-  const [diveLogs, setDiveLogs] = useState<DiveLog[]>([]);
+  //const [diveLogs, setDiveLogs] = useState<DiveLog[]>([]);
 
-  useEffect(() => {
-    const data = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/diveLogs`);
-      //TODO: zod
-      const body = (await res.json()) as DiveLog[];
-      setDiveLogs(body);
-    };
-    data();
-  }, []);
+  // useEffect(() => {
+  //   const data = async () => {
+  //     const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/diveLogs`);
+  //     //TODO: zod
+  //     const body = (await res.json()) as DiveLog[];
+  //     setDiveLogs(body);
+  //   };
+  //   data();
+  // }, []);
 
   return (
     <>
@@ -45,4 +57,19 @@ export default function Home() {
       </main>
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const supabaseServerClient = createServerSupabaseClient(context);
+  const {
+    data: { user },
+  } = await supabaseServerClient.auth.getUser();
+  const query = new URLSearchParams();
+  // TODO: null ならログイン画面へリダイレクトしたい
+  query.append("userId", user!.id);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_HOST}/api/diveLogs?${query}`
+  );
+  const diveLogs = (await res.json()) as DiveLog[];
+  return { props: { diveLogs } };
 }

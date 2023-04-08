@@ -30,7 +30,10 @@ export default async function handler(
   }
 
   if (req.method === "GET") {
-    const diveLogs = await prisma.diveLog.findMany();
+    // TODO: zod
+    const diveLogs = await prisma.diveLog.findMany({
+      where: { userId: req.query.userId as string },
+    });
     return res.status(200).json(diveLogs);
   }
 
