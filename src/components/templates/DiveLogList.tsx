@@ -5,20 +5,18 @@ import {
   CardActions,
   CardContent,
   Stack,
-  TextField,
   Typography,
 } from "@mui/material";
-import Link from "next/link";
 import { FC } from "react";
 
 type Props = {
   diveLogs: DiveLog[];
-  addNewDiveLog: () => void;
-  editDivingLog: (id: number) => void;
+  onAddNew: () => void;
+  onEdit: (id: number) => void;
 };
 
 const DiveLogList: FC<Props> = (props) => {
-  const { diveLogs, addNewDiveLog, editDivingLog } = props;
+  const { diveLogs, onAddNew, onEdit } = props;
 
   return (
     <Stack spacing={2}>
@@ -38,7 +36,7 @@ const DiveLogList: FC<Props> = (props) => {
               <Button
                 variant="contained"
                 size="small"
-                onClick={() => editDivingLog(diveLog.id)}
+                onClick={() => onEdit(diveLog.id)}
               >
                 編集
               </Button>
@@ -46,7 +44,7 @@ const DiveLogList: FC<Props> = (props) => {
           </Card>
         );
       })}
-      <Button variant="contained" onClick={addNewDiveLog}>
+      <Button variant="contained" onClick={onAddNew}>
         新規追加
       </Button>
     </Stack>

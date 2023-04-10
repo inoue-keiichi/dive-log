@@ -39,8 +39,8 @@ export default function Home(props: Props) {
       <main className={styles.main}>
         <DiveLogList
           diveLogs={diveLogs}
-          addNewDiveLog={() => router.push("/diveLogs/new")}
-          editDivingLog={(id: number) =>
+          onAddNew={() => router.push("/diveLogs/new")}
+          onEdit={(id: number) =>
             router.push({ pathname: "/diveLogs/[id]", query: { id } })
           }
         />
