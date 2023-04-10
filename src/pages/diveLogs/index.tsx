@@ -2,31 +2,18 @@ import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import DiveLogList from "@/components/templates/DiveLogList";
 import { useRouter } from "next/router";
-import { DiveLog } from "@/domains/diveLog";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { GetServerSidePropsContext } from "next";
-import { useUser } from "@supabase/auth-helpers-react";
+import { DiveLog } from "@/schemas/diveLog";
 
 type Props = {
   diveLogs: DiveLog[];
 };
 
-export default function Home(props: Props) {
+export default function DivingLogs(props: Props) {
   const { diveLogs } = props;
 
-  const user = useUser();
   const router = useRouter();
-  //const [diveLogs, setDiveLogs] = useState<DiveLog[]>([]);
-
-  // useEffect(() => {
-  //   const data = async () => {
-  //     const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/diveLogs`);
-  //     //TODO: zod
-  //     const body = (await res.json()) as DiveLog[];
-  //     setDiveLogs(body);
-  //   };
-  //   data();
-  // }, []);
 
   return (
     <>

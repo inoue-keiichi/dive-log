@@ -45,23 +45,56 @@ describe("test", () => {
     await waitFor(() => expect(addNew).toHaveBeenCalledTimes(1));
   });
 
-  test.skip("succeeded in editting a diving log", async () => {
-    <DiveLogList
-      diveLogs={[
-        {
-          id: 1,
-          userId: "uuid1",
-          point: "Ose",
-          waterTemprature: 28,
-          transparency: 8,
-        },
-      ]}
-      onAddNew={addNew}
-      onEdit={edit}
-    />;
+  test("succeeded in editting a diving log", async () => {
+    render(
+      <DiveLogList
+        diveLogs={[
+          {
+            id: 1,
+            userId: "uuid1",
+            point: "Ose",
+            waterTemprature: 28,
+            transparency: 8,
+          },
+        ]}
+        onAddNew={addNew}
+        onEdit={edit}
+      />
+    );
     const editButton = screen.getByText("編集");
     await fireEvent.click(editButton);
     // react-hook-form によって submit が呼び出されるまで待機
     await waitFor(() => expect(edit).toHaveBeenCalledTimes(1));
+  });
+
+  test("succeeded in editting diving logs", async () => {
+    render(
+      <DiveLogList
+        diveLogs={[
+          {
+            id: 1,
+            userId: "uuid1",
+            point: "Ose",
+            waterTemprature: 28,
+            transparency: 8,
+          },
+          {
+            id: 2,
+            userId: "uuid2",
+            point: "Kawana",
+            waterTemprature: 23,
+            transparency: 12,
+          },
+        ]}
+        onAddNew={addNew}
+        onEdit={edit}
+      />
+    );
+    const editButtons = screen.getAllByText("編集");
+    await fireEvent.click(editButtons[0]);
+    // react-hook-form によって submit が呼び出されるまで待機
+    await waitFor(() => expect(edit).nthCalledWith(1, 1));
+    await fireEvent.click(editButtons[1]);
+    await waitFor(() => expect(edit).nthCalledWith(2, 2));
   });
 });

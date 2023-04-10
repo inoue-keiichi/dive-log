@@ -2,8 +2,7 @@ import Head from "next/head";
 import styles from "@/styles/Home.module.css";
 import DiveLogForm from "@/components/templates/DiveLogForm";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
-import { DiveLog } from "@/domains/diveLog";
+import { DiveLog } from "@/schemas/diveLog";
 
 type Props = {
   diveLog: DiveLog;

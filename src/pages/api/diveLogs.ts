@@ -1,5 +1,4 @@
 import { prisma } from "@/clients/prisma";
-import { DiveLog } from "@/domains/diveLog";
 import { PrismaClient } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
 

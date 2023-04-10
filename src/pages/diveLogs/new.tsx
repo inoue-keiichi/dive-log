@@ -3,13 +3,12 @@ import styles from "@/styles/Home.module.css";
 import DiveLogForm from "@/components/templates/DiveLogForm";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { DiveLog } from "@/domains/diveLog";
 import { useUser } from "@supabase/auth-helpers-react";
+import { DiveLog } from "@/schemas/diveLog";
 
 export default function New() {
   const router = useRouter();
   const user = useUser();
-  const { register, handleSubmit } = useForm<DiveLog>();
   const onSubmit = async (data: DiveLog) => {
     if (!user) {
       return await router.replace("/");

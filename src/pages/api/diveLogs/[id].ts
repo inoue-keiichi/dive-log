@@ -1,6 +1,5 @@
 import { prisma } from "@/clients/prisma";
-import { DiveLog } from "@/domains/diveLog";
-import { PrismaClient } from "@prisma/client";
+import { diveLogIdSchema, diveLogSchema } from "@/schemas/diveLog";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -8,31 +7,26 @@ export default async function handler(
   res: NextApiResponse<{}>
 ) {
   if (req.method === "PUT") {
-    const { userId, point, waterTemprature, transparency } = JSON.parse(
-      req.body
-    ) as {
-      userId: string;
-      point: string;
-      waterTemprature: string;
-      transparency: string;
-    };
-    // TODO: zod
+    const { userId, point, waterTemprature, transparency } =
+      diveLogSchema.parse(req.body);
+    const id = diveLogIdSchema.parse(req.query.id);
     await prisma.diveLog.update({
       data: {
         userId,
         point,
-        waterTemprature: Number(waterTemprature),
-        transparency: Number(transparency),
+        waterTemprature,
+        transparency,
       },
-      where: { id: Number(req.query.id) },
+      where: { id },
     });
 
     return res.status(200).json({});
   }
 
   if (req.method === "GET") {
+    const id = diveLogIdSchema.parse(req.query.id);
     const diveLog = await prisma.diveLog.findFirst({
-      where: { id: Number(req.query.id) },
+      where: { id },
     });
     if (!diveLog) {
       return res.status(404).json({});

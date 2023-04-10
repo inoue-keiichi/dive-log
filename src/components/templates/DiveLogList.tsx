@@ -1,4 +1,4 @@
-import { DiveLog } from "@/domains/diveLog";
+import { DiveLog } from "@/schemas/diveLog";
 import {
   Button,
   Card,

@@ -1,4 +1,4 @@
-import { DiveLog } from "@/domains/diveLog";
+import { DiveLog } from "@/schemas/diveLog";
 import { Button, Stack, TextField } from "@mui/material";
 import { FC } from "react";
 import { useForm, UseFormRegister } from "react-hook-form";
