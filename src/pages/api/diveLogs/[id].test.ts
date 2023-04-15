@@ -28,6 +28,7 @@ describe("PUT API", () => {
 
     await testApiHandler({
       handler,
+      paramsPatcher: (params) => (params.id = updatedDiveLog.id),
       test: async ({ fetch }) => {
         const res = await fetch({
           method: "PUT",

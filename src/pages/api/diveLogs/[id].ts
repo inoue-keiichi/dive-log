@@ -7,20 +7,31 @@ export default async function handler(
   res: NextApiResponse<{}>
 ) {
   if (req.method === "PUT") {
-    const { userId, point, waterTemprature, transparency } =
-      diveLogSchema.parse(req.body);
-    const id = diveLogIdSchema.parse(req.query.id);
-    await prisma.diveLog.update({
-      data: {
-        userId,
-        point,
-        waterTemprature,
-        transparency,
-      },
-      where: { id },
+    console.log(`id: ${req.query.id}`);
+    const parsedQuery = diveLogIdSchema.safeParse(req.query.id);
+    if (!parsedQuery.success) {
+      // TODO: エラーのレスポンス型作りたい
+      return res.status(400).json({
+        errorCode: "invalid_parameter",
+        message: JSON.parse(parsedQuery.error.message),
+      });
+    }
+
+    const parsed = diveLogSchema.safeParse(JSON.parse(req.body));
+    if (!parsed.success) {
+      // TODO: エラーのレスポンス型作りたい
+      return res.status(400).json({
+        errorCode: "invalid_parameter",
+        message: JSON.parse(parsed.error.message),
+      });
+    }
+
+    const updatedDiveLog = await prisma.diveLog.update({
+      data: parsed.data,
+      where: { id: parsedQuery.data },
     });
 
-    return res.status(200).json({});
+    return res.status(200).json(updatedDiveLog);
   }
 
   if (req.method === "GET") {

@@ -6,11 +6,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{}>
 ) {
-  console.log(`body: ${req.body}`);
   if (req.method === "POST") {
     const parsed = newDiveLogSchema.safeParse(JSON.parse(req.body));
     if (!parsed.success) {
-      console.log(parsed.error.message);
       // TODO: エラーのレスポンス型作りたい
       return res.status(400).json({
         errorCode: "invalid_parameter",
@@ -22,7 +20,7 @@ export default async function handler(
       data: parsed.data,
     });
 
-    return res.status(200).json(newDiveLog);
+    return res.status(201).json(newDiveLog);
   }
 
   if (req.method === "GET") {

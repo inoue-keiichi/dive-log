@@ -3,13 +3,13 @@ import { NewDiveLog } from "@/schemas/diveLog";
 import { testApiHandler } from "next-test-api-route-handler";
 import handler from "./diveLogs";
 
-// TODO: テスト全体で実行される様にする
-beforeAll(async () => {
-  await prisma.diveLog.deleteMany();
-});
-
 describe("GET API", () => {
   describe("not existing divelogs in db", () => {
+    // TODO: テスト全体で実行される様にする
+    beforeAll(async () => {
+      await prisma.diveLog.deleteMany();
+    });
+
     test("succeeded in getting diving logs", async () => {
       await testApiHandler({
         handler,
@@ -32,12 +32,13 @@ describe("GET API", () => {
     ];
 
     beforeAll(async () => {
+      await prisma.diveLog.deleteMany();
       await prisma.diveLog.createMany({ data: DIVE_LOGS });
     });
 
-    afterAll(async () => {
-      await prisma.diveLog.deleteMany();
-    });
+    // afterAll(async () => {
+    //   await prisma.diveLog.deleteMany();
+    // });
 
     test("succeeded in getting one diving log", async () => {
       await testApiHandler({
@@ -58,7 +59,7 @@ describe("GET API", () => {
     test("succeeded in getting one diving log with uuid", async () => {
       await testApiHandler({
         handler,
-        url: "/api/divingLogs?userId=uuid",
+        url: "/api/diveLogs?userId=uuid",
         test: async ({ fetch }) => {
           const res = await fetch({ method: "GET" });
           const actual = await res.json();
@@ -90,6 +91,7 @@ describe("GET API", () => {
     ];
 
     beforeAll(async () => {
+      await prisma.diveLog.deleteMany();
       await prisma.diveLog.createMany({ data: DIVE_LOGS });
     });
 
@@ -153,7 +155,7 @@ describe("GET API", () => {
 });
 
 describe("POST API", () => {
-  afterAll(async () => {
+  beforeAll(async () => {
     await prisma.diveLog.deleteMany();
   });
 
@@ -173,7 +175,7 @@ describe("POST API", () => {
           method: "POST",
           body: JSON.stringify(diveLog),
         });
-        await expect(res.status).toBe(200);
+        await expect(res.status).toBe(201);
         await expect(res.json()).resolves.toStrictEqual(
           expect.objectContaining(diveLog)
         );
