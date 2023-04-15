@@ -11,9 +11,9 @@ datasource db {
 }
 
 model DiveLog {
-  id              Int    @id @default(autoincrement())
+  id              Int     @id @default(autoincrement())
   userId          String
-  point           String
+  point           String?
   waterTemprature Float?
   transparency    Float?
 
