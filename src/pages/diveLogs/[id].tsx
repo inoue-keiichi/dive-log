@@ -3,6 +3,9 @@ import styles from "@/styles/Home.module.css";
 import DiveLogForm from "@/components/templates/DiveLogForm";
 import { useRouter } from "next/router";
 import { DiveLog } from "@/schemas/diveLog";
+import { useUser } from "@supabase/auth-helpers-react";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { GetServerSidePropsContext } from "next";
 
 type Props = {
   diveLog: DiveLog;
@@ -11,10 +14,15 @@ type Props = {
 function Exist(props: Props) {
   const { diveLog } = props;
 
+  const user = useUser();
   const router = useRouter();
+
   const onSubmit = async (data: DiveLog) => {
+    if (!user) {
+      return await router.replace("/");
+    }
     await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/diveLogs/${router.query.id}`,
+      `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs/${router.query.id}`,
       {
         method: "PUT",
         body: JSON.stringify(data),
@@ -38,12 +46,25 @@ function Exist(props: Props) {
   );
 }
 
-// TODO: context の型って何？
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const supabaseServerClient = createServerSupabaseClient(context);
+  const {
+    data: { user },
+  } = await supabaseServerClient.auth.getUser();
+
+  if (!user) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/diveLogs/${context.query.id}`
+    `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs/${context.query.id}`
   );
   const diveLog = (await res.json()) as DiveLog;
+  console.log(`diveLog: ${diveLog}`);
   return { props: { diveLog } };
 }
 

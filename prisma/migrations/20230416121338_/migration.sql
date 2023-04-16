@@ -6,5 +6,5 @@ CREATE TABLE "diveLogs" (
     "waterTemprature" DOUBLE PRECISION,
     "transparency" DOUBLE PRECISION,
 
-    CONSTRAINT "diveLogs_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "diveLogs_pkey" PRIMARY KEY ("id","userId")
 );

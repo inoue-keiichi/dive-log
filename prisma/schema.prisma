@@ -11,11 +11,12 @@ datasource db {
 }
 
 model DiveLog {
-  id              Int     @id @default(autoincrement())
+  id              Int     @default(autoincrement())
   userId          String
   point           String?
   waterTemprature Float?
   transparency    Float?
 
+  @@id(fields: [id, userId], name: "dive_log_identifier")
   @@map("diveLogs")
 }

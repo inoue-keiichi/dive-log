@@ -1,5 +1,5 @@
 import { prisma } from "@/clients/prisma";
-import { diveLogIdSchema, diveLogSchema } from "@/schemas/diveLog";
+import { diveLogQuerySchema, diveLogSchema } from "@/schemas/diveLog";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -7,7 +7,11 @@ export default async function handler(
   res: NextApiResponse<{}>
 ) {
   if (req.method === "PUT") {
-    const parsedQuery = diveLogIdSchema.safeParse(req.query.id);
+    console.log(JSON.stringify(req.query));
+    const parsedQuery = diveLogQuerySchema.safeParse({
+      id: req.query.id,
+      userId: req.query.userId,
+    });
     if (!parsedQuery.success) {
       console.error(parsedQuery.error.message);
       // TODO: エラーのレスポンス型作りたい
@@ -28,14 +32,22 @@ export default async function handler(
 
     const updatedDiveLog = await prisma.diveLog.update({
       data: parsed.data,
-      where: { id: parsedQuery.data },
+      where: {
+        dive_log_identifier: {
+          id: parsedQuery.data.id,
+          userId: parsedQuery.data.userId,
+        },
+      },
     });
 
     return res.status(200).json(updatedDiveLog);
   }
 
   if (req.method === "GET") {
-    const parsedQuery = diveLogIdSchema.safeParse(req.query.id);
+    const parsedQuery = diveLogQuerySchema.safeParse({
+      id: req.query.id,
+      userId: req.query.userId,
+    });
     if (!parsedQuery.success) {
       // TODO: エラーのレスポンス型作りたい
       return res.status(400).json({
@@ -44,7 +56,7 @@ export default async function handler(
       });
     }
     const diveLog = await prisma.diveLog.findFirst({
-      where: { id: parsedQuery.data },
+      where: { id: parsedQuery.data.id, userId: parsedQuery.data.userId },
     });
     if (!diveLog) {
       return res.status(404).json({});

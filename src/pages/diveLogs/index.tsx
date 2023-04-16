@@ -51,10 +51,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
 
-  const query = new URLSearchParams();
-  query.append("userId", user.id);
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/diveLogs?${query}`
+    `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs`
   );
   const diveLogs = (await res.json()) as DiveLog[];
   return { props: { diveLogs } };

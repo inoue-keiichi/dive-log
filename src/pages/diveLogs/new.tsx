@@ -3,19 +3,22 @@ import styles from "@/styles/Home.module.css";
 import DiveLogForm from "@/components/templates/DiveLogForm";
 import { useRouter } from "next/router";
 import { useUser } from "@supabase/auth-helpers-react";
-import { NewDiveLog } from "@/schemas/diveLog";
+import { DiveLog } from "@/schemas/diveLog";
 
 export default function New() {
   const router = useRouter();
   const user = useUser();
-  const handleSubmit = async (data: NewDiveLog) => {
+  const handleSubmit = async (data: DiveLog) => {
     if (!user) {
       return await router.replace("/");
     }
-    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/diveLogs`, {
-      method: "POST",
-      body: JSON.stringify({ ...data, userId: user.id }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs`,
+      {
+        method: "POST",
+        body: JSON.stringify({ ...data }),
+      }
+    );
     if (res.ok) {
       router.push("/diveLogs");
     }

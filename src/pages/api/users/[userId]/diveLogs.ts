@@ -1,5 +1,5 @@
 import { prisma } from "@/clients/prisma";
-import { newDiveLogSchema } from "@/schemas/diveLog";
+import { newDiveLogQuerySchema, diveLogSchema } from "@/schemas/diveLog";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -7,7 +7,18 @@ export default async function handler(
   res: NextApiResponse<{}>
 ) {
   if (req.method === "POST") {
-    const parsed = newDiveLogSchema.safeParse(JSON.parse(req.body));
+    const parsedQuery = newDiveLogQuerySchema.safeParse({
+      userId: req.query.userId,
+    });
+    if (!parsedQuery.success) {
+      // TODO: エラーのレスポンス型作りたい
+      return res.status(400).json({
+        errorCode: "invalid_parameter",
+        message: JSON.parse(parsedQuery.error.message),
+      });
+    }
+
+    const parsed = diveLogSchema.safeParse(JSON.parse(req.body));
     if (!parsed.success) {
       // TODO: エラーのレスポンス型作りたい
       return res.status(400).json({
@@ -17,7 +28,7 @@ export default async function handler(
     }
 
     const newDiveLog = await prisma.diveLog.create({
-      data: parsed.data,
+      data: { ...parsed.data, userId: parsedQuery.data.userId },
     });
 
     return res.status(201).json(newDiveLog);

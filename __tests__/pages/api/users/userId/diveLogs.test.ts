@@ -1,7 +1,7 @@
 import { prisma } from "@/clients/prisma";
-import { NewDiveLog } from "@/schemas/diveLog";
+import { DiveLog } from "@/schemas/diveLog";
 import { testApiHandler } from "next-test-api-route-handler";
-import handler from "../../../src/pages/api/diveLogs";
+import handler from "../../../../../src/pages/api/users/[userId]/diveLogs";
 
 describe("GET API", () => {
   describe("not existing divelogs in db", () => {
@@ -161,15 +161,15 @@ describe("POST API", () => {
 
   //TODO: 400系のテストかく
   test("succeeded in creating a new diving log", async () => {
-    const diveLog: NewDiveLog = {
+    const diveLog: DiveLog = {
       point: "Kerama",
       transparency: 30,
       waterTemprature: 42,
-      userId: "uuid",
     };
 
     await testApiHandler({
       handler,
+      paramsPatcher: (params) => (params.userId = "uuid"),
       test: async ({ fetch }) => {
         const res = await fetch({
           method: "POST",

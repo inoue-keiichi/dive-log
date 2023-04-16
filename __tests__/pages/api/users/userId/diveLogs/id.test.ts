@@ -1,7 +1,7 @@
 import { prisma } from "@/clients/prisma";
 import { DiveLog } from "@/schemas/diveLog";
 import { testApiHandler } from "next-test-api-route-handler";
-import handler from "../../../../src/pages/api/diveLogs/[id]";
+import handler from "../../../../../../src/pages/api/users/[userId]/diveLogs/[id]";
 
 beforeAll(async () => {
   await prisma.diveLog.deleteMany();
@@ -20,15 +20,19 @@ describe("PUT API", () => {
     });
 
     const updatedDiveLog = {
-      ...diveLog,
       point: "Malapascua",
       transparency: 50,
       waterTemprature: 50,
     };
 
+    const { id, userId } = diveLog;
+
     await testApiHandler({
       handler,
-      paramsPatcher: (params) => (params.id = updatedDiveLog.id),
+      paramsPatcher: (params) => {
+        params.id = id;
+        params.userId = userId;
+      },
       test: async ({ fetch }) => {
         const res = await fetch({
           method: "PUT",

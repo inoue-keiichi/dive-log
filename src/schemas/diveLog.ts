@@ -1,7 +1,6 @@
 import { z } from "zod";
 
-export const newDiveLogSchema = z.object({
-  userId: z.string(),
+export const diveLogSchema = z.object({
   point: z.string().optional(),
   waterTemprature: z
     .number()
@@ -37,9 +36,15 @@ export const newDiveLogSchema = z.object({
     ),
 });
 
-export const diveLogSchema = newDiveLogSchema.extend({ id: z.number() });
+export const newDiveLogQuerySchema = z.object({ userId: z.string() });
 
-export const diveLogIdSchema = z.number();
+export const diveLogQuerySchema = newDiveLogQuerySchema.extend({
+  id: z
+    .string()
+    .regex(/[1-9][0-9]*/)
+    .transform((val) => Number(val))
+    .or(z.number()),
+});
 
 export type DiveLog = z.infer<typeof diveLogSchema>;
-export type NewDiveLog = z.infer<typeof newDiveLogSchema>;
+//export type DiveLogQuery = z.infer<typeof diveLogQuerySchema>;
