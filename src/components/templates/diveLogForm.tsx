@@ -16,21 +16,21 @@ const DiveLogForm: FC<Props> = (props) => {
   return (
     <Stack spacing={2} component="form" onSubmit={handleSubmit(onSubmit)}>
       <TextField
-        id="outlined-basic"
+        id="point"
         label="ポイント"
         variant="outlined"
         defaultValue={diveLog?.point}
         {...register("point")}
       />
       <TextField
-        id="outlined-basic"
+        id="waterTemprature"
         label="水温"
         variant="outlined"
         defaultValue={diveLog?.waterTemprature}
         {...register("waterTemprature")}
       />
       <TextField
-        id="outlined-basic"
+        id="transparency"
         label="透明度"
         variant="outlined"
         defaultValue={diveLog?.transparency}

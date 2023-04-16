@@ -10,7 +10,8 @@
     "studio": "prisma studio",
     "lint": "next lint",
     "preinstall": "typesync || :",
-    "test": "jest -i"
+    "test": "jest -i",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -37,6 +38,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.32.3",
     "@testing-library/react": "^14.0.0",
     "@types/eslint": "8.21.3",
     "@types/jest": "^29.5.0",

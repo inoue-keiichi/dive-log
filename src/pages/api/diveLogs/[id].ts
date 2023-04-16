@@ -7,9 +7,9 @@ export default async function handler(
   res: NextApiResponse<{}>
 ) {
   if (req.method === "PUT") {
-    console.log(`id: ${req.query.id}`);
     const parsedQuery = diveLogIdSchema.safeParse(req.query.id);
     if (!parsedQuery.success) {
+      console.error(parsedQuery.error.message);
       // TODO: エラーのレスポンス型作りたい
       return res.status(400).json({
         errorCode: "invalid_parameter",
@@ -35,9 +35,16 @@ export default async function handler(
   }
 
   if (req.method === "GET") {
-    const id = diveLogIdSchema.parse(req.query.id);
+    const parsedQuery = diveLogIdSchema.safeParse(req.query.id);
+    if (!parsedQuery.success) {
+      // TODO: エラーのレスポンス型作りたい
+      return res.status(400).json({
+        errorCode: "invalid_parameter",
+        message: JSON.parse(parsedQuery.error.message),
+      });
+    }
     const diveLog = await prisma.diveLog.findFirst({
-      where: { id },
+      where: { id: parsedQuery.data },
     });
     if (!diveLog) {
       return res.status(404).json({});

@@ -1,7 +1,7 @@
 import { prisma } from "@/clients/prisma";
 import { NewDiveLog } from "@/schemas/diveLog";
 import { testApiHandler } from "next-test-api-route-handler";
-import handler from "./diveLogs";
+import handler from "../../../src/pages/api/diveLogs";
 
 describe("GET API", () => {
   describe("not existing divelogs in db", () => {
