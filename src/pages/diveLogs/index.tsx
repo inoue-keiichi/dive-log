@@ -7,7 +7,7 @@ import { GetServerSidePropsContext } from "next";
 import { DiveLog } from "@/schemas/diveLog";
 
 type Props = {
-  diveLogs: DiveLog[];
+  diveLogs: (DiveLog & { id: number })[];
 };
 
 export default function DivingLogs(props: Props) {
@@ -25,6 +25,7 @@ export default function DivingLogs(props: Props) {
       </Head>
       <main className={styles.main}>
         <DiveLogList
+          data-test-id={"dive-log-card-list"}
           diveLogs={diveLogs}
           onAddNew={() => router.push("/diveLogs/new")}
           onEdit={(id: number) =>

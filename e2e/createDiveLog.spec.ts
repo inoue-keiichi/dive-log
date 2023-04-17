@@ -12,9 +12,9 @@ const diveLog = {
 };
 
 const updatedDiveLog = {
-  point: "Ose",
-  waterTemprature: 23,
-  transparency: 5,
+  point: "Futo",
+  waterTemprature: 25,
+  transparency: 8,
 };
 
 // TODO: DBを初期化してからテスト実行したい
@@ -40,7 +40,12 @@ test("create a new DiveLog with sign up", async ({ page }) => {
   // TODO: リストにログブックが増えたことを評価するもっと良い方法が欲しい
   await expect(page.getByText("編集")).toHaveCount(1);
   // Update the diveLog.
-  // TODO: どの編集ボタンを押せばいいか区別できない
-  // await page.getByText("編集").click();
-  // await expect(page).toHaveURL("http://localhost:3000/diveLogs/new");
+  await page.getByTestId("dive-log-card-0").getByText("編集").click();
+  await expect(page).toHaveURL(/http:\/\/localhost:3000\/diveLogs\/\d+/);
+  await page.getByLabel("ポイント").fill(`${updatedDiveLog.point}`);
+  await page.getByLabel("水温").fill(`${updatedDiveLog.waterTemprature}`);
+  await page.getByLabel("透明度").fill(`${updatedDiveLog.transparency}`);
+  await page.getByText("上書き").click();
+  await expect(page.getByText("編集")).toHaveCount(1);
+  // TODO: 上書きされたことを確認する。まだcardのデザイン決めてないので後で
 });

@@ -10,7 +10,7 @@ import {
 import { FC } from "react";
 
 type Props = {
-  diveLogs: DiveLog[];
+  diveLogs: (DiveLog & { id: number })[];
   onAddNew: () => void;
   onEdit: (id: number) => void;
 };
@@ -20,10 +20,10 @@ const DiveLogList: FC<Props> = (props) => {
 
   return (
     <Stack spacing={2}>
-      {diveLogs.map((diveLog) => {
+      {diveLogs.map((diveLog, i) => {
         const { id, point, waterTemprature, transparency } = diveLog;
         return (
-          <Card key={id}>
+          <Card data-testid={`dive-log-card-${i}`} key={id}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 {point}
