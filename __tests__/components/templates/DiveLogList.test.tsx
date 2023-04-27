@@ -51,7 +51,6 @@ describe("test", () => {
         diveLogs={[
           {
             id: 1,
-            userId: "uuid1",
             point: "Ose",
             waterTemprature: 28,
             transparency: 8,
@@ -73,14 +72,12 @@ describe("test", () => {
         diveLogs={[
           {
             id: 1,
-            userId: "uuid1",
             point: "Ose",
             waterTemprature: 28,
             transparency: 8,
           },
           {
             id: 2,
-            userId: "uuid2",
             point: "Kawana",
             waterTemprature: 23,
             transparency: 12,

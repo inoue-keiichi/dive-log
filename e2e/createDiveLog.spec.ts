@@ -48,4 +48,5 @@ test("create a new DiveLog with sign up", async ({ page }) => {
   await page.getByText("上書き").click();
   await expect(page.getByText("編集")).toHaveCount(1);
   // TODO: 上書きされたことを確認する。まだcardのデザイン決めてないので後で
+  // もう一度編集ページに入れば良いだけか
 });

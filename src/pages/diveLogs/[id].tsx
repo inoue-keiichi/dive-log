@@ -64,7 +64,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs/${context.query.id}`
   );
   const diveLog = (await res.json()) as DiveLog;
-  console.log(`diveLog: ${diveLog}`);
   return { props: { diveLog } };
 }
 

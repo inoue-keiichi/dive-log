@@ -3,32 +3,23 @@ import {
   Button,
   FormControl,
   Stack,
-  TextField,
-  Input,
   FormHelperText,
   InputLabel,
   InputAdornment,
   OutlinedInput,
-  FormControlLabel,
 } from "@mui/material";
 import { FC } from "react";
-import { useForm, UseFormRegister } from "react-hook-form";
+import { FieldErrors, useForm, UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { getSimpleDate } from "@/utils/commons";
 
 type Props = {
   diveLog?: DiveLog;
   onSubmit: (diveLog: DiveLog) => void;
 };
 
-// TODO: 別ファイルへ移動する
-const today = new Date();
-const getSimpleDate = (date: Date) => {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return `${year}-${month < 10 ? "0" + month : month}-${
-    day < 10 ? "0" + day : day
-  }`;
+const isError = (errors: FieldErrors<DiveLog>) => {
+  return Object.values(errors).filter((v) => v.message).length > 0;
 };
 
 const DiveLogForm: FC<Props> = (props) => {
@@ -50,11 +41,12 @@ const DiveLogForm: FC<Props> = (props) => {
           id="date"
           label="日付"
           type="date"
-          defaultValue={diveLog?.date || getSimpleDate(today)}
+          error={!!errors.date?.message}
+          defaultValue={diveLog?.date || getSimpleDate(new Date())}
           {...register("date")}
         />
-        <FormHelperText error={!!errors.point?.message}>
-          {errors.point?.message ?? ""}
+        <FormHelperText error={!!errors.date?.message}>
+          {errors.date?.message ?? ""}
         </FormHelperText>
       </FormControl>
       <FormControl>
@@ -63,6 +55,7 @@ const DiveLogForm: FC<Props> = (props) => {
           id="point"
           label="ポイント"
           type="text"
+          error={!!errors.point?.message}
           defaultValue={diveLog?.point}
           {...register("point")}
         />
@@ -100,11 +93,7 @@ const DiveLogForm: FC<Props> = (props) => {
           {errors.transparency?.message ?? ""}
         </FormHelperText>
       </FormControl>
-      <Button
-        disabled={!!errors.root?.message}
-        variant="contained"
-        type="submit"
-      >
+      <Button disabled={isError(errors)} variant="contained" type="submit">
         {diveLog ? "上書き" : "追加"}
       </Button>
     </Stack>

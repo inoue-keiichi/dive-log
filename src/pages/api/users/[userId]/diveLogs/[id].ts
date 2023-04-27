@@ -30,6 +30,7 @@ export default async function handler(
       });
     }
 
+    console.log(parsed.data);
     const updatedDiveLog = await prisma.diveLog.update({
       data: parsed.data,
       where: {
