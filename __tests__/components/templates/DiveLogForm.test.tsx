@@ -1,7 +1,6 @@
 import DiveLogForm from "@/components/templates/DiveLogForm";
 import { getSimpleDate } from "@/utils/commons";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { fill } from "../__utils__/common";
 import {
   fillDate,
   fillPoint,

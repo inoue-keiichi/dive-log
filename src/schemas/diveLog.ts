@@ -7,9 +7,11 @@ export const diveLogSchema = z.object({
       message: "カレンダーから日付を選択してください",
     })
     .optional(),
-  point: z.nullable(
-    z.string().max(63, { message: "63文字以下にしてください" })
-  ),
+  point: z
+    .string()
+    .max(63, { message: "63文字以下にしてください" })
+    .nullable()
+    .optional(),
   waterTemprature: z.nullable(
     z
       .string()
