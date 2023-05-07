@@ -25,4 +25,14 @@ describe("diveLogSchema", () => {
       expect(actual.success).toBeFalsy();
     }
   );
+
+  test.each([
+    ["number", 1],
+    ["empty", ""],
+    ["null", null],
+    ["undefined", undefined],
+  ])("transparency is %s", async (_, transparency) => {
+    const actual = diveLogSchema.safeParse({ ...divelog, transparency });
+    expect(actual.success).toBeTruthy();
+  });
 });

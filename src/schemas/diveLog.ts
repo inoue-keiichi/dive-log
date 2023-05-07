@@ -19,13 +19,15 @@ export const diveLogSchema = z.object({
       .transform((_) => null)
       .or(z.coerce.number())
   ),
-  transparency: z.nullable(
-    z
-      .string()
-      .length(0, { message: "0以上の数字にしてください" })
-      .transform((_) => null)
-      .or(z.coerce.number().min(0, { message: "0以上の数字にしてください" }))
-  ),
+  transparency: z
+    .nullable(
+      z
+        .string()
+        .length(0, { message: "0以上の数字にしてください" })
+        .transform((_) => null)
+        .or(z.coerce.number().min(0, { message: "0以上の数字にしてください" }))
+    )
+    .optional(),
 });
 
 export const newDiveLogQuerySchema = z.object({ userId: z.string() });
