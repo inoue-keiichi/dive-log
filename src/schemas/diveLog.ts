@@ -12,13 +12,20 @@ export const diveLogSchema = z.object({
     .max(63, { message: "63文字以下にしてください" })
     .nullable()
     .optional(),
-  waterTemprature: z.nullable(
-    z
-      .string()
-      .length(0)
-      .transform((_) => null)
-      .or(z.coerce.number())
-  ),
+  waterTemprature: z
+    .nullable(
+      z
+        .string()
+        .length(0)
+        .transform((_) => null)
+        .or(
+          z.coerce
+            .number()
+            .min(-100, { message: "-100以上の数字にしてください" })
+            .max(100, { message: "100以下の数字にしてください" })
+        )
+    )
+    .optional(),
   transparency: z
     .nullable(
       z

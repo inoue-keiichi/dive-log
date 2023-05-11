@@ -27,12 +27,32 @@ describe("diveLogSchema", () => {
   );
 
   test.each([
-    ["number", 1],
+    ["number", 0],
+    ["number_string", "0"],
     ["empty", ""],
     ["null", null],
     ["undefined", undefined],
   ])("transparency is %s", async (_, transparency) => {
     const actual = diveLogSchema.safeParse({ ...divelog, transparency });
+    expect(actual.success).toBeTruthy();
+  });
+
+  test.each([
+    ["minus", -1],
+    ["minus_string", "-1"],
+  ])("fail when transparency is %s", async (_, transparency) => {
+    const actual = diveLogSchema.safeParse({ ...divelog, transparency });
+    expect(actual.success).toBeFalsy();
+  });
+
+  test.each([
+    ["number", 0],
+    ["number_string", "0"],
+    ["empty", ""],
+    ["null", null],
+    ["undefined", undefined],
+  ])("waterTemprature is %s", async (_, waterTemprature) => {
+    const actual = diveLogSchema.safeParse({ ...divelog, waterTemprature });
     expect(actual.success).toBeTruthy();
   });
 });
