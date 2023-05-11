@@ -42,6 +42,7 @@ const DiveLogForm: FC<Props> = (props) => {
           label="日付"
           type="date"
           error={!!errors.date?.message}
+          // typeがdateの場合inputのvalue形式はyyyy-mm-ddになる
           defaultValue={diveLog?.date || getSimpleDate(new Date())}
           {...register("date")}
         />
