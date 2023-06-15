@@ -1,7 +1,8 @@
 import { test, expect } from "@playwright/test";
 
 const account = {
-  email: "inouejai+e2e001@gmail.com",
+  // 同じアカウントだと前のテストで追加したログブックの影響を受けてテストが落ちるので新規のアカウントでテストする
+  email: `example+e2e_${Date.now()}@gmail.com`,
   password: "e2etest",
 };
 
@@ -17,15 +18,15 @@ const updatedDiveLog = {
   transparency: 8,
 };
 
-// TODO: DBを初期化してからテスト実行したい
-
 test("create a new DiveLog with sign up", async ({ page }) => {
   // Start from the index page (the baseURL is set via the webServer in the playwright.config.ts)
   await page.goto("http://localhost:3000/");
-  // Sign in
+  // Sign up
+  await page.getByText("Don't have an account? Sign up").click();
   await page.getByLabel("Email address").fill(account.email);
-  await page.getByLabel("Your Password").fill(account.password);
-  await page.getByText("Sign in").click();
+  await page.getByLabel("Create a Password").fill(account.password);
+  await page.getByText("Sign up").click();
+
   // Move to diveLogs page.
   await expect(page).toHaveURL("http://localhost:3000/diveLogs");
   await page.getByText("新規追加").click();

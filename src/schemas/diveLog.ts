@@ -15,34 +15,24 @@ export const diveLogSchema = z.object({
     .max(63, { message: "63文字以下にしてください" })
     .nullable()
     .optional(),
-  waterTemprature: z
-    .nullable(
-      z
-        .string()
-        .length(0)
-        .transform((_) => null)
-        .or(
-          z.coerce
-            .number()
-            .min(-100, { message: "-100以上の数字にしてください" })
-            .max(100, { message: "100以下の数字にしてください" })
-        )
-    )
-    .optional(),
-  transparency: z
-    .nullable(
-      z
-        .string()
-        .length(0, { message: "0以上の数字にしてください" })
-        .transform((_) => null)
-        .or(
-          z.coerce
-            .number()
-            .min(0, { message: "0以上の数字にしてください" })
-            .max(100, { message: "100以下の数字にしてください" })
-        )
-    )
-    .optional(),
+  waterTemprature: z.preprocess((v) => {
+    if (!v || v === "") {
+      return null;
+    }
+    if (typeof Number(v) === "number") {
+      return Number(v);
+    }
+    return v;
+  }, z.number().max(100, { message: "100以下の数字にしてください" }).min(-100, { message: "-100以上の数字にしてください" }).nullish()),
+  transparency: z.preprocess((v) => {
+    if (!v || v === "") {
+      return null;
+    }
+    if (typeof Number(v) === "number") {
+      return Number(v);
+    }
+    return v;
+  }, z.number().max(100, { message: "100以下の数字にしてください" }).min(0, { message: "0以上の数字にしてください" }).nullish()),
 });
 
 export const newDiveLogQuerySchema = z.object({ userId: z.string() });
