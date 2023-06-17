@@ -1,7 +1,8 @@
-# 構成
-* フロントエンド：next.js
-* バックエンド：next.js, supabase
-* DB:postgresql(supabase)
+# Architecture
+* Front-end: next.js
+* Back-end: next.js, supabase
+* DB: postgresql(supabase)
+* ORM: prisma
 
 # supabase
 
