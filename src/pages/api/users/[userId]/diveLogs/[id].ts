@@ -65,5 +65,27 @@ export default async function handler(
     return res.status(200).json(diveLog);
   }
 
+  if (req.method === "DELETE") {
+    const parsedQuery = diveLogQuerySchema.safeParse({
+      id: req.query.id,
+      userId: req.query.userId,
+    });
+    if (!parsedQuery.success) {
+      // TODO: エラーのレスポンス型作りたい
+      return res.status(400).json({
+        errorCode: "invalid_parameter",
+        message: JSON.parse(parsedQuery.error.message),
+      });
+    }
+    await prisma.diveLog.delete({
+      where: {
+        dive_log_identifier: {
+          id: parsedQuery.data.id,
+          userId: parsedQuery.data.userId,
+        },
+      },
+    });
+  }
+
   return res.status(400).json({});
 }

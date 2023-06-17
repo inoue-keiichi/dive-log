@@ -31,6 +31,19 @@ function Exist(props: Props) {
     router.push("/diveLogs");
   };
 
+  const onDelete = async () => {
+    if (!user) {
+      return await router.replace("/");
+    }
+    await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs/${router.query.id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    router.push("/diveLogs");
+  };
+
   return (
     <>
       <Head>
@@ -40,7 +53,12 @@ function Exist(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <DiveLogForm diveLog={diveLog} onSubmit={onSubmit} />
+        <DiveLogForm
+          diveLog={diveLog}
+          onSubmit={onSubmit}
+          onBack={() => router.push("/diveLogs")}
+          onDelete={onDelete}
+        />
       </main>
     </>
   );

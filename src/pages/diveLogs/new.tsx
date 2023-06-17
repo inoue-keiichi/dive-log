@@ -33,7 +33,10 @@ export default function New() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <DiveLogForm onSubmit={handleSubmit} />
+        <DiveLogForm
+          onSubmit={handleSubmit}
+          onBack={() => router.push("/diveLogs")}
+        />
       </main>
     </>
   );
