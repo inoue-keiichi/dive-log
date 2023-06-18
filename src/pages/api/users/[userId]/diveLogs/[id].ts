@@ -30,7 +30,6 @@ export default async function handler(
       });
     }
 
-    console.log(parsed.data);
     const updatedDiveLog = await prisma.diveLog.update({
       data: parsed.data,
       where: {
@@ -85,6 +84,7 @@ export default async function handler(
         },
       },
     });
+    return res.status(200).json({});
   }
 
   return res.status(400).json({});

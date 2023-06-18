@@ -51,7 +51,11 @@ const DiveLogForm: FC<Props> = (props) => {
         </Grid>
         {diveLog && onDelete && (
           <Grid item>
-            <IconButton sx={{ backgroundColor: grey[400] }} onClick={onDelete}>
+            <IconButton
+              data-test-id={"dive-log-delete-button"}
+              sx={{ backgroundColor: grey[400] }}
+              onClick={onDelete}
+            >
               <DeleteIcon />
             </IconButton>
           </Grid>
