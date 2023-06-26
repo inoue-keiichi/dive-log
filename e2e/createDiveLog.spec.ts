@@ -50,4 +50,14 @@ test("create a new DiveLog with sign up", async ({ page }) => {
   await expect(page.getByText("編集")).toHaveCount(1);
   // TODO: 上書きされたことを確認する。まだcardのデザイン決めてないので後で
   // もう一度編集ページに入れば良いだけか
+
+  // Back Page
+  await page.getByTestId("dive-log-card-0").getByText("編集").click();
+  await expect(page).toHaveURL(/http:\/\/localhost:3000\/diveLogs\/\d+/);
+  await page.getByTestId("back-button").click();
+  // Delete the diveLog.
+  await page.getByTestId("dive-log-card-0").getByText("編集").click();
+  await expect(page).toHaveURL(/http:\/\/localhost:3000\/diveLogs\/\d+/);
+  await page.getByTestId("dive-log-delete-button").click();
+  await expect(page.getByText("編集")).toHaveCount(0);
 });

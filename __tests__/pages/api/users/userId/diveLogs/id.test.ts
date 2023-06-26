@@ -19,12 +19,6 @@ describe("PUT API", () => {
       },
     });
 
-    const updatedDiveLog = {
-      point: "Malapascua",
-      transparency: 50,
-      waterTemprature: 50,
-    };
-
     const { id, userId } = diveLog;
 
     await testApiHandler({
@@ -36,11 +30,90 @@ describe("PUT API", () => {
       test: async ({ fetch }) => {
         const res = await fetch({
           method: "PUT",
-          body: JSON.stringify(updatedDiveLog),
+          body: JSON.stringify({
+            point: "Malapascua",
+            transparency: 50,
+            waterTemprature: 50,
+          }),
         });
         await expect(res.status).toBe(200);
         await expect(res.json()).resolves.toStrictEqual(
-          expect.objectContaining(updatedDiveLog)
+          expect.objectContaining({
+            point: "Malapascua",
+            transparency: 50,
+            waterTemprature: 50,
+          })
+        );
+      },
+    });
+  });
+});
+
+describe("GET API", () => {
+  //TODO: 400系のテストかく
+  test("succeeded in getting a diving log", async () => {
+    const diveLog = await prisma.diveLog.create({
+      data: {
+        point: "Kerama",
+        transparency: 30,
+        waterTemprature: 42,
+        userId: "uuid",
+      },
+    });
+
+    const { id, userId } = diveLog;
+
+    await testApiHandler({
+      handler,
+      paramsPatcher: (params) => {
+        params.id = id;
+        params.userId = userId;
+      },
+      test: async ({ fetch }) => {
+        const res = await fetch({
+          method: "GET",
+        });
+        await expect(res.status).toBe(200);
+        await expect(res.json()).resolves.toStrictEqual(
+          expect.objectContaining({
+            point: "Kerama",
+            transparency: 30,
+            waterTemprature: 42,
+            userId: "uuid",
+          })
+        );
+      },
+    });
+  });
+});
+
+describe("DELETE API", () => {
+  //TODO: 400系のテストかく
+  test("succeeded in deleting a diving log", async () => {
+    const diveLog = await prisma.diveLog.create({
+      data: {
+        point: "Kerama",
+        transparency: 30,
+        waterTemprature: 42,
+        userId: "uuid",
+      },
+    });
+
+    const { id, userId } = diveLog;
+
+    await testApiHandler({
+      handler,
+      paramsPatcher: (params) => {
+        params.id = id;
+        params.userId = userId;
+      },
+      test: async ({ fetch }) => {
+        const res = await fetch({
+          method: "DELETE",
+        });
+        await expect(res.status).toBe(200);
+        await expect(res.json()).resolves.toStrictEqual(
+          expect.objectContaining({})
         );
       },
     });

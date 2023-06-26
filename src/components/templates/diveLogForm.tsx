@@ -7,15 +7,22 @@ import {
   InputLabel,
   InputAdornment,
   OutlinedInput,
+  IconButton,
+  Grid,
 } from "@mui/material";
 import { FC } from "react";
 import { FieldErrors, useForm, UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSimpleDate } from "@/utils/commons";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import { grey, purple } from "@mui/material/colors";
 
 type Props = {
   diveLog?: DiveLog;
   onSubmit: (diveLog: DiveLog) => void;
+  onBack: () => void;
+  onDelete?: () => void;
 };
 
 const isError = (errors: FieldErrors<DiveLog>) => {
@@ -23,7 +30,7 @@ const isError = (errors: FieldErrors<DiveLog>) => {
 };
 
 const DiveLogForm: FC<Props> = (props) => {
-  const { diveLog, onSubmit } = props;
+  const { diveLog, onSubmit, onDelete, onBack } = props;
 
   const {
     register,
@@ -35,6 +42,28 @@ const DiveLogForm: FC<Props> = (props) => {
 
   return (
     <Stack spacing={2} component="form" onSubmit={handleSubmit(onSubmit)}>
+      <Grid container justifyContent={"space-between"}>
+        <Grid item>
+          <IconButton
+            data-testid="back-button"
+            sx={{ backgroundColor: grey[400] }}
+            onClick={onBack}
+          >
+            <ArrowBackIosNewIcon />
+          </IconButton>
+        </Grid>
+        {diveLog && onDelete && (
+          <Grid item>
+            <IconButton
+              data-testid="dive-log-delete-button"
+              sx={{ backgroundColor: grey[400] }}
+              onClick={onDelete}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Grid>
+        )}
+      </Grid>
       <FormControl>
         <InputLabel htmlFor="date">日付</InputLabel>
         <OutlinedInput
