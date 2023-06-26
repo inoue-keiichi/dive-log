@@ -54,7 +54,6 @@ test("create a new DiveLog with sign up", async ({ page }) => {
   // Delete the diveLog.
   await page.getByTestId("dive-log-card-0").getByText("編集").click();
   await expect(page).toHaveURL(/http:\/\/localhost:3000\/diveLogs\/\d+/);
-  await new Promise(() => setTimeout(() => {}, 2000));
   await page.getByTestId("dive-log-delete-button").click();
   await expect(page.getByText("編集")).toHaveCount(0);
 });

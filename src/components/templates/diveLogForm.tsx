@@ -8,7 +8,6 @@ import {
   InputAdornment,
   OutlinedInput,
   IconButton,
-  Container,
   Grid,
 } from "@mui/material";
 import { FC } from "react";
@@ -45,14 +44,18 @@ const DiveLogForm: FC<Props> = (props) => {
     <Stack spacing={2} component="form" onSubmit={handleSubmit(onSubmit)}>
       <Grid container justifyContent={"space-between"}>
         <Grid item>
-          <IconButton sx={{ backgroundColor: grey[400] }} onClick={onBack}>
+          <IconButton
+            data-testid="back-button"
+            sx={{ backgroundColor: grey[400] }}
+            onClick={onBack}
+          >
             <ArrowBackIosNewIcon />
           </IconButton>
         </Grid>
         {diveLog && onDelete && (
           <Grid item>
             <IconButton
-              data-test-id={"dive-log-delete-button"}
+              data-testid="dive-log-delete-button"
               sx={{ backgroundColor: grey[400] }}
               onClick={onDelete}
             >
