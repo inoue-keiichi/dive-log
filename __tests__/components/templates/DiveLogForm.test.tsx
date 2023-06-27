@@ -1,4 +1,4 @@
-import DiveLogForm from "@/components/templates/DiveLogForm";
+import DiveLogForm from "@/components/templates/DiveLogFormm";
 import { getSimpleDate } from "@/utils/commons";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import {

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "@/styles/Home.module.css";
-import DiveLogForm from "@/components/templates/DiveLogForm";
+import DiveLogForm from "@/components/templates/DiveLogFormm";
 import { useRouter } from "next/router";
 import { DiveLog } from "@/schemas/diveLog";
 import { useUser } from "@supabase/auth-helpers-react";
