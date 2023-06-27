@@ -11,7 +11,8 @@
     "lint": "next lint",
     "preinstall": "typesync || :",
     "test": "jest -i",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
