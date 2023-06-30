@@ -57,6 +57,7 @@ describe("GET API", () => {
   test("succeeded in getting a diving log", async () => {
     const diveLog = await prisma.diveLog.create({
       data: {
+        date: "2023-07-01",
         point: "Kerama",
         transparency: 30,
         waterTemprature: 42,
@@ -95,6 +96,7 @@ describe("DELETE API", () => {
   test("succeeded in deleting a diving log", async () => {
     const diveLog = await prisma.diveLog.create({
       data: {
+        date: "2023-07-01",
         point: "Kerama",
         transparency: 30,
         waterTemprature: 42,

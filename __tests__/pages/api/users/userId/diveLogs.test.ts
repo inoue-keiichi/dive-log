@@ -24,6 +24,7 @@ describe("GET API", () => {
   describe("existing one divelog in db", () => {
     const DIVE_LOGS = [
       {
+        date: "2023-07-01",
         point: "Ose",
         transparency: 22,
         waterTemprature: 30,
@@ -77,12 +78,14 @@ describe("GET API", () => {
   describe("existing more than two divelogs in db", () => {
     const DIVE_LOGS = [
       {
+        date: "2023-07-01",
         point: "Ose",
         transparency: 22,
         waterTemprature: 30,
         userId: "uuid1",
       },
       {
+        date: "2023-07-01",
         point: "Kawana",
         transparency: 10,
         waterTemprature: 25,
