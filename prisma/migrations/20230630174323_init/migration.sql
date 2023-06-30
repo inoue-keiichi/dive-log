@@ -2,6 +2,7 @@
 CREATE TABLE "diveLogs" (
     "id" SERIAL NOT NULL,
     "userId" TEXT NOT NULL,
+    "date" TEXT NOT NULL,
     "point" TEXT,
     "waterTemprature" DOUBLE PRECISION,
     "transparency" DOUBLE PRECISION,

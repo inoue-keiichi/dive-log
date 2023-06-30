@@ -11,12 +11,12 @@ import {
   Grid,
 } from "@mui/material";
 import { FC } from "react";
-import { FieldErrors, useForm, UseFormRegister } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSimpleDate } from "@/utils/commons";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { grey, purple } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 
 type Props = {
   diveLog?: DiveLog;
