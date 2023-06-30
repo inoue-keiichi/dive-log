@@ -9,6 +9,12 @@ import {
 } from "../__utils__/diveLogForm";
 import renderer from "react-test-renderer";
 
+// 新規のDiveLogFormを作ると現在の日付が初期値になる。
+// 期待値を固定するためにモック化する。
+const mockDate = new Date("2023/06/27");
+jest.useFakeTimers();
+jest.setSystemTime(mockDate);
+
 const submit = jest.fn();
 const back = jest.fn();
 const deletee = jest.fn(); // 予約語

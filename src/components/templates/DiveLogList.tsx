@@ -19,17 +19,24 @@ const DiveLogList: FC<Props> = (props) => {
   const { diveLogs, onAddNew, onEdit } = props;
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ width: "50%" }}>
+      <Button
+        sx={{ width: "25%", marginLeft: "auto", marginRight: "auto" }}
+        variant="contained"
+        onClick={onAddNew}
+      >
+        新規追加
+      </Button>
       {diveLogs.map((diveLog, i) => {
-        const { id, point, waterTemprature, transparency } = diveLog;
+        const { id, point, date } = diveLog;
         return (
           <Card data-testid={`dive-log-card-${i}`} key={id}>
             <CardContent>
+              <Typography variant="h6" color="text.secondary">
+                {date}
+              </Typography>
               <Typography gutterBottom variant="h5" component="div">
                 {point}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {`水温: ${waterTemprature}℃ 透明度: ${transparency}m`}
               </Typography>
             </CardContent>
             <CardActions>
@@ -44,9 +51,6 @@ const DiveLogList: FC<Props> = (props) => {
           </Card>
         );
       })}
-      <Button variant="contained" onClick={onAddNew}>
-        新規追加
-      </Button>
     </Stack>
   );
 };

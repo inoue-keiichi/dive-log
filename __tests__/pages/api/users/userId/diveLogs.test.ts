@@ -162,6 +162,7 @@ describe("POST API", () => {
   //TODO: 400系のテストかく
   test("succeeded in creating a new diving log", async () => {
     const diveLog: DiveLog = {
+      date: "2023-07-01",
       point: "Kerama",
       transparency: 30,
       waterTemprature: 42,
@@ -177,7 +178,12 @@ describe("POST API", () => {
         });
         await expect(res.status).toBe(201);
         await expect(res.json()).resolves.toStrictEqual(
-          expect.objectContaining(diveLog)
+          expect.objectContaining({
+            date: "2023-07-01",
+            point: "Kerama",
+            transparency: 30,
+            waterTemprature: 42,
+          })
         );
       },
     });

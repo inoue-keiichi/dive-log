@@ -12,6 +12,7 @@ describe("PUT API", () => {
   test("succeeded in updating a diving log", async () => {
     const diveLog = await prisma.diveLog.create({
       data: {
+        date: "2023-07-01",
         point: "Kerama",
         transparency: 30,
         waterTemprature: 42,
@@ -31,6 +32,7 @@ describe("PUT API", () => {
         const res = await fetch({
           method: "PUT",
           body: JSON.stringify({
+            date: "2023-07-02",
             point: "Malapascua",
             transparency: 50,
             waterTemprature: 50,
@@ -39,6 +41,7 @@ describe("PUT API", () => {
         await expect(res.status).toBe(200);
         await expect(res.json()).resolves.toStrictEqual(
           expect.objectContaining({
+            date: "2023-07-02",
             point: "Malapascua",
             transparency: 50,
             waterTemprature: 50,

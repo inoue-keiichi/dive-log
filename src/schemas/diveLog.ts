@@ -8,8 +8,7 @@ export const diveLogSchema = z.object({
     })
     .refine((value) => !isNaN(new Date(value).getTime()), {
       message: "存在しない日付です",
-    })
-    .optional(),
+    }),
   point: z
     .string()
     .max(63, { message: "63文字以下にしてください" })
