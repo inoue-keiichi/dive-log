@@ -19,8 +19,6 @@ import { FieldErrors, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSimpleDate } from "@/utils/commons";
 import DeleteIcon from "@mui/icons-material/Delete";
-import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
-import WbCloudyOutlinedIcon from "@mui/icons-material/WbCloudyOutlined";
 import {
   WiDaySunny,
   WiCloud,
@@ -28,10 +26,8 @@ import {
   WiRain,
   WiSnow,
 } from "react-icons/wi";
-import { BsFillSunFill } from "react-icons/bs";
-
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { blue, grey, orange, red } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 
 type Props = {
   diveLog?: DiveLog;
@@ -372,6 +368,22 @@ const DiveLogForm: FC<Props> = (props) => {
         />
         <FormHelperText error={true}>
           {errors.transparency?.message ?? ""}
+        </FormHelperText>
+      </FormControl>
+      <FormControl>
+        <InputLabel htmlFor="memo">メモ</InputLabel>
+        <OutlinedInput
+          id="memo"
+          label="メモ"
+          type="text"
+          multiline
+          minRows={3}
+          error={!!errors.place?.message}
+          defaultValue={diveLog?.place}
+          {...register("place")}
+        />
+        <FormHelperText error={!!errors.point?.message}>
+          {errors.point?.message ?? ""}
         </FormHelperText>
       </FormControl>
       <Button disabled={isError(errors)} variant="contained" type="submit">

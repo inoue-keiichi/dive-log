@@ -67,22 +67,22 @@ export const diveLogSchema = z.object({
   maxDepth: number({ min: 0, max: 100 }),
   tankStartPressure: number({ min: 0, max: 500 }),
   tankEndPressure: number({ min: 0, max: 500 }),
-  tankKind: z.union([z.literal("steel"), z.literal("aluminum")]).nullish(),
-  suit: z.union([z.literal("wet"), z.literal("dry")]).nullish(),
+  tankKind: z.union([z.literal("STEEL"), z.literal("ALUMINUM")]).nullish(),
+  suit: z.union([z.literal("WET"), z.literal("DRY")]).nullish(),
   weight: number({ min: 0, max: 50 }),
   weather: z
     .union([
-      z.literal("sunny"),
-      z.literal("sunny/cloudy"),
-      z.literal("cloudy"),
-      z.literal("rainy"),
-      z.literal("snowy"),
+      z.literal("SUNNY"),
+      z.literal("SUNNY_CLOUDY"),
+      z.literal("CLOUDY"),
+      z.literal("RAINY"),
+      z.literal("SNOWY"),
     ])
     .nullish(),
   temprature,
   waterTemprature: temprature,
   transparency: number({ min: 0, max: 100 }),
-  comment: text({ max: 511 }),
+  memo: text({ max: 511 }),
 });
 
 export const newDiveLogQuerySchema = z.object({ userId: z.string() });
