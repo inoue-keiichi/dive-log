@@ -21,7 +21,7 @@ const DiveLogList: FC<Props> = (props) => {
   return (
     <Stack spacing={2} sx={{ width: "50%" }}>
       <Button
-        sx={{ width: "25%", marginLeft: "auto", marginRight: "auto" }}
+        sx={{ width: "100px", marginLeft: "auto", marginRight: "auto" }}
         variant="contained"
         onClick={onAddNew}
       >

@@ -1,4 +1,5 @@
 import DiveLogList from "@/components/templates/DiveLogList";
+import { DiveLog } from "@/schemas/diveLog";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 const addNew = jest.fn();
@@ -24,6 +25,7 @@ describe("test", () => {
         id: 1,
         userId: "uuid1",
         point: "Ose",
+        date: "2023-07-07",
         waterTemprature: 28,
         transparency: 8,
       },
@@ -31,6 +33,7 @@ describe("test", () => {
         id: 2,
         userId: "uuid2",
         point: "Kawana",
+        date: "2023-07-07",
         waterTemprature: 23,
         transparency: 12,
       },
@@ -51,6 +54,7 @@ describe("test", () => {
         diveLogs={[
           {
             id: 1,
+            date: "2023-07-07",
             point: "Ose",
             waterTemprature: 28,
             transparency: 8,
@@ -72,12 +76,14 @@ describe("test", () => {
         diveLogs={[
           {
             id: 1,
+            date: "2023-07-07",
             point: "Ose",
             waterTemprature: 28,
             transparency: 8,
           },
           {
             id: 2,
+            date: "2023-07-07",
             point: "Kawana",
             waterTemprature: 23,
             transparency: 12,
