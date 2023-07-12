@@ -7,7 +7,6 @@ const text = (between: { max: number }) => {
     .string()
     .min(0)
     .max(max, { message: `${max}文字以下にしてください` })
-    .nullable()
     .nullish();
 };
 
