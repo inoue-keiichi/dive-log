@@ -1070,47 +1070,46 @@
   dependencies:
     cross-fetch "^3.1.5"
 
-"@supabase/gotrue-js@^2.16.0":
-  version "2.18.0"
-  resolved "https://registry.yarnpkg.com/@supabase/gotrue-js/-/gotrue-js-2.18.0.tgz#724c0e03c2ba6847c1e53d14fc2fe7b791bd8b0f"
-  integrity sha512-U4K7bUfNTkBErnp4zsPAsKu0T4LoKaly5940nxztMmt9iNTWMKJCPQge5e5PouHhWHvLIgrVo23+Uo+3iyUHag==
-  dependencies:
-    cross-fetch "^3.1.5"
-    crypto-js "^4.1.1"
-
-"@supabase/postgrest-js@^1.1.1":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@supabase/postgrest-js/-/postgrest-js-1.5.0.tgz#e19d7f21f076e60fc248ac3ebb3c369bc95e2f17"
-  integrity sha512-YaU1HBE43Ba+FGmnXuvK+xYeHylkDKd04PYeKDUCoE2bUHoxSDqnjHbOwmLjnusGZi3X1MrFeUH1Wwb4bHYyIg==
+"@supabase/gotrue-js@^2.46.1":
+  version "2.46.1"
+  resolved "https://registry.yarnpkg.com/@supabase/gotrue-js/-/gotrue-js-2.46.1.tgz#c4ac5056a02498db6d9edccab4e4d6db4fe7e3e1"
+  integrity sha512-tebFX3XvPqEJKHOVgkXTN20g9iUhLx6tebIYQvTggYTrqOT2af8oTpSBdgYzbwJ291G6P6CSpR6KY0cT9ade5A==
   dependencies:
     cross-fetch "^3.1.5"
 
-"@supabase/realtime-js@^2.7.1":
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/@supabase/realtime-js/-/realtime-js-2.7.1.tgz#a39aaf5277a83d1454054291fee127bf665f68f1"
-  integrity sha512-WC0yPArBF/wPXwxKWTrRSMWWnFQCbhhUsX0u42x4OqUdDJtow6rzvDIZHWFZLh85UUBYIQ2++AabSNgzd3ubQg==
+"@supabase/postgrest-js@^1.7.0":
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/@supabase/postgrest-js/-/postgrest-js-1.7.2.tgz#800814b98bb8cec840b65f0c545a3474f23c343a"
+  integrity sha512-GK80JpRq8l6Qll85erICypAfQCied8tdlXfsDN14W844HqXCSOisk8AaE01DAwGJanieaoN5fuqhzA2yKxDvEQ==
+  dependencies:
+    cross-fetch "^3.1.5"
+
+"@supabase/realtime-js@^2.7.3":
+  version "2.7.3"
+  resolved "https://registry.yarnpkg.com/@supabase/realtime-js/-/realtime-js-2.7.3.tgz#cbcb84181add681ab99c87032bfe88101c6863b3"
+  integrity sha512-c7TzL81sx2kqyxsxcDduJcHL9KJdCOoKimGP6lQSqiZKX42ATlBZpWbyy9KFGFBjAP4nyopMf5JhPi2ZH9jyNw==
   dependencies:
     "@types/phoenix" "^1.5.4"
     "@types/websocket" "^1.0.3"
     websocket "^1.0.34"
 
-"@supabase/storage-js@^2.3.1":
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/@supabase/storage-js/-/storage-js-2.3.1.tgz#fb557c416d2eeaa2422b2c961c7f08133234d755"
-  integrity sha512-BaPIvyvjuZW1V0CnfGKUZyzpBUXnsh0XD8eqTOYd+MdiGPmIPI0vtwnT4fAoK8mipp1vpcN62EVQaqeUnWXPtQ==
+"@supabase/storage-js@^2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@supabase/storage-js/-/storage-js-2.5.1.tgz#16c4c088996e0395034717836e626f14df63a349"
+  integrity sha512-nkR0fQA9ScAtIKA3vNoPEqbZv1k5B5HVRYEvRWdlP6mUpFphM9TwPL2jZ/ztNGMTG5xT6SrHr+H7Ykz8qzbhjw==
   dependencies:
     cross-fetch "^3.1.5"
 
-"@supabase/supabase-js@^2.13.1":
-  version "2.13.1"
-  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-2.13.1.tgz#785ff5aafd8ca36d242c6615de6fb315e294bcca"
-  integrity sha512-+Q3FMj0TuI6xJBTTREIRxuLW1QreZhtRxlF5+7aprmlVq1+GsMfnpBOpXcdyhcWWL8UcmaoMJD8tJiedXGCXlg==
+"@supabase/supabase-js@^2.31.0":
+  version "2.31.0"
+  resolved "https://registry.yarnpkg.com/@supabase/supabase-js/-/supabase-js-2.31.0.tgz#49fe09652fa72b1173efe4ac086592e31c662cef"
+  integrity sha512-W9/4s+KnSUX67wJKBn/3yLq+ieycnMzVjK3nNTLX5Wko3ypNT/081l2iFYrf+nsLQ1CiT4mA92I3dxCy6CmxTg==
   dependencies:
     "@supabase/functions-js" "^2.1.0"
-    "@supabase/gotrue-js" "^2.16.0"
-    "@supabase/postgrest-js" "^1.1.1"
-    "@supabase/realtime-js" "^2.7.1"
-    "@supabase/storage-js" "^2.3.1"
+    "@supabase/gotrue-js" "^2.46.1"
+    "@supabase/postgrest-js" "^1.7.0"
+    "@supabase/realtime-js" "^2.7.3"
+    "@supabase/storage-js" "^2.5.1"
     cross-fetch "^3.1.5"
 
 "@swc/helpers@0.4.14":
@@ -2037,11 +2036,6 @@ cross-spawn@^7.0.0, cross-spawn@^7.0.2, cross-spawn@^7.0.3:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
-
-crypto-js@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.1.1.tgz#9e485bcf03521041bd85844786b83fb7619736cf"
-  integrity sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==
 
 css.escape@^1.5.1:
   version "1.5.1"
