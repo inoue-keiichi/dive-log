@@ -12,66 +12,43 @@ datasource db {
 
 model DiveLog {
   id                Int       @default(autoincrement())
-  userId            String    
+  userId            String    @map("user_id")
   date              String
   place             String?
   point             String?
-  divingStartTime   String?
-  divingEndTime     String?
-  averageDepth      Float?
-  maxDepth          Float?
-  tankStartPressure Int?
-  tankEndPressure   Int?
-  tankKind          TankKind?
+  divingStartTime   String?   @map("diving_start_time")
+  divingEndTime     String?   @map("diving_end_time")
+  averageDepth      Float?    @map("average_depth")
+  maxDepth          Float?    @map("max_depth")
+  tankStartPressure Int?      @map("tank_start_pressure")
+  tankEndPressure   Int?      @map("tank_end_pressure")
+  tankKind          TankKind? @map("tank_kind")
   suit              Suit?
   weight            Float?
   weather           Weather?
   temprature        Float?
-  waterTemprature   Float? 
+  waterTemprature   Float?    @map("water_temprature")
   transparency      Float?
   memo              String?
-
-
 
   @@id(fields: [id, userId], name: "dive_log_identifier")
   @@map("dive_logs")
 }
 
-enum TankKind{
+enum TankKind {
   STEEL
   ALUMINUM
 }
 
-enum Suit{
+enum Suit {
   WET
   DRY
 }
 
-enum Weather{
+enum Weather {
   SUNNY
   SUNNY_CLOUDY
   CLOUDY
   RAINY
   SNOWY
 }
-
-// model TankKind {
-//   id                Int    @id @default(autoincrement())
-//   name              String @unique
-//   diveLog           DiveLog[] 
-//   @@map("tank_kinds")
-// }
-
-// model Suit {
-//   id                Int    @id @default(autoincrement())
-//   name              String @unique
-//   diveLog           DiveLog[]
-//   @@map("suits")
-// }
-
-// model Weather {
-//   id                Int    @id @default(autoincrement())
-//   name              String @unique
-//   diveLog           DiveLog[]
-//   @@map("weathers")
-// }

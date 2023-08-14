@@ -14,9 +14,6 @@
     "test:e2e": "playwright test",
     "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
-  "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
-  },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",

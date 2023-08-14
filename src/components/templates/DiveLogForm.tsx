@@ -14,8 +14,13 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
-import { FC } from "react";
-import { Controller, FieldErrors, useForm } from "react-hook-form";
+import { FC, useState } from "react";
+import {
+  Controller,
+  FieldErrors,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getSimpleDate } from "@/utils/commons";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -31,6 +36,11 @@ import { grey } from "@mui/material/colors";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs, { Dayjs } from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+
+const DIVING_TIME_FORMAT = "HH:mm";
 
 type Props = {
   diveLog?: DiveLog;
@@ -43,6 +53,9 @@ const isError = (errors: FieldErrors<DiveLog>) => {
   return Object.values(errors).filter((v) => v.message).length > 0;
 };
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 const DiveLogForm: FC<Props> = (props) => {
   const { diveLog, onSubmit, onDelete, onBack } = props;
 
@@ -50,6 +63,7 @@ const DiveLogForm: FC<Props> = (props) => {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm<DiveLog>({
     resolver: zodResolver(diveLogSchema),
@@ -123,22 +137,19 @@ const DiveLogForm: FC<Props> = (props) => {
             {errors.point?.message ?? ""}
           </FormHelperText>
         </FormControl>
-        {/* <FormControl>
-          <TimePicker label="潜水開始時間" ampm={false} />
-          <FormHelperText error={!!errors.divingStartTime?.message}>
-            {errors.divingStartTime?.message ?? ""}
-          </FormHelperText>
-        </FormControl> */}
         <FormControl>
           <Controller
             control={control}
             name="divingStartTime"
-            render={({ field: { onChange, onBlur, value } }) => (
+            defaultValue={diveLog?.divingStartTime}
+            render={({ field: { value } }) => (
               <TimePicker
                 label="潜水開始時間"
                 ampm={false}
-                onChange={(value, context) => console.log(value)}
-                value={value || undefined}
+                onChange={(value) =>
+                  setValue("divingStartTime", value?.format(DIVING_TIME_FORMAT))
+                }
+                value={value ? dayjs(value, DIVING_TIME_FORMAT) : null}
               />
             )}
           />
@@ -147,8 +158,22 @@ const DiveLogForm: FC<Props> = (props) => {
           </FormHelperText>
         </FormControl>
         <FormControl>
-          <TimePicker label="潜水終了時間" ampm={false} />
-          <FormHelperText error={!!errors.divingStartTime?.message}>
+          <Controller
+            control={control}
+            name="divingEndTime"
+            defaultValue={diveLog?.divingEndTime}
+            render={({ field: { value } }) => (
+              <TimePicker
+                label="潜水終了時間"
+                ampm={false}
+                onChange={(value) =>
+                  setValue("divingEndTime", value?.format(DIVING_TIME_FORMAT))
+                }
+                value={value ? dayjs(value, DIVING_TIME_FORMAT) : null}
+              />
+            )}
+          />
+          <FormHelperText error={!!errors.divingEndTime?.message}>
             {errors.divingEndTime?.message ?? ""}
           </FormHelperText>
         </FormControl>
