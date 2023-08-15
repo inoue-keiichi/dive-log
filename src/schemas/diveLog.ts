@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { Primitive, ZodLiteral, ZodTypeAny, ZodUnion, z } from "zod";
 
 const text = (between: { max: number }) => {
   const { max } = between;
@@ -10,12 +10,15 @@ const text = (between: { max: number }) => {
     .nullish();
 };
 
-const time = z
-  .string()
-  .regex(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/, {
-    message: "日付のフォーマットを HH:mm にしてください",
-  })
-  .nullish();
+const time = z.preprocess(
+  (v) => (v === "" ? undefined : v),
+  z
+    .string()
+    .regex(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/, {
+      message: "日付のフォーマットを HH:mm にしてください",
+    })
+    .nullish()
+);
 
 const date = z
   .string()
@@ -26,22 +29,25 @@ const date = z
     message: "存在しない日付です",
   });
 
-const temprature = z.preprocess((v) => {
-  if (!v || v === "") {
-    return null;
-  }
-  if (typeof Number(v) === "number") {
-    return Number(v);
-  }
-  return v;
-}, z.number().max(100, { message: "100以下の数字にしてください" }).min(-100, { message: "-100以上の数字にしてください" }).nullish());
+// const temprature = z.preprocess((v) => {
+//   if (!v || v === "") {
+//     return null;
+//   }
+//   if (typeof Number(v) === "number") {
+//     return Number(v);
+//   }
+//   return v;
+// }, z.number().max(100, { message: "100以下の数字にしてください" }).min(-100, { message: "-100以上の数字にしてください" }).nullish());
 
 const number = (between: { max: number; min: number }) => {
   const { max, min } = between;
   return z.preprocess(
     (v) => {
-      if (!v || v === "") {
-        return null;
+      if (v === "") {
+        return undefined;
+      }
+      if (v == null) {
+        return v;
       }
       if (typeof Number(v) === "number") {
         return Number(v);
@@ -56,6 +62,21 @@ const number = (between: { max: number; min: number }) => {
   );
 };
 
+// const union = <T extends Primitive>(values: T[])=> {
+//   const literals = values.map(v=>z.literal(v)) as readonly [ZodTypeAny, ZodTypeAny, ...ZodTypeAny[]];
+//   z.union(literals);
+// }
+
+const tankKind = z.union([z.literal("STEEL"), z.literal("ALUMINUM")]);
+const suit = z.union([z.literal("WET"), z.literal("DRY")]);
+const weather = z.union([
+  z.literal("SUNNY"),
+  z.literal("SUNNY_CLOUDY"),
+  z.literal("CLOUDY"),
+  z.literal("RAINY"),
+  z.literal("SNOWY"),
+]);
+
 export const diveLogSchema = z.object({
   date,
   place: text({ max: 63 }),
@@ -66,20 +87,12 @@ export const diveLogSchema = z.object({
   maxDepth: number({ min: 0, max: 100 }),
   tankStartPressure: number({ min: 0, max: 500 }),
   tankEndPressure: number({ min: 0, max: 500 }),
-  tankKind: z.union([z.literal("STEEL"), z.literal("ALUMINUM")]).nullish(),
-  suit: z.union([z.literal("WET"), z.literal("DRY")]).nullish(),
+  tankKind: z.preprocess((v) => (v === "" ? undefined : v), tankKind.nullish()),
+  suit: z.preprocess((v) => (v === "" ? undefined : v), suit.nullish()),
   weight: number({ min: 0, max: 50 }),
-  weather: z
-    .union([
-      z.literal("SUNNY"),
-      z.literal("SUNNY_CLOUDY"),
-      z.literal("CLOUDY"),
-      z.literal("RAINY"),
-      z.literal("SNOWY"),
-    ])
-    .nullish(),
-  temprature,
-  waterTemprature: temprature,
+  weather: z.preprocess((v) => (v === "" ? undefined : v), weather.nullish()),
+  temprature: number({ min: -100, max: 100 }),
+  waterTemprature: number({ min: -10, max: 50 }),
   transparency: number({ min: 0, max: 100 }),
   memo: text({ max: 511 }),
 });
@@ -91,4 +104,7 @@ export const diveLogQuerySchema = newDiveLogQuerySchema.extend({
 });
 
 export type DiveLog = z.infer<typeof diveLogSchema>;
+export type TankKind = z.infer<typeof tankKind>;
+export type Suit = z.infer<typeof suit>;
+export type Weather = z.infer<typeof weather>;
 //export type DiveLogQuery = z.infer<typeof diveLogQuerySchema>;

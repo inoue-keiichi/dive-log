@@ -1,4 +1,10 @@
-import { DiveLog, diveLogSchema } from "@/schemas/diveLog";
+import {
+  DiveLog,
+  Suit,
+  TankKind,
+  Weather,
+  diveLogSchema,
+} from "@/schemas/diveLog";
 import {
   Button,
   FormControl,
@@ -14,7 +20,7 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
-import { FC, useState } from "react";
+import { FC } from "react";
 import {
   Controller,
   FieldErrors,
@@ -71,7 +77,13 @@ const DiveLogForm: FC<Props> = (props) => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Stack spacing={2} component="form" onSubmit={handleSubmit(onSubmit)}>
+      <Stack
+        spacing={2}
+        component="form"
+        onSubmit={handleSubmit((divelog) => {
+          onSubmit(divelog);
+        })}
+      >
         <Grid container justifyContent={"space-between"}>
           <Grid item>
             <IconButton
@@ -200,11 +212,7 @@ const DiveLogForm: FC<Props> = (props) => {
             type="number"
             error={!!errors.maxDepth?.message}
             defaultValue={diveLog?.maxDepth}
-            endAdornment={
-              <InputAdornment position="end">
-                {"\u{338F}/\u{33A0}"}
-              </InputAdornment> // kg/cm^2
-            }
+            endAdornment={<InputAdornment position="end">m</InputAdornment>}
             {...register("maxDepth")}
           />
           <FormHelperText error={true}>
@@ -219,7 +227,11 @@ const DiveLogForm: FC<Props> = (props) => {
             type="number"
             error={!!errors.tankStartPressure?.message}
             defaultValue={diveLog?.tankStartPressure}
-            endAdornment={<InputAdornment position="end">m</InputAdornment>}
+            endAdornment={
+              <InputAdornment position="end">
+                {"\u{338F}/\u{33A0}"}
+              </InputAdornment> // kg/cm^2
+            }
             {...register("tankStartPressure")}
           />
           <FormHelperText error={true}>
@@ -234,7 +246,11 @@ const DiveLogForm: FC<Props> = (props) => {
             type="number"
             error={!!errors.tankEndPressure?.message}
             defaultValue={diveLog?.tankEndPressure}
-            endAdornment={<InputAdornment position="end">m</InputAdornment>}
+            endAdornment={
+              <InputAdornment position="end">
+                {"\u{338F}/\u{33A0}"}
+              </InputAdornment> // kg/cm^2
+            }
             {...register("tankEndPressure")}
           />
           <FormHelperText error={true}>
@@ -242,44 +258,36 @@ const DiveLogForm: FC<Props> = (props) => {
           </FormHelperText>
         </FormControl>
         <FormControl>
-          <FormLabel id="tankKind">タンク</FormLabel>
-          <RadioGroup row aria-labelledby="tankKind" name="tank-kinds-group">
-            <FormControlLabel
-              value="STEEL"
-              control={<Radio />}
-              label="スチール"
-              {...register("tankKind")}
-            />
-            <FormControlLabel
-              value="ALUMINUM"
-              control={<Radio />}
-              label="アルミニウム"
-              {...register("tankKind")}
-            />
-          </RadioGroup>
-          <FormHelperText error={true}>
-            {errors.tankKind?.message ?? ""}
-          </FormHelperText>
-        </FormControl>
-        <FormControl>
-          <FormLabel id="suit">スーツ</FormLabel>
-          <RadioGroup row aria-labelledby="suit" name="wet-kinds-group">
-            <FormControlLabel
-              value="WET"
-              control={<Radio />}
-              label="ウェット"
-              {...register("suit")}
-            />
-            <FormControlLabel
-              value="DRY"
-              control={<Radio />}
-              label="ドライ"
-              {...register("suit")}
-            />
-          </RadioGroup>
-          <FormHelperText error={true}>
-            {errors.suit?.message ?? ""}
-          </FormHelperText>
+          <FormLabel>タンク</FormLabel>
+          <Controller
+            control={control}
+            name="tankKind"
+            defaultValue={diveLog?.tankKind}
+            render={({ field: { value } }) => (
+              <RadioGroup
+                row
+                aria-labelledby="tankKind"
+                name="tank-kinds-group"
+                onChange={(event) =>
+                  setValue("tankKind", event.target.value as TankKind)
+                }
+                value={value || null}
+              >
+                <FormControlLabel
+                  id="tankSteel"
+                  value="STEEL"
+                  control={<Radio />}
+                  label="スチール"
+                />
+                <FormControlLabel
+                  id="tankAluminum"
+                  value="ALUMINUM"
+                  control={<Radio />}
+                  label="アルミニウム"
+                />
+              </RadioGroup>
+            )}
+          />
         </FormControl>
         <FormControl>
           <InputLabel htmlFor="weight">ウェイト</InputLabel>
@@ -299,46 +307,84 @@ const DiveLogForm: FC<Props> = (props) => {
           </FormHelperText>
         </FormControl>
         <FormControl>
-          <FormLabel id="weather">天気</FormLabel>
-          <RadioGroup
-            row
-            aria-labelledby="weather"
-            defaultValue="sunny"
-            name="wet-weathers-group"
-          >
-            <Radio
-              value="SUNNY"
-              icon={<WiDaySunny size="2em" />}
-              checkedIcon={<WiDaySunny size="2em" />}
-              {...register("weather")}
-            />
-            <Radio
-              value="SUNNY_CLOUDY"
-              icon={<WiDayCloudy size="2em" />}
-              checkedIcon={<WiDayCloudy size="2em" />}
-            />
-            <Radio
-              value="CLOUDY"
-              icon={<WiCloud size="2em" />}
-              checkedIcon={<WiCloud size="2em" />}
-              {...register("weather")}
-            />
-            <Radio
-              value="RAINY"
-              icon={<WiRain size="2em" />}
-              checkedIcon={<WiRain size="2em" />}
-              {...register("weather")}
-            />
-            <Radio
-              value="SNOWY"
-              icon={<WiSnow size="2em" />}
-              checkedIcon={<WiSnow size="2em" />}
-              {...register("weather")}
-            />
-          </RadioGroup>
-          <FormHelperText error={true}>
-            {errors.weather?.message ?? ""}
-          </FormHelperText>
+          <FormLabel>スーツ</FormLabel>
+          <Controller
+            control={control}
+            name="suit"
+            defaultValue={diveLog?.suit}
+            render={({ field: { value } }) => (
+              <RadioGroup
+                row
+                aria-labelledby="suit"
+                name="suits-group"
+                onChange={(event) =>
+                  setValue("suit", event.target.value as Suit)
+                }
+                value={value || null}
+              >
+                <FormControlLabel
+                  value="WET"
+                  control={<Radio />}
+                  label="ウェット"
+                />
+                <FormControlLabel
+                  value="DRY"
+                  control={<Radio />}
+                  label="ドライ"
+                />
+              </RadioGroup>
+            )}
+          />
+        </FormControl>
+        <FormControl>
+          <FormLabel>天気</FormLabel>
+          <Controller
+            control={control}
+            name="weather"
+            defaultValue={diveLog?.weather}
+            render={({ field: { value } }) => (
+              <RadioGroup
+                row
+                aria-labelledby="weather"
+                name="weathers-group"
+                onChange={(event) =>
+                  setValue("weather", event.target.value as Weather)
+                }
+                value={value || null}
+              >
+                <Radio
+                  value="SUNNY"
+                  icon={<WiDaySunny size="2em" />}
+                  checkedIcon={<WiDaySunny size="2em" />}
+                  inputProps={{ "aria-label": "晴れ" }}
+                />
+                <Radio
+                  value="SUNNY_CLOUDY"
+                  icon={<WiDayCloudy size="2em" />}
+                  checkedIcon={<WiDayCloudy size="2em" />}
+                  inputProps={{ "aria-label": "晴れ/曇り" }}
+                />
+                <Radio
+                  value="CLOUDY"
+                  icon={<WiCloud size="2em" />}
+                  checkedIcon={<WiCloud size="2em" />}
+                  inputProps={{ "aria-label": "曇り" }}
+                />
+                <Radio
+                  value="RAINY"
+                  icon={<WiRain size="2em" />}
+                  checkedIcon={<WiRain size="2em" />}
+                  inputProps={{ "aria-label": "雨" }}
+                />
+                <Radio
+                  value="SNOWY"
+                  icon={<WiSnow size="2em" />}
+                  checkedIcon={<WiSnow size="2em" />}
+                  inputProps={{ "aria-label": "雪" }}
+                />
+              </RadioGroup>
+            )}
+          />
         </FormControl>
         <FormControl>
           <InputLabel htmlFor="temprature">気温</InputLabel>

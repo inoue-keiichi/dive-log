@@ -1,7 +1,8 @@
 import { prisma } from "@/clients/prisma";
-import { DiveLog } from "@/schemas/diveLog";
+// import { DiveLog } from "@/schemas/diveLog";
 import { testApiHandler } from "next-test-api-route-handler";
 import handler from "../../../../../src/pages/api/users/[userId]/diveLogs";
+import { DiveLog } from "@prisma/client";
 
 describe("GET API", () => {
   describe("not existing divelogs in db", () => {
@@ -24,22 +25,31 @@ describe("GET API", () => {
   describe("existing one divelog in db", () => {
     const DIVE_LOGS = [
       {
-        date: "2023-07-01",
-        point: "Ose",
-        transparency: 22,
-        waterTemprature: 30,
         userId: "uuid",
+        date: "2023-07-01",
+        place: "Ose",
+        point: "Wannai",
+        divingStartTime: "09:30",
+        divingEndTime: "10:00",
+        averageDepth: 18,
+        maxDepth: 25,
+        tankStartPressure: 200,
+        tankEndPressure: 50,
+        tankKind: "STEEL",
+        weight: 5,
+        suit: "WET",
+        weather: "SUNNY",
+        temprature: 35,
+        waterTemprature: 28,
+        transparency: 8,
+        memo: "Good Diving!!",
       },
-    ];
+    ] as DiveLog[];
 
     beforeAll(async () => {
       await prisma.diveLog.deleteMany();
       await prisma.diveLog.createMany({ data: DIVE_LOGS });
     });
-
-    // afterAll(async () => {
-    //   await prisma.diveLog.deleteMany();
-    // });
 
     test("succeeded in getting one diving log", async () => {
       await testApiHandler({
@@ -73,25 +83,62 @@ describe("GET API", () => {
         },
       });
     });
+
+    test("succeeded in getting nothing with uuid", async () => {
+      await testApiHandler({
+        handler,
+        url: "/api/divingLogs?userId=nothingId",
+        test: async ({ fetch }) => {
+          const res = await fetch({ method: "GET" });
+          await expect(res.json()).resolves.toStrictEqual([]);
+        },
+      });
+    });
   });
 
   describe("existing more than two divelogs in db", () => {
     const DIVE_LOGS = [
       {
-        date: "2023-07-01",
-        point: "Ose",
-        transparency: 22,
-        waterTemprature: 30,
         userId: "uuid1",
+        date: "2023-07-01",
+        place: "Ose",
+        point: "Wannai",
+        divingStartTime: "09:30",
+        divingEndTime: "10:00",
+        averageDepth: 18,
+        maxDepth: 25,
+        tankStartPressure: 200,
+        tankEndPressure: 50,
+        tankKind: "STEEL",
+        weight: 5,
+        suit: "WET",
+        weather: "SUNNY",
+        temprature: 35,
+        waterTemprature: 28,
+        transparency: 8,
+        memo: "Good Diving!!",
       },
       {
-        date: "2023-07-01",
-        point: "Kawana",
-        transparency: 10,
-        waterTemprature: 25,
         userId: "uuid2",
+        date: "2023-07-02",
+        place: "Futo",
+        point: "Yokobama",
+        divingStartTime: "09:30",
+        divingEndTime: "10:00",
+        averageDepth: 18,
+        maxDepth: 25,
+        tankStartPressure: 200,
+        tankEndPressure: 50,
+        tankKind: "STEEL",
+        weight: 5,
+        suit: "WET",
+        weather: "SUNNY",
+        temprature: 35,
+        waterTemprature: 28,
+        transparency: 8,
+        memo: "Good Diving!!",
       },
-    ];
+    ] as DiveLog[];
 
     beforeAll(async () => {
       await prisma.diveLog.deleteMany();
@@ -121,10 +168,24 @@ describe("GET API", () => {
     test("succeeded in getting diving logs with userId", async () => {
       const expected = [
         {
-          point: "Ose",
-          transparency: 22,
-          waterTemprature: 30,
           userId: "uuid1",
+          date: "2023-07-01",
+          place: "Ose",
+          point: "Wannai",
+          divingStartTime: "09:30",
+          divingEndTime: "10:00",
+          averageDepth: 18,
+          maxDepth: 25,
+          tankStartPressure: 200,
+          tankEndPressure: 50,
+          tankKind: "STEEL",
+          weight: 5,
+          suit: "WET",
+          weather: "SUNNY",
+          temprature: 35,
+          waterTemprature: 28,
+          transparency: 8,
+          memo: "Good Diving!!",
         },
       ];
 
@@ -134,8 +195,8 @@ describe("GET API", () => {
         test: async ({ fetch }) => {
           const res = await fetch({ method: "GET" });
           const actual = await res.json();
-          await expect(actual).toHaveLength(1);
-          await expect(actual).toStrictEqual(
+          expect(actual).toHaveLength(1);
+          expect(actual).toStrictEqual(
             expect.arrayContaining(
               expected.map((log) => expect.objectContaining(log))
             )
@@ -164,11 +225,24 @@ describe("POST API", () => {
 
   //TODO: 400系のテストかく
   test("succeeded in creating a new diving log", async () => {
-    const diveLog: DiveLog = {
+    const diveLog = {
       date: "2023-07-01",
-      point: "Kerama",
-      transparency: 30,
-      waterTemprature: 42,
+      place: "Ose",
+      point: "Wannai",
+      divingStartTime: "09:30",
+      divingEndTime: "10:00",
+      averageDepth: 18,
+      maxDepth: 25,
+      tankStartPressure: 200,
+      tankEndPressure: 50,
+      tankKind: "STEEL",
+      weight: 5,
+      suit: "WET",
+      weather: "SUNNY",
+      temprature: 35,
+      waterTemprature: 28,
+      transparency: 8,
+      memo: "Good Diving!!",
     };
 
     await testApiHandler({
@@ -183,9 +257,22 @@ describe("POST API", () => {
         await expect(res.json()).resolves.toStrictEqual(
           expect.objectContaining({
             date: "2023-07-01",
-            point: "Kerama",
-            transparency: 30,
-            waterTemprature: 42,
+            place: "Ose",
+            point: "Wannai",
+            divingStartTime: "09:30",
+            divingEndTime: "10:00",
+            averageDepth: 18,
+            maxDepth: 25,
+            tankStartPressure: 200,
+            tankEndPressure: 50,
+            tankKind: "STEEL",
+            weight: 5,
+            suit: "WET",
+            weather: "SUNNY",
+            temprature: 35,
+            waterTemprature: 28,
+            transparency: 8,
+            memo: "Good Diving!!",
           })
         );
       },

@@ -1,4 +1,6 @@
-import { test, expect } from "@playwright/test";
+import { DiveLog } from "@/schemas/diveLog";
+import { test, expect, Page } from "@playwright/test";
+import { PagePilot } from "./__utils__/diveLog";
 
 const account = {
   // 同じアカウントだと前のテストで追加したログブックの影響を受けてテストが落ちるので新規のアカウントでテストする
@@ -7,18 +9,38 @@ const account = {
 };
 
 const diveLog = {
-  point: "Ose",
-  waterTemprature: 23,
-  transparency: 5,
+  date: "2023-08-15",
+  place: "Ose",
+  point: "Wannai",
+  averageDepth: 18,
+  maxDepth: 25,
+  tankStartPressure: 200,
+  tankEndPressure: 50,
+  weight: 5,
+  temprature: 35,
+  waterTemprature: 28,
+  transparency: 8,
+  memo: "Good Diving!!",
 };
 
 const updatedDiveLog = {
-  point: "Futo",
-  waterTemprature: 25,
-  transparency: 8,
+  date: "2023-08-16",
+  place: "Futo",
+  point: "Yokobama",
+  averageDepth: 30,
+  maxDepth: 40,
+  tankStartPressure: 250,
+  tankEndPressure: 0,
+  weight: 10,
+  temprature: 20,
+  waterTemprature: 18,
+  transparency: 15,
+  memo: "It was a cold day...",
 };
 
 test("create a new DiveLog with sign up", async ({ page }) => {
+  const pagePilot = new PagePilot(page);
+
   // Start from the index page (the baseURL is set via the webServer in the playwright.config.ts)
   await page.goto("http://localhost:3000/");
   // Sign up
@@ -32,9 +54,13 @@ test("create a new DiveLog with sign up", async ({ page }) => {
   await page.getByText("新規追加").click();
   // Move to a new diveLog page and edit it.
   await expect(page).toHaveURL("http://localhost:3000/diveLogs/new");
-  await page.getByLabel("ポイント").fill(`${diveLog.point}`);
-  await page.getByLabel("水温").fill(`${diveLog.waterTemprature}`);
-  await page.getByLabel("透明度").fill(`${diveLog.transparency}`);
+  await pagePilot.fill(diveLog);
+  await pagePilot.selectSteel();
+  await pagePilot.selectWet();
+  await pagePilot.selectSunny();
+  await pagePilot.fillDivingStartTime({ hour: 9, minute: 30 });
+  await pagePilot.fillDivingEndTime({ hour: 10, minute: 0 });
+  // TODO: 入力できてるか確認したほうが良い？
   await page.getByText("追加").click();
   // Expect to add it to diveLogs.
   await expect(page).toHaveURL("http://localhost:3000/diveLogs");
@@ -43,9 +69,12 @@ test("create a new DiveLog with sign up", async ({ page }) => {
   // Update the diveLog.
   await page.getByTestId("dive-log-card-0").getByText("編集").click();
   await expect(page).toHaveURL(/http:\/\/localhost:3000\/diveLogs\/\d+/);
-  await page.getByLabel("ポイント").fill(`${updatedDiveLog.point}`);
-  await page.getByLabel("水温").fill(`${updatedDiveLog.waterTemprature}`);
-  await page.getByLabel("透明度").fill(`${updatedDiveLog.transparency}`);
+  await pagePilot.fill(updatedDiveLog);
+  await pagePilot.selectAluminum();
+  await pagePilot.selectDry();
+  await pagePilot.selectCloudy();
+  await pagePilot.fillDivingStartTime({ hour: 13, minute: 0 });
+  await pagePilot.fillDivingEndTime({ hour: 13, minute: 40 });
   await page.getByText("上書き").click();
   await expect(page.getByText("編集")).toHaveCount(1);
   // TODO: 上書きされたことを確認する。まだcardのデザイン決めてないので後で
