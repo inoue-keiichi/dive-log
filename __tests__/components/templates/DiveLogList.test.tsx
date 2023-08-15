@@ -1,5 +1,4 @@
 import DiveLogList from "@/components/templates/DiveLogList";
-import { DiveLog } from "@/schemas/diveLog";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 const addNew = jest.fn();

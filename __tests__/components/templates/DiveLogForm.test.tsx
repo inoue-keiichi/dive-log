@@ -17,10 +17,8 @@ import {
   fillWaterTemprature,
   fillWeight,
 } from "../__utils__/diveLogForm";
-import renderer from "react-test-renderer";
 import { click } from "../__utils__/common";
 import { DiveLog } from "@/schemas/diveLog";
-import Link from "next/link";
 
 // 新規のDiveLogFormを作ると現在の日付が初期値になる。
 // 期待値を固定するためにモック化する。

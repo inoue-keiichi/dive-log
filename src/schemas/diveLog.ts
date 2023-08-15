@@ -29,16 +29,6 @@ const date = z
     message: "存在しない日付です",
   });
 
-// const temprature = z.preprocess((v) => {
-//   if (!v || v === "") {
-//     return null;
-//   }
-//   if (typeof Number(v) === "number") {
-//     return Number(v);
-//   }
-//   return v;
-// }, z.number().max(100, { message: "100以下の数字にしてください" }).min(-100, { message: "-100以上の数字にしてください" }).nullish());
-
 const number = (between: { max: number; min: number }) => {
   const { max, min } = between;
   return z.preprocess(
@@ -61,11 +51,6 @@ const number = (between: { max: number; min: number }) => {
       .nullish()
   );
 };
-
-// const union = <T extends Primitive>(values: T[])=> {
-//   const literals = values.map(v=>z.literal(v)) as readonly [ZodTypeAny, ZodTypeAny, ...ZodTypeAny[]];
-//   z.union(literals);
-// }
 
 const tankKind = z.union([z.literal("STEEL"), z.literal("ALUMINUM")]);
 const suit = z.union([z.literal("WET"), z.literal("DRY")]);

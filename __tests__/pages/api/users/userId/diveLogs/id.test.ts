@@ -1,5 +1,4 @@
 import { prisma } from "@/clients/prisma";
-import { DiveLog } from "@/schemas/diveLog";
 import { testApiHandler } from "next-test-api-route-handler";
 import handler from "../../../../../../src/pages/api/users/[userId]/diveLogs/[id]";
 
