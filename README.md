@@ -1,8 +1,9 @@
 # Architecture
-* Front-end: next.js
-* Back-end: next.js, supabase
-* DB: postgresql(supabase)
-* ORM: prisma
+
+- Front-end: next.js
+- Back-end: next.js, supabase
+- DB: postgresql(supabase)
+- ORM: prisma
 
 # supabase
 
@@ -14,14 +15,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, set following environmental variables to connect local DB (They are default values of supabase local DB):
 
 ```bash
-npm run dev
-# or
+export DB_PROTOCOL=postgresql DB_PASSWORD=postgres DB_HOST=localhost DB_PORT=54322
+```
+
+Run the development server:
+
+```bash
 yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

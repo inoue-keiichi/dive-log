@@ -13,7 +13,7 @@ describe("test", () => {
   test("succeeded in adding a new diving log", async () => {
     render(<DiveLogList diveLogs={[]} onAddNew={addNew} onEdit={edit} />);
     const addNewButton = screen.getByText("新規追加");
-    await fireEvent.click(addNewButton);
+    fireEvent.click(addNewButton);
     // react-hook-form によって submit が呼び出されるまで待機
     await waitFor(() => expect(addNew).toHaveBeenCalledTimes(1));
   });
@@ -24,6 +24,7 @@ describe("test", () => {
         id: 1,
         userId: "uuid1",
         point: "Ose",
+        date: "2023-07-07",
         waterTemprature: 28,
         transparency: 8,
       },
@@ -31,6 +32,7 @@ describe("test", () => {
         id: 2,
         userId: "uuid2",
         point: "Kawana",
+        date: "2023-07-07",
         waterTemprature: 23,
         transparency: 12,
       },
@@ -40,7 +42,7 @@ describe("test", () => {
       <DiveLogList diveLogs={divingLogs} onAddNew={addNew} onEdit={edit} />
     );
     const addNewButton = screen.getByText("新規追加");
-    await fireEvent.click(addNewButton);
+    fireEvent.click(addNewButton);
     // react-hook-form によって submit が呼び出されるまで待機
     await waitFor(() => expect(addNew).toHaveBeenCalledTimes(1));
   });
@@ -51,6 +53,7 @@ describe("test", () => {
         diveLogs={[
           {
             id: 1,
+            date: "2023-07-07",
             point: "Ose",
             waterTemprature: 28,
             transparency: 8,
@@ -61,7 +64,7 @@ describe("test", () => {
       />
     );
     const editButton = screen.getByText("編集");
-    await fireEvent.click(editButton);
+    fireEvent.click(editButton);
     // react-hook-form によって submit が呼び出されるまで待機
     await waitFor(() => expect(edit).toHaveBeenCalledTimes(1));
   });
@@ -72,12 +75,14 @@ describe("test", () => {
         diveLogs={[
           {
             id: 1,
+            date: "2023-07-07",
             point: "Ose",
             waterTemprature: 28,
             transparency: 8,
           },
           {
             id: 2,
+            date: "2023-07-07",
             point: "Kawana",
             waterTemprature: 23,
             transparency: 12,
@@ -88,10 +93,10 @@ describe("test", () => {
       />
     );
     const editButtons = screen.getAllByText("編集");
-    await fireEvent.click(editButtons[0]);
+    fireEvent.click(editButtons[0]);
     // react-hook-form によって submit が呼び出されるまで待機
     await waitFor(() => expect(edit).nthCalledWith(1, 1));
-    await fireEvent.click(editButtons[1]);
+    fireEvent.click(editButtons[1]);
     await waitFor(() => expect(edit).nthCalledWith(2, 2));
   });
 });

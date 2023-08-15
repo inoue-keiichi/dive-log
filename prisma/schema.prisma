@@ -11,13 +11,44 @@ datasource db {
 }
 
 model DiveLog {
-  id              Int     @default(autoincrement())
-  userId          String
-  date            String
-  point           String?
-  waterTemprature Float?
-  transparency    Float?
+  id                Int       @default(autoincrement())
+  userId            String    @map("user_id")
+  date              String
+  place             String?
+  point             String?
+  divingStartTime   String?   @map("diving_start_time")
+  divingEndTime     String?   @map("diving_end_time")
+  averageDepth      Float?    @map("average_depth")
+  maxDepth          Float?    @map("max_depth")
+  tankStartPressure Int?      @map("tank_start_pressure")
+  tankEndPressure   Int?      @map("tank_end_pressure")
+  tankKind          TankKind? @map("tank_kind")
+  suit              Suit?
+  weight            Float?
+  weather           Weather?
+  temprature        Float?
+  waterTemprature   Float?    @map("water_temprature")
+  transparency      Float?
+  memo              String?
 
   @@id(fields: [id, userId], name: "dive_log_identifier")
-  @@map("diveLogs")
+  @@map("dive_logs")
+}
+
+enum TankKind {
+  STEEL
+  ALUMINUM
+}
+
+enum Suit {
+  WET
+  DRY
+}
+
+enum Weather {
+  SUNNY
+  SUNNY_CLOUDY
+  CLOUDY
+  RAINY
+  SNOWY
 }
