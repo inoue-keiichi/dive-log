@@ -18,13 +18,9 @@ import {
   fillWeight,
 } from "../__utils__/diveLogForm";
 import renderer from "react-test-renderer";
-import {
-  click,
-  selectIconRadioButton,
-  selectRadioButton,
-} from "../__utils__/common";
-
-jest.setTimeout(10 * 1000);
+import { click } from "../__utils__/common";
+import { DiveLog } from "@/schemas/diveLog";
+import Link from "next/link";
 
 // 新規のDiveLogFormを作ると現在の日付が初期値になる。
 // 期待値を固定するためにモック化する。
@@ -172,38 +168,36 @@ describe("test", () => {
   });
 });
 
-describe.skip("snapshot test", () => {
+describe("snapshot test", () => {
   test("new Dive log form", async () => {
-    const tree = renderer
-      .create(<DiveLogForm onSubmit={submit} onBack={back} />)
-      .toJSON();
+    const tree = render(<DiveLogForm onSubmit={submit} onBack={back} />);
     expect(tree).toMatchSnapshot();
   });
 
   test("existing Dive log form", async () => {
-    const diveLog = {
-      date: "2023-06-27",
-      point: "Ose",
+    const diveLog: DiveLog = {
+      date: "2022-04-01",
+      place: "Ose",
+      point: "Wannai",
+      divingStartTime: "09:30",
+      divingEndTime: "10:00",
+      averageDepth: 18,
+      maxDepth: 25,
+      tankStartPressure: 200,
+      tankEndPressure: 50,
+      tankKind: "STEEL",
+      weight: 5,
+      suit: "WET",
+      weather: "SUNNY",
+      temprature: 35,
       waterTemprature: 28,
       transparency: 8,
-      averageDepth: null,
-      divingEndTime: "00:00",
-      divingStartTime: "00:00",
-      maxDepth: null,
-      memo: "",
-      place: "",
-      suit: null,
-      tankEndPressure: null,
-      tankKind: null,
-      tankStartPressure: null,
-      temprature: null,
-      weather: null,
-      weight: null,
+      memo: "Good Diving!!",
     };
 
-    const tree = renderer
-      .create(<DiveLogForm diveLog={diveLog} onSubmit={submit} onBack={back} />)
-      .toJSON();
+    const tree = render(
+      <DiveLogForm diveLog={diveLog} onSubmit={submit} onBack={back} />
+    );
     expect(tree).toMatchSnapshot();
   });
 });
