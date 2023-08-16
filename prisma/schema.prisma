@@ -11,28 +11,51 @@ datasource db {
 }
 
 model DiveLog {
-  id                Int       @default(autoincrement())
-  userId            String    @map("user_id")
+  id                Int            @default(autoincrement())
+  userId            String         @map("user_id")
   date              String
   place             String?
   point             String?
-  divingStartTime   String?   @map("diving_start_time")
-  divingEndTime     String?   @map("diving_end_time")
-  averageDepth      Float?    @map("average_depth")
-  maxDepth          Float?    @map("max_depth")
-  tankStartPressure Int?      @map("tank_start_pressure")
-  tankEndPressure   Int?      @map("tank_end_pressure")
-  tankKind          TankKind? @map("tank_kind")
+  divingStartTime   String?        @map("diving_start_time")
+  divingEndTime     String?        @map("diving_end_time")
+  averageDepth      Float?         @map("average_depth")
+  maxDepth          Float?         @map("max_depth")
+  tankStartPressure Int?           @map("tank_start_pressure")
+  tankEndPressure   Int?           @map("tank_end_pressure")
+  tankKind          TankKind?      @map("tank_kind")
   suit              Suit?
   weight            Float?
   weather           Weather?
   temprature        Float?
-  waterTemprature   Float?    @map("water_temprature")
+  waterTemprature   Float?         @map("water_temprature")
   transparency      Float?
   memo              String?
+  buddyComments     BuddyComment[]
+  BuddyCommentLinks DiveLogLink[]
 
   @@id(fields: [id, userId], name: "dive_log_identifier")
   @@map("dive_logs")
+}
+
+model BuddyComment {
+  id        Int     @id @default(autoincrement())
+  diveLog   DiveLog @relation(fields: [diveLogId, userId], references: [id, userId], onDelete: Cascade, onUpdate: Cascade)
+  diveLogId Int     @map("dive_log_id")
+  userId    String  @map("user_id")
+  name      String
+  comment   String
+
+  @@map("buddy_comments")
+}
+
+model DiveLogLink {
+  uuid      String   @id @default(uuid())
+  diveLog   DiveLog  @relation(fields: [diveLogId, userId], references: [id, userId], onDelete: Cascade, onUpdate: Cascade)
+  diveLogId Int      @map("dive_log_id")
+  userId    String   @map("user_id")
+  expiredAt DateTime @map("expired_at")
+
+  @@map("dive_log_links")
 }
 
 enum TankKind {
