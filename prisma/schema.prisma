@@ -38,12 +38,13 @@ model DiveLog {
 }
 
 model BuddyComment {
-  id        Int     @id @default(autoincrement())
-  diveLog   DiveLog @relation(fields: [diveLogId, userId], references: [id, userId], onDelete: Cascade, onUpdate: Cascade)
-  diveLogId Int     @map("dive_log_id")
-  userId    String  @map("user_id")
+  id        Int      @id @default(autoincrement())
+  diveLog   DiveLog  @relation(fields: [diveLogId, userId], references: [id, userId], onDelete: Cascade, onUpdate: Cascade)
+  diveLogId Int      @map("dive_log_id")
+  userId    String   @map("user_id")
   name      String
-  comment   String
+  createdAt DateTime @map("created_at")
+  text      String
 
   @@map("buddy_comments")
 }

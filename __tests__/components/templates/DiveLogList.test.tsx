@@ -3,6 +3,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 const addNew = jest.fn();
 const edit = jest.fn();
+const share = jest.fn();
 
 afterEach(() => {
   addNew.mockClear();
@@ -11,7 +12,14 @@ afterEach(() => {
 
 describe("test", () => {
   test("succeeded in adding a new diving log", async () => {
-    render(<DiveLogList diveLogs={[]} onAddNew={addNew} onEdit={edit} />);
+    render(
+      <DiveLogList
+        diveLogs={[]}
+        onAddNew={addNew}
+        onEdit={edit}
+        onShare={share}
+      />
+    );
     const addNewButton = screen.getByText("新規追加");
     fireEvent.click(addNewButton);
     // react-hook-form によって submit が呼び出されるまで待機
@@ -39,7 +47,12 @@ describe("test", () => {
     ];
 
     render(
-      <DiveLogList diveLogs={divingLogs} onAddNew={addNew} onEdit={edit} />
+      <DiveLogList
+        diveLogs={divingLogs}
+        onAddNew={addNew}
+        onEdit={edit}
+        onShare={share}
+      />
     );
     const addNewButton = screen.getByText("新規追加");
     fireEvent.click(addNewButton);
@@ -61,6 +74,7 @@ describe("test", () => {
         ]}
         onAddNew={addNew}
         onEdit={edit}
+        onShare={share}
       />
     );
     const editButton = screen.getByText("編集");
@@ -90,6 +104,7 @@ describe("test", () => {
         ]}
         onAddNew={addNew}
         onEdit={edit}
+        onShare={share}
       />
     );
     const editButtons = screen.getAllByText("編集");
