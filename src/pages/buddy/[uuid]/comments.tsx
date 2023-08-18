@@ -4,9 +4,8 @@ import BuddyCommentForm from "@/components/templates/BuddyCommentForm";
 import { BuddyComment } from "@/schemas/buudy";
 import { useRouter } from "next/router";
 import { GetServerSidePropsContext } from "next";
-import List from "@mui/material/List";
-import { Divider, ListItem, ListItemText } from "@mui/material";
 import { useState } from "react";
+import BuddyCommentList from "@/components/templates/BuddyCommentList";
 
 type Props = {
   buddyComments: (BuddyComment & {
@@ -46,6 +45,8 @@ function BuddyComment(props: Props) {
     setBuddyComments(body);
   };
 
+  // TODO: uuidが正しいか確認する処理を追加する。正しくない場合はエラーページに遷移させる
+
   return (
     <>
       <Head>
@@ -57,22 +58,7 @@ function BuddyComment(props: Props) {
       <main className={styles.main}>
         <BuddyCommentForm onSubmit={handleSubmit} />
         {buddyComments.length > 0 && (
-          <List
-            sx={{ width: "50%", bgcolor: "background.paper", borderRadius: 2 }}
-          >
-            {buddyComments.map((comment, index) => (
-              <>
-                <ListItem key={comment.id} alignItems="flex-start">
-                  <ListItemText
-                    primary={comment.text}
-                    secondary={comment.name + " / " + comment.createdAt}
-                  />
-                </ListItem>
-                {/* コメントの間にだけDividerが欲しい */}
-                {index < buddyComments.length - 1 && <Divider />}
-              </>
-            ))}
-          </List>
+          <BuddyCommentList buddyComments={buddyComments} />
         )}
       </main>
     </>

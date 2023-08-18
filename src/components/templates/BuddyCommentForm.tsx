@@ -9,7 +9,7 @@ import {
   Stack,
 } from "@mui/material";
 import { FC } from "react";
-import { FieldErrors, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 type Props = {
   onSubmit: (buddyComment: BuddyComment) => void;

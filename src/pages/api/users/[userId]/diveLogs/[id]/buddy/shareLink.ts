@@ -1,6 +1,5 @@
 import { prisma } from "@/clients/prisma";
-import { buddyCommentQuerySchema, buddyCommentSchema } from "@/schemas/buudy";
-import { diveLogQuerySchema, newDiveLogQuerySchema } from "@/schemas/diveLog";
+import { diveLogQuerySchema } from "@/schemas/diveLog";
 import dayjs from "dayjs";
 import type { NextApiRequest, NextApiResponse } from "next";
 

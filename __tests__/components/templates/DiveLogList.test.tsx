@@ -114,4 +114,8 @@ describe("test", () => {
     fireEvent.click(editButtons[1]);
     await waitFor(() => expect(edit).nthCalledWith(2, 2));
   });
+
+  test("succeeded in share a diving log", async () => {
+    fail();
+  });
 });
