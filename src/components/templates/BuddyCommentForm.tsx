@@ -1,20 +1,30 @@
+import { ShareDiveLog } from "@/pages/api/buddy/diveLogs/[uuid]";
 import { BuddyComment, buddyCommentSchema } from "@/schemas/buudy";
 import { DiveLog } from "@/schemas/diveLog";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,
+  Chip,
+  Divider,
   FormControl,
   FormHelperText,
   InputLabel,
+  List,
+  ListItem,
+  ListItemText,
   OutlinedInput,
   Stack,
-  TextField,
+  Typography,
 } from "@mui/material";
 import { FC } from "react";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
+
+const isError = (errors: FieldErrors<DiveLog>) => {
+  return Object.values(errors).filter((v) => v.message).length > 0;
+};
 
 type Props = {
-  diveLog: DiveLog;
+  diveLog: ShareDiveLog;
   onSubmit: (buddyComment: BuddyComment) => void;
 };
 
@@ -30,51 +40,15 @@ const BuddyCommentForm: FC<Props> = (props) => {
   });
 
   return (
-    <Stack>
-      <Stack
-        sx={{
-          width: "50%",
-          backgroundColor: "white",
-          padding: "20px 40px 20px 40px",
-          borderRadius: 2,
-        }}
-      >
-        <TextField
-          id="date"
-          label="日付"
-          type="date"
-          defaultValue={diveLog?.date}
-        />
-        <TextField
-          id="place"
-          label="場所"
-          type="text"
-          defaultValue={diveLog?.place}
-        />
-        <TextField
-          id="point"
-          label="ポイント"
-          type="text"
-          defaultValue={diveLog?.point}
-        />
-        <TextField
-          id="divingStartTime"
-          label="潜水開始時間"
-          type="text"
-          defaultValue={diveLog?.divingStartTime}
-        />
-        <TextField
-          id="divingEndTime"
-          label="潜水終了時間"
-          type="text"
-          defaultValue={diveLog?.divingEndTime}
-        />
-      </Stack>
+    <Stack
+      sx={{ width: "50%", backgroundColor: "white", borderRadius: 2 }}
+      spacing={2}
+    >
       <Stack
         spacing={2}
         sx={{
-          width: "50%",
-          backgroundColor: "white",
+          //width: "50%",
+          //backgroundColor: "white",
           padding: "20px 40px 20px 40px",
           borderRadius: 2,
         }}
@@ -83,8 +57,13 @@ const BuddyCommentForm: FC<Props> = (props) => {
           onSubmit(buddyComment);
         })}
       >
+        <Typography variant="h5">{`${diveLog.date} ${diveLog.divingStartTime}~${diveLog.divingEndTime}`}</Typography>
+        <Stack direction="row" spacing={1}>
+          {diveLog.place && <Chip label={diveLog.place} color="primary" />}
+          {diveLog.point && <Chip label={diveLog.point} color="primary" />}
+        </Stack>
         <FormControl>
-          <InputLabel htmlFor="point">名前</InputLabel>
+          <InputLabel htmlFor="name">名前</InputLabel>
           <OutlinedInput
             id="name"
             label="名前"
@@ -97,9 +76,9 @@ const BuddyCommentForm: FC<Props> = (props) => {
           </FormHelperText>
         </FormControl>
         <FormControl>
-          <InputLabel htmlFor="memo">コメント</InputLabel>
+          <InputLabel htmlFor="text">コメント</InputLabel>
           <OutlinedInput
-            id="buddyComment"
+            id="text"
             label="コメント"
             type="text"
             multiline
@@ -111,10 +90,30 @@ const BuddyCommentForm: FC<Props> = (props) => {
             {errors.text?.message ?? ""}
           </FormHelperText>
         </FormControl>
-        <Button disabled={!isValid} variant="contained" type="submit">
+        <Button
+          sx={{ width: "30%" }}
+          disabled={isError(errors)}
+          variant="contained"
+          type="submit"
+        >
           送信
         </Button>
       </Stack>
+      {diveLog.buddyComments.length > 0 && (
+        <List sx={{ bgcolor: "background.paper", borderRadius: 2 }}>
+          {diveLog.buddyComments.map((comment, index) => (
+            <>
+              <Divider />
+              <ListItem key={comment.id} alignItems="flex-start">
+                <ListItemText
+                  primary={comment.text}
+                  secondary={comment.name + " / " + comment.createdAt}
+                />
+              </ListItem>
+            </>
+          ))}
+        </List>
+      )}
     </Stack>
   );
 };

@@ -8,6 +8,7 @@ const share = jest.fn();
 afterEach(() => {
   addNew.mockClear();
   edit.mockClear();
+  share.mockClear();
 });
 
 describe("test", () => {
@@ -116,6 +117,58 @@ describe("test", () => {
   });
 
   test("succeeded in share a diving log", async () => {
-    fail();
+    render(
+      <DiveLogList
+        diveLogs={[
+          {
+            id: 1,
+            date: "2023-07-07",
+            point: "Ose",
+            waterTemprature: 28,
+            transparency: 8,
+          },
+        ]}
+        onAddNew={addNew}
+        onEdit={edit}
+        onShare={share}
+      />
+    );
+    const shareButton = screen.getByText("バディにコメントをもらう");
+    fireEvent.click(shareButton);
+    // react-hook-form によって submit が呼び出されるまで待機
+    await waitFor(() => expect(share).toHaveBeenCalledTimes(1));
+    expect(share.mock.calls[0][0]).toBe(1);
+  });
+
+  test("succeeded in sharing diving logs", async () => {
+    render(
+      <DiveLogList
+        diveLogs={[
+          {
+            id: 1,
+            date: "2023-07-07",
+            point: "Ose",
+            waterTemprature: 28,
+            transparency: 8,
+          },
+          {
+            id: 2,
+            date: "2023-07-07",
+            point: "Kawana",
+            waterTemprature: 23,
+            transparency: 12,
+          },
+        ]}
+        onAddNew={addNew}
+        onEdit={edit}
+        onShare={share}
+      />
+    );
+    const shareButtons = screen.getAllByText("バディにコメントをもらう");
+    fireEvent.click(shareButtons[0]);
+    // react-hook-form によって submit が呼び出されるまで待機
+    await waitFor(() => expect(share).nthCalledWith(1, 1));
+    fireEvent.click(shareButtons[1]);
+    await waitFor(() => expect(share).nthCalledWith(2, 2));
   });
 });

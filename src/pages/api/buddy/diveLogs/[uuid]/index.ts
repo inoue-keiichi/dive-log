@@ -1,5 +1,5 @@
 import { prisma } from "@/clients/prisma";
-import { buddyCommentQuerySchema, buddyCommentSchema } from "@/schemas/buudy";
+import { buddyCommentQuerySchema } from "@/schemas/buudy";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -35,8 +35,26 @@ export default async function handler(
       return res.status(500).json({});
     }
 
-    return res.status(200).json(result.diveLog.buddyComments);
+    return res.status(200).json(result.diveLog);
   }
 
   return res.status(400).json({});
 }
+
+// export type ShareDiveLog = Omit<
+//   DiveLog & { buddyComments: BuddyComment[] },
+//   "id" | "userId"
+// >;
+export type ShareDiveLog = {
+  date: string;
+  place: string | null;
+  point: string | null;
+  divingStartTime: string | null;
+  divingEndTime: string | null;
+  buddyComments: {
+    id: number;
+    name: string;
+    text: string;
+    createdAt: Date;
+  }[];
+};
