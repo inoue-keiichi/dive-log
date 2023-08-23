@@ -2,6 +2,7 @@ import BuddyCommentForm from "@/components/templates/BuddyCommentForm";
 import { ShareDiveLog } from "@/pages/api/buddy/diveLogs/[uuid]";
 import { BuddyComment } from "@/schemas/buudy";
 import styles from "@/styles/Home.module.css";
+import { ResponseError } from "@/utils/type";
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -13,6 +14,7 @@ type Props = {
 
 function BuddyComment(props: Props) {
   const [diveLog, setDiveLog] = useState(props.diveLog);
+  const [error, setError] = useState<ResponseError>();
 
   const router = useRouter();
   const uuid = router.query.uuid;
@@ -25,16 +27,17 @@ function BuddyComment(props: Props) {
         body: JSON.stringify({ ...data }),
       }
     );
-
     if (!res.ok) {
-      // TODO: エラー処理かく
-      throw Error("");
+      setError(await res.json());
     }
 
     // 追加したコメントを表示できるようにコメントを再取得する
     const resDiveLog = await fetch(
       `${process.env.NEXT_PUBLIC_HOST}/api/buddy/diveLogs/${uuid}`
     );
+    if (!resDiveLog.ok) {
+      setError(await res.json());
+    }
     const diveLog = (await resDiveLog.json()) as ShareDiveLog;
     setDiveLog(diveLog);
   };
@@ -50,7 +53,11 @@ function BuddyComment(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <BuddyCommentForm diveLog={diveLog} onSubmit={handleSubmit} />
+        <BuddyCommentForm
+          diveLog={diveLog}
+          onSubmit={handleSubmit}
+          error={error}
+        />
       </main>
     </>
   );

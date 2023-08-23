@@ -1,6 +1,6 @@
 import { prisma } from "@/clients/prisma";
 import { testApiHandler } from "next-test-api-route-handler";
-import handler from "../../../../../../src/pages/api/users/[userId]/diveLogs/[id]";
+import handler from "../../../../../../../src/pages/api/users/[userId]/diveLogs/[id]";
 
 beforeAll(async () => {
   await prisma.diveLog.deleteMany();

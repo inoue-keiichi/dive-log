@@ -1,10 +1,11 @@
 import { prisma } from "@/clients/prisma";
 import { buddyCommentQuerySchema } from "@/schemas/buudy";
+import { ResponseError } from "@/utils/type";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<{}>
+  res: NextApiResponse<ShareDiveLog | ResponseError>
 ) {
   if (req.method === "GET") {
     const parsedQuery = buddyCommentQuerySchema.safeParse({
@@ -13,8 +14,8 @@ export default async function handler(
     if (!parsedQuery.success) {
       // TODO: エラーのレスポンス型作りたい
       return res.status(400).json({
-        errorCode: "invalid_parameter",
-        message: JSON.parse(parsedQuery.error.message),
+        code: "invalid_parameter",
+        message: parsedQuery.error.message,
       });
     }
 
@@ -28,23 +29,28 @@ export default async function handler(
       },
       where: {
         uuid: parsedQuery.data.uuid,
+        expiredAt: {
+          gte: new Date(),
+        },
       },
     });
 
     if (!result) {
-      return res.status(500).json({});
+      return res.status(400).json({
+        code: "resource_not_found",
+        message:
+          "有効期限が切れた、または不正なURLです。バディに再度URLを発行してもらってください",
+      });
     }
 
     return res.status(200).json(result.diveLog);
   }
 
-  return res.status(400).json({});
+  return res.status(400).json({
+    code: "invaid_http_method",
+  });
 }
 
-// export type ShareDiveLog = Omit<
-//   DiveLog & { buddyComments: BuddyComment[] },
-//   "id" | "userId"
-// >;
 export type ShareDiveLog = {
   date: string;
   place: string | null;

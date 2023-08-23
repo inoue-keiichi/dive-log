@@ -1,13 +1,13 @@
-import Head from "next/head";
-import styles from "@/styles/Home.module.css";
-import DiveLogList from "@/components/templates/DiveLogList";
-import { useRouter } from "next/router";
-import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { GetServerSidePropsContext } from "next";
-import { DiveLog } from "@/schemas/diveLog";
 import DiveLogLinkDialog from "@/components/templates/DiveLogLinkDialog";
-import { useState } from "react";
+import DiveLogList from "@/components/templates/DiveLogList";
+import { DiveLog } from "@/schemas/diveLog";
+import styles from "@/styles/Home.module.css";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
+import { GetServerSidePropsContext } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 type Props = {
   diveLogs: (DiveLog & { id: number })[];
@@ -51,7 +51,8 @@ export default function DivingLogs(props: Props) {
             }
 
             const res = await fetch(
-              `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs/${id}/buddy/shareLink`
+              `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs/${id}/buddy/shareLink/issue`,
+              { method: "POST" }
             );
             if (!res.ok) {
               // TODO: エラー処理かく.link取得できない場合、リカバリー策あるか？

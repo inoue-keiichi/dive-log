@@ -1,13 +1,18 @@
 import { prisma } from "@/clients/prisma";
 import { diveLogQuerySchema } from "@/schemas/diveLog";
+import { ResponseError } from "@/utils/type";
 import dayjs from "dayjs";
 import type { NextApiRequest, NextApiResponse } from "next";
 
+export type ShareLink = {
+  link: string;
+};
+
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<{}>
+  res: NextApiResponse<ShareLink | ResponseError>
 ) {
-  if (req.method === "GET") {
+  if (req.method === "POST") {
     const parsedQuery = diveLogQuerySchema.safeParse({
       userId: req.query.userId,
       id: req.query.id,
@@ -15,7 +20,7 @@ export default async function handler(
     if (!parsedQuery.success) {
       // TODO: エラーのレスポンス型作りたい
       return res.status(400).json({
-        errorCode: "invalid_parameter",
+        code: "invalid_parameter",
         message: JSON.parse(parsedQuery.error.message),
       });
     }
@@ -50,5 +55,5 @@ export default async function handler(
     });
   }
 
-  return res.status(400).json({});
+  return res.status(400).json({ code: "invaid_http_method" });
 }

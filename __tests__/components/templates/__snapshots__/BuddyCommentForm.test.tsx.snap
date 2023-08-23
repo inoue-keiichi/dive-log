@@ -119,6 +119,9 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
             <p
               class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
             />
+            <p
+              class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
+            />
           </div>
           <button
             class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-1u4rjth-MuiButtonBase-root-MuiButton-root"
@@ -134,48 +137,52 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
         <ul
           class="MuiList-root MuiList-padding css-14qn28a-MuiList-root"
         >
-          <hr
-            class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
-          />
-          <li
-            class="MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-alignItemsFlexStart css-hhvo2v-MuiListItem-root"
-          >
-            <div
-              class="MuiListItemText-root MuiListItemText-multiline css-konndc-MuiListItemText-root"
+          <div>
+            <hr
+              class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
+            />
+            <li
+              class="MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-alignItemsFlexStart css-hhvo2v-MuiListItem-root"
             >
-              <span
-                class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+              <div
+                class="MuiListItemText-root MuiListItemText-multiline css-konndc-MuiListItemText-root"
               >
-                今日の海は味噌汁だった。
-              </span>
-              <p
-                class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-83ijpv-MuiTypography-root"
-              >
-                鈴木 / Tue Aug 01 2023 09:00:00 GMT+0900 (日本標準時)
-              </p>
-            </div>
-          </li>
-          <hr
-            class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
-          />
-          <li
-            class="MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-alignItemsFlexStart css-hhvo2v-MuiListItem-root"
-          >
-            <div
-              class="MuiListItemText-root MuiListItemText-multiline css-konndc-MuiListItemText-root"
+                <span
+                  class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+                >
+                  今日の海は味噌汁だった。
+                </span>
+                <p
+                  class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-83ijpv-MuiTypography-root"
+                >
+                  鈴木 / Tue Aug 01 2023 09:00:00 GMT+0900 (日本標準時)
+                </p>
+              </div>
+            </li>
+          </div>
+          <div>
+            <hr
+              class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
+            />
+            <li
+              class="MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-alignItemsFlexStart css-hhvo2v-MuiListItem-root"
             >
-              <span
-                class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+              <div
+                class="MuiListItemText-root MuiListItemText-multiline css-konndc-MuiListItemText-root"
               >
-                海底はまだ冷たくて早く陸に帰りたかった...
-              </span>
-              <p
-                class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-83ijpv-MuiTypography-root"
-              >
-                原田 / Tue Aug 01 2023 09:00:00 GMT+0900 (日本標準時)
-              </p>
-            </div>
-          </li>
+                <span
+                  class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+                >
+                  海底はまだ冷たくて早く陸に帰りたかった...
+                </span>
+                <p
+                  class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-83ijpv-MuiTypography-root"
+                >
+                  原田 / Tue Aug 01 2023 09:00:00 GMT+0900 (日本標準時)
+                </p>
+              </div>
+            </li>
+          </div>
         </ul>
       </div>
     </div>
@@ -295,6 +302,9 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
           <p
             class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
           />
+          <p
+            class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
+          />
         </div>
         <button
           class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-1u4rjth-MuiButtonBase-root-MuiButton-root"
@@ -310,48 +320,52 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
       <ul
         class="MuiList-root MuiList-padding css-14qn28a-MuiList-root"
       >
-        <hr
-          class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
-        />
-        <li
-          class="MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-alignItemsFlexStart css-hhvo2v-MuiListItem-root"
-        >
-          <div
-            class="MuiListItemText-root MuiListItemText-multiline css-konndc-MuiListItemText-root"
+        <div>
+          <hr
+            class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
+          />
+          <li
+            class="MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-alignItemsFlexStart css-hhvo2v-MuiListItem-root"
           >
-            <span
-              class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+            <div
+              class="MuiListItemText-root MuiListItemText-multiline css-konndc-MuiListItemText-root"
             >
-              今日の海は味噌汁だった。
-            </span>
-            <p
-              class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-83ijpv-MuiTypography-root"
-            >
-              鈴木 / Tue Aug 01 2023 09:00:00 GMT+0900 (日本標準時)
-            </p>
-          </div>
-        </li>
-        <hr
-          class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
-        />
-        <li
-          class="MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-alignItemsFlexStart css-hhvo2v-MuiListItem-root"
-        >
-          <div
-            class="MuiListItemText-root MuiListItemText-multiline css-konndc-MuiListItemText-root"
+              <span
+                class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+              >
+                今日の海は味噌汁だった。
+              </span>
+              <p
+                class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-83ijpv-MuiTypography-root"
+              >
+                鈴木 / Tue Aug 01 2023 09:00:00 GMT+0900 (日本標準時)
+              </p>
+            </div>
+          </li>
+        </div>
+        <div>
+          <hr
+            class="MuiDivider-root MuiDivider-fullWidth css-9mgopn-MuiDivider-root"
+          />
+          <li
+            class="MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-alignItemsFlexStart css-hhvo2v-MuiListItem-root"
           >
-            <span
-              class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+            <div
+              class="MuiListItemText-root MuiListItemText-multiline css-konndc-MuiListItemText-root"
             >
-              海底はまだ冷たくて早く陸に帰りたかった...
-            </span>
-            <p
-              class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-83ijpv-MuiTypography-root"
-            >
-              原田 / Tue Aug 01 2023 09:00:00 GMT+0900 (日本標準時)
-            </p>
-          </div>
-        </li>
+              <span
+                class="MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"
+              >
+                海底はまだ冷たくて早く陸に帰りたかった...
+              </span>
+              <p
+                class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-83ijpv-MuiTypography-root"
+              >
+                原田 / Tue Aug 01 2023 09:00:00 GMT+0900 (日本標準時)
+              </p>
+            </div>
+          </li>
+        </div>
       </ul>
     </div>
   </div>,
