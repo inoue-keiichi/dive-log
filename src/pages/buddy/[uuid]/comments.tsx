@@ -31,7 +31,8 @@ function BuddyComment(props: Props) {
       setError(await res.json());
     }
 
-    // 追加したコメントを表示できるようにコメントを再取得する
+    // 自分や他ユーザーが追加したコメントを表示できるようにコメントを再取得する
+    // コメントのポストに失敗しても他ユーザーがコメントしている可能性がある
     const resDiveLog = await fetch(
       `${process.env.NEXT_PUBLIC_HOST}/api/buddy/diveLogs/${uuid}`
     );

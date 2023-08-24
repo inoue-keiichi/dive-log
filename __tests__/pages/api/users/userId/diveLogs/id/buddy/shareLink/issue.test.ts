@@ -146,6 +146,7 @@ describe("POST API", () => {
         const firstJson = (await first.json()) as ShareLink;
         const link = firstJson.link;
 
+        // 期限切れ後の日時へ移動
         const expiredAt = dayjs().add(7, "days").toDate();
         const mock = jest
           .spyOn(global, "Date")
