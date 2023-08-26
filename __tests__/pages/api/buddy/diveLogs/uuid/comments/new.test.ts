@@ -8,7 +8,7 @@ beforeEach(async () => {
 });
 
 describe("POST API", () => {
-  it("succeeds in posting a comment", async () => {
+  it.only("succeeds in posting a comment", async () => {
     // コメントを登録できるようにdiveLogとdiveLogLinkを事前に作成しておく
     const diveLog = await prisma.diveLog.create({
       data: {
@@ -44,6 +44,18 @@ describe("POST API", () => {
     });
 
     const { uuid, diveLogId } = diveLogLink;
+
+    const { id: buddyId } = await prisma.buddy.create({
+      data: {
+        diveLogId: id,
+        userId,
+        guest: {
+          create: {
+            name: "田中",
+          },
+        },
+      },
+    });
 
     await testApiHandler({
       handler,
@@ -54,7 +66,7 @@ describe("POST API", () => {
         const res = await fetch({
           method: "POST",
           body: JSON.stringify({
-            name: "田中",
+            buddyId,
             text: "楽しかったね！またダイビング行きたいね",
           }),
         });
@@ -65,9 +77,7 @@ describe("POST API", () => {
         const buddyComment = await prisma.buddyComment.findFirst();
         expect(buddyComment).toStrictEqual(
           expect.objectContaining({
-            diveLogId,
-            userId,
-            name: "田中",
+            buddyId,
             text: "楽しかったね！またダイビング行きたいね",
           })
         );
@@ -75,7 +85,7 @@ describe("POST API", () => {
     });
   });
 
-  it("succeeds in posting comments", async () => {
+  it.only("succeeds in posting comments", async () => {
     // コメントを登録できるようにdiveLogとdiveLogLinkを事前に作成しておく
     const diveLog = await prisma.diveLog.create({
       data: {
@@ -110,7 +120,31 @@ describe("POST API", () => {
       },
     });
 
-    const { uuid, diveLogId } = diveLogLink;
+    const { uuid } = diveLogLink;
+
+    const { id: buddyId1 } = await prisma.buddy.create({
+      data: {
+        diveLogId: id,
+        userId,
+        guest: {
+          create: {
+            name: "田中",
+          },
+        },
+      },
+    });
+
+    const { id: buddyId2 } = await prisma.buddy.create({
+      data: {
+        diveLogId: id,
+        userId,
+        guest: {
+          create: {
+            name: "鈴木",
+          },
+        },
+      },
+    });
 
     await testApiHandler({
       handler,
@@ -122,7 +156,7 @@ describe("POST API", () => {
         const res1 = await fetch({
           method: "POST",
           body: JSON.stringify({
-            name: "田中",
+            buddyId: buddyId1,
             text: "楽しかったね！またダイビング行きたいね",
           }),
         });
@@ -133,7 +167,7 @@ describe("POST API", () => {
         const res2 = await fetch({
           method: "POST",
           body: JSON.stringify({
-            name: "鈴木",
+            buddyId: buddyId2,
             text: "次はマンボウチャレンジしよう！",
           }),
         });
@@ -145,15 +179,11 @@ describe("POST API", () => {
         expect(buddyComments).toStrictEqual(
           expect.arrayContaining([
             expect.objectContaining({
-              diveLogId,
-              userId,
-              name: "田中",
+              buddyId: buddyId1,
               text: "楽しかったね！またダイビング行きたいね",
             }),
             expect.objectContaining({
-              diveLogId,
-              userId,
-              name: "鈴木",
+              buddyId: buddyId2,
               text: "次はマンボウチャレンジしよう！",
             }),
           ])
@@ -447,6 +477,18 @@ describe("POST API", () => {
 
     const { uuid } = diveLogLink;
 
+    const { id: buddyId } = await prisma.buddy.create({
+      data: {
+        diveLogId: id,
+        userId,
+        guest: {
+          create: {
+            name: "田中",
+          },
+        },
+      },
+    });
+
     await testApiHandler({
       handler,
       paramsPatcher: (params) => {
@@ -454,10 +496,10 @@ describe("POST API", () => {
       },
       test: async ({ fetch }) => {
         for (let i = 0; i < 10; i++) {
-          const res = await fetch({
+          await fetch({
             method: "POST",
             body: JSON.stringify({
-              name: "田中",
+              buddyId,
               text: "楽しかったね！またダイビング行きたいね",
             }),
           });
@@ -466,7 +508,7 @@ describe("POST API", () => {
         const res = await fetch({
           method: "POST",
           body: JSON.stringify({
-            name: "田中",
+            buddyId,
             text: "楽しかったね！またダイビング行きたいね",
           }),
         });

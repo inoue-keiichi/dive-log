@@ -1,7 +1,6 @@
 import { prisma } from "@/clients/prisma";
-import { buddyCommentQuerySchema, buddyCommentSchema } from "@/schemas/buudy";
+import { buddyCommentQuerySchema, buddySchema } from "@/schemas/buudy";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { count } from "../../../../../../../prisma/queries/buddyComment";
 
 const MAX_COMMENT_COUNT = 10;
 
@@ -21,7 +20,7 @@ export default async function handler(
       });
     }
 
-    const parsed = buddyCommentSchema.safeParse(JSON.parse(req.body));
+    const parsed = buddySchema.safeParse(JSON.parse(req.body));
     if (!parsed.success) {
       // TODO: エラーのレスポンス型作りたい
       return res.status(400).json({
@@ -50,18 +49,17 @@ export default async function handler(
       });
     }
 
-    const { diveLogId } = result;
-    // 無制限にコメント登録できるとすぐにDBの容量が枯渇するかもなので制限を設ける
-    if ((await count(diveLogId)) >= MAX_COMMENT_COUNT) {
-      return res.status(400).json({
-        code: "resource_limit_exceeded",
-        message: `登録できるコメントの数は${MAX_COMMENT_COUNT}個までです。`,
-      });
-    }
+    const { diveLogId, userId } = result;
 
-    await prisma.buddyComment.create({
+    await prisma.buddy.create({
       data: {
-        ...parsed.data,
+        diveLogId,
+        userId,
+        guest: {
+          create: {
+            name: parsed.data.name,
+          },
+        },
       },
     });
 

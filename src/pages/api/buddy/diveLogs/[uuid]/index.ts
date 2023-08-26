@@ -23,7 +23,12 @@ export default async function handler(
       include: {
         diveLog: {
           include: {
-            buddyComments: true,
+            buddies: {
+              include: {
+                guest: true,
+                comments: true,
+              },
+            },
           },
         },
       },
@@ -43,7 +48,29 @@ export default async function handler(
       });
     }
 
-    return res.status(200).json(result.diveLog);
+    const { date, place, point, divingStartTime, divingEndTime, buddies } =
+      result.diveLog;
+    const buddyComments = buddies.flatMap((buddy) => {
+      const { comments, guest } = buddy;
+      return comments.map((comment) => {
+        const { buddyId, ...others } = comment;
+        return {
+          name: guest!.name,
+          ...others,
+        };
+      });
+    });
+
+    return res.status(200).json({
+      date,
+      place,
+      point,
+      divingStartTime,
+      divingEndTime,
+      buddyComments: [...buddyComments].sort(
+        (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
+      ),
+    });
   }
 
   return res.status(400).json({

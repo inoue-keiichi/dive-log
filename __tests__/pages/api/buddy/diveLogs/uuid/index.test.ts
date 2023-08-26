@@ -3,14 +3,6 @@ import handler from "@/pages/api/buddy/diveLogs/[uuid]";
 import dayjs from "dayjs";
 import { testApiHandler } from "next-test-api-route-handler";
 
-const mock = jest
-  .spyOn(global, "Date")
-  .mockImplementation(() => new Date("2023-08-26"));
-
-beforeAll(() => {
-  mock.mockRestore();
-});
-
 describe("GET API", () => {
   it("suceeds in getting a comment", async () => {
     // コメントを登録できるようにdiveLogとdiveLogLinkを事前に作成しておく
@@ -45,12 +37,20 @@ describe("GET API", () => {
       },
     });
 
-    await prisma.buddyComment.create({
+    await prisma.buddy.create({
       data: {
-        userId,
         diveLogId: id,
-        name: "武田",
-        text: "楽しいダイビングでした。",
+        userId,
+        guest: {
+          create: {
+            name: "武田",
+          },
+        },
+        comments: {
+          create: {
+            text: "楽しいダイビングでした。",
+          },
+        },
       },
     });
 
@@ -71,8 +71,6 @@ describe("GET API", () => {
             divingEndTime: "10:00",
             buddyComments: [
               expect.objectContaining({
-                diveLogId: id,
-                userId,
                 name: "武田",
                 text: "楽しいダイビングでした。",
               }),
@@ -116,21 +114,37 @@ describe("GET API", () => {
       },
     });
 
-    await prisma.buddyComment.createMany({
-      data: [
-        {
-          userId,
-          diveLogId: id,
-          name: "武田",
-          text: "楽しいダイビングでした。",
+    await prisma.buddy.create({
+      data: {
+        diveLogId: id,
+        userId,
+        guest: {
+          create: {
+            name: "武田",
+          },
         },
-        {
-          userId,
-          diveLogId: id,
-          name: "高橋",
-          text: "ミノカサゴ綺麗だったね",
+        comments: {
+          create: {
+            text: "楽しいダイビングでした。",
+          },
         },
-      ],
+      },
+    });
+    await prisma.buddy.create({
+      data: {
+        diveLogId: id,
+        userId,
+        guest: {
+          create: {
+            name: "高橋",
+          },
+        },
+        comments: {
+          create: {
+            text: "ミノカサゴ綺麗だったね",
+          },
+        },
+      },
     });
 
     await testApiHandler({
@@ -150,14 +164,10 @@ describe("GET API", () => {
             divingEndTime: "10:00",
             buddyComments: [
               expect.objectContaining({
-                diveLogId: id,
-                userId,
                 name: "武田",
                 text: "楽しいダイビングでした。",
               }),
               expect.objectContaining({
-                diveLogId: id,
-                userId,
                 name: "高橋",
                 text: "ミノカサゴ綺麗だったね",
               }),
