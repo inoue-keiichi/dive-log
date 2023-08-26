@@ -43,7 +43,7 @@ model BuddyComment {
   diveLogId Int      @map("dive_log_id")
   userId    String   @map("user_id")
   name      String
-  createdAt DateTime @map("created_at")
+  createdAt DateTime @map("created_at") @default(now())
   text      String
 
   @@map("buddy_comments")
