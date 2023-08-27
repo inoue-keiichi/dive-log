@@ -1,5 +1,5 @@
 import BuddyCommentForm from "@/components/templates/BuddyCommentForm";
-import { ShareDiveLog } from "@/pages/api/buddy/diveLogs/[uuid]";
+import { ShareDiveLog } from "@/pages/api/share/diveLogs/[uuid]";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { fill } from "../__utils__/common";
 

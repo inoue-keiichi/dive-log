@@ -1,4 +1,4 @@
-import { ShareDiveLog } from "@/pages/api/buddy/diveLogs/[uuid]";
+import { ShareDiveLog } from "@/pages/api/share/diveLogs/[uuid]";
 import { BuddyComment, buddyCommentSchema } from "@/schemas/buudy";
 import { DiveLog } from "@/schemas/diveLog";
 import { ResponseError } from "@/utils/type";

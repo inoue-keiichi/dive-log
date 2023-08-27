@@ -1,5 +1,5 @@
 import BuddyCommentForm from "@/components/templates/BuddyCommentForm";
-import { ShareDiveLog } from "@/pages/api/buddy/diveLogs/[uuid]";
+import { ShareDiveLog } from "@/pages/api/share/diveLogs/[uuid]";
 import { BuddyComment } from "@/schemas/buudy";
 import styles from "@/styles/Home.module.css";
 import { ResponseError } from "@/utils/type";

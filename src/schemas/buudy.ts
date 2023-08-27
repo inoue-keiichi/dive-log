@@ -8,13 +8,19 @@ export const buddySchema = z.object({
 });
 
 export const buddyCommentSchema = z.object({
-  buddyId: z.number(),
   text: z
     .string()
     .min(1, "コメントを入力してください")
     .max(255, "255文字以下にしてください"),
 });
 
-export const buddyCommentQuerySchema = z.object({ uuid: z.string() });
+export const buddyCommentQuerySchema = z.object({
+  uuid: z.string(),
+  buddyId: z.number(),
+});
+
+export const diveLogLinkSchema = z.object({
+  uuid: z.string(),
+});
 
 export type BuddyComment = z.infer<typeof buddyCommentSchema>;

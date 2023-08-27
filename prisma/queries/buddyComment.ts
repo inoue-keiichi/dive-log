@@ -1,7 +1,7 @@
 import { prisma } from "@/clients/prisma";
 
-export async function count(diveLogId: number): Promise<number> {
-  return await prisma.$queryRaw`
+export async function count(diveLogId: number) {
+  return await prisma.$queryRaw<{ count: bigint }[]>`
 select
 	count(*)
 from
@@ -10,6 +10,6 @@ left join buddies b
       	on
 	b.id = bc.buddy_id
 where
-	b.id = ${diveLogId}
+	b.dive_log_id = ${diveLogId}
   `;
 }

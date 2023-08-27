@@ -1,5 +1,5 @@
 import { prisma } from "@/clients/prisma";
-import { buddyCommentQuerySchema } from "@/schemas/buudy";
+import { diveLogLinkSchema } from "@/schemas/buudy";
 import { ResponseError } from "@/utils/type";
 import type { NextApiRequest, NextApiResponse } from "next";
 
@@ -8,7 +8,7 @@ export default async function handler(
   res: NextApiResponse<ShareDiveLog | ResponseError>
 ) {
   if (req.method === "GET") {
-    const parsedQuery = buddyCommentQuerySchema.safeParse({
+    const parsedQuery = diveLogLinkSchema.safeParse({
       uuid: req.query.uuid,
     });
     if (!parsedQuery.success) {
@@ -50,16 +50,6 @@ export default async function handler(
 
     const { date, place, point, divingStartTime, divingEndTime, buddies } =
       result.diveLog;
-    const buddyComments = buddies.flatMap((buddy) => {
-      const { comments, guest } = buddy;
-      return comments.map((comment) => {
-        const { buddyId, ...others } = comment;
-        return {
-          name: guest!.name,
-          ...others,
-        };
-      });
-    });
 
     return res.status(200).json({
       date,
@@ -67,9 +57,14 @@ export default async function handler(
       point,
       divingStartTime,
       divingEndTime,
-      buddyComments: [...buddyComments].sort(
-        (a, b) => a.createdAt.getTime() - b.createdAt.getTime()
-      ),
+      buddies: buddies.map((buddy) => ({
+        id: buddy.id,
+        name: buddy.guest!.name, // ユーザー登録機能ができるまではnullにならない
+        comments: buddy.comments.map((comment) => ({
+          text: comment.text,
+          createdAt: comment.createdAt,
+        })),
+      })),
     });
   }
 
@@ -84,10 +79,12 @@ export type ShareDiveLog = {
   point: string | null;
   divingStartTime: string | null;
   divingEndTime: string | null;
-  buddyComments: {
+  buddies: {
     id: number;
     name: string;
-    text: string;
-    createdAt: Date;
+    comments: {
+      text: string;
+      createdAt: Date;
+    }[];
   }[];
 };

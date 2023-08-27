@@ -1,7 +1,8 @@
 import { prisma } from "@/clients/prisma";
 import { buddyCommentQuerySchema, buddyCommentSchema } from "@/schemas/buudy";
+import { Prisma } from "@prisma/client";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { count } from "../../../../../../../prisma/queries/buddyComment";
+import { count } from "../../../../../../../../../prisma/queries/buddyComment";
 
 const MAX_COMMENT_COUNT = 10;
 
@@ -12,6 +13,7 @@ export default async function handler(
   if (req.method === "POST") {
     const parsedQuery = buddyCommentQuerySchema.safeParse({
       uuid: req.query.uuid,
+      buddyId: req.query.buddyId,
     });
     if (!parsedQuery.success) {
       // TODO: エラーのレスポンス型作りたい
@@ -30,12 +32,14 @@ export default async function handler(
       });
     }
 
+    const { uuid, buddyId } = parsedQuery.data;
+
     const result = await prisma.diveLogLink.findFirst({
       include: {
         diveLog: true,
       },
       where: {
-        uuid: parsedQuery.data.uuid,
+        uuid,
         expiredAt: {
           gte: new Date(),
         },
@@ -52,18 +56,32 @@ export default async function handler(
 
     const { diveLogId } = result;
     // 無制限にコメント登録できるとすぐにDBの容量が枯渇するかもなので制限を設ける
-    if ((await count(diveLogId)) >= MAX_COMMENT_COUNT) {
+    if ((await count(diveLogId))[0].count >= MAX_COMMENT_COUNT) {
       return res.status(400).json({
         code: "resource_limit_exceeded",
         message: `登録できるコメントの数は${MAX_COMMENT_COUNT}個までです。`,
       });
     }
 
-    await prisma.buddyComment.create({
-      data: {
-        ...parsed.data,
-      },
-    });
+    try {
+      await prisma.buddyComment.create({
+        data: {
+          buddyId,
+          ...parsed.data,
+        },
+      });
+    } catch (e) {
+      if (
+        e instanceof Prisma.PrismaClientKnownRequestError &&
+        e.meta?.field_name == "buddy_comments_buddy_id_fkey (index)"
+      ) {
+        return res.status(400).json({
+          code: "resource_not_found",
+          message: "存在しないバディです。",
+        });
+      }
+      throw e;
+    }
 
     return res.status(201).json({});
   }
