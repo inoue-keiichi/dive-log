@@ -61,6 +61,7 @@ export default async function handler(
         id: buddy.id,
         name: buddy.guest!.name, // ユーザー登録機能ができるまではnullにならない
         comments: buddy.comments.map((comment) => ({
+          id: comment.id,
           text: comment.text,
           createdAt: comment.createdAt,
         })),
@@ -83,6 +84,7 @@ export type ShareDiveLog = {
     id: number;
     name: string;
     comments: {
+      id: number;
       text: string;
       createdAt: Date;
     }[];

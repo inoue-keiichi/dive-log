@@ -1,5 +1,5 @@
 import { ShareDiveLog } from "@/pages/api/share/diveLogs/[uuid]";
-import { BuddyComment, buddyCommentSchema } from "@/schemas/buudy";
+import { buddyCommentSchema } from "@/schemas/buudy";
 import { DiveLog } from "@/schemas/diveLog";
 import { ResponseError } from "@/utils/type";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,8 +15,10 @@ import {
   ListItemText,
   OutlinedInput,
   Stack,
+  TextField,
   Typography,
 } from "@mui/material";
+import dayjs from "dayjs";
 import { FC } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 
@@ -24,14 +26,30 @@ const hasInvalidField = (errors: FieldErrors<DiveLog>) => {
   return Object.values(errors).filter((v) => v.message).length > 0;
 };
 
+type BuddyComment = {
+  name: string;
+  text: string;
+  createdAt: Date;
+};
+
 type Props = {
+  commenter: string;
   diveLog: ShareDiveLog;
   onSubmit: (buddyComment: BuddyComment) => void;
   error?: ResponseError;
 };
 
 const BuddyCommentForm: FC<Props> = (props) => {
-  const { onSubmit, diveLog, error } = props;
+  const { commenter, onSubmit, diveLog, error } = props;
+
+  const buddyComments = diveLog.buddies.flatMap((buddy) =>
+    buddy.comments.map((comment) => ({
+      name: buddy.name,
+      id: comment.id,
+      text: comment.text,
+      createdAt: comment.createdAt,
+    }))
+  );
 
   const {
     register,
@@ -68,12 +86,14 @@ const BuddyCommentForm: FC<Props> = (props) => {
           {diveLog.point && <Chip label={diveLog.point} color="primary" />}
         </Stack>
         <FormControl>
-          <InputLabel htmlFor="name">名前</InputLabel>
-          <OutlinedInput
+          <TextField
             id="name"
             label="名前"
             type="text"
-            error={!!errors.name?.message}
+            defaultValue={commenter}
+            InputProps={{
+              readOnly: true,
+            }}
             {...register("name")}
           />
           <FormHelperText error={!!errors.name?.message}>
@@ -107,15 +127,19 @@ const BuddyCommentForm: FC<Props> = (props) => {
           送信
         </Button>
       </Stack>
-      {diveLog.buddyComments.length > 0 && (
+      {buddyComments.length > 0 && (
         <List sx={{ bgcolor: "background.paper", borderRadius: 2 }}>
-          {diveLog.buddyComments.map((comment) => (
+          {buddyComments.map((comment) => (
             <div key={`coment_list_item_${comment.id}`}>
               <Divider />
               <ListItem alignItems="flex-start">
                 <ListItemText
                   primary={comment.text}
-                  secondary={comment.name + " / " + comment.createdAt}
+                  secondary={
+                    comment.name +
+                    " — " +
+                    dayjs(comment.createdAt).format("YYYY/M/D H:mm")
+                  }
                 />
               </ListItem>
             </div>

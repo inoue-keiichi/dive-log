@@ -21,7 +21,7 @@ function BuddyComment(props: Props) {
 
   const handleSubmit = async (data: BuddyComment) => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/buddy/diveLogs/${uuid}/comments/new`,
+      `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${uuid}/buddies/${router.query.buddyId}/comments/new`,
       {
         method: "POST",
         body: JSON.stringify({ ...data }),
@@ -29,21 +29,21 @@ function BuddyComment(props: Props) {
     );
     if (!res.ok) {
       setError(await res.json());
+      return;
     }
 
     // 自分や他ユーザーが追加したコメントを表示できるようにコメントを再取得する
     // コメントのポストに失敗しても他ユーザーがコメントしている可能性がある
     const resDiveLog = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/buddy/diveLogs/${uuid}`
+      `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${uuid}`
     );
     if (!resDiveLog.ok) {
       setError(await res.json());
+      return;
     }
     const diveLog = (await resDiveLog.json()) as ShareDiveLog;
     setDiveLog(diveLog);
   };
-
-  // TODO: uuidが正しいか確認する処理を追加する。正しくない場合はエラーページに遷移させる
 
   return (
     <>
@@ -58,6 +58,7 @@ function BuddyComment(props: Props) {
           diveLog={diveLog}
           onSubmit={handleSubmit}
           error={error}
+          commenter={router.query.buddyName as string}
         />
       </main>
     </>
@@ -65,11 +66,17 @@ function BuddyComment(props: Props) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  console.log(`url: ${context.resolvedUrl}`);
   const uuid = context.resolvedUrl
-    .replace("/buddy", "")
-    .replace("/comments", "");
+    .replace("/buddies", "")
+    .replace("/buddies", "")
+    .replace("/comments", "")
+    .replace(/\/\d$/, "")
+    .replace(/\//, "");
+
+  console.log(`uuid: ${uuid}`);
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/buddy/diveLogs/${uuid}`
+    `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${uuid}`
   );
   const diveLog = (await res.json()) as ShareDiveLog;
   return { props: { diveLog } };

@@ -16,11 +16,13 @@ export const buddyCommentSchema = z.object({
 
 export const buddyCommentQuerySchema = z.object({
   uuid: z.string(),
-  buddyId: z.number(),
+  buddyId: z.coerce.number(),
 });
 
 export const diveLogLinkSchema = z.object({
   uuid: z.string(),
 });
+
+export type Buddy = z.infer<typeof buddySchema>;
 
 export type BuddyComment = z.infer<typeof buddyCommentSchema>;

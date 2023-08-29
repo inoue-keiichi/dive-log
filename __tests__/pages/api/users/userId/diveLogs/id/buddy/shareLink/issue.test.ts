@@ -49,7 +49,7 @@ describe("POST API", () => {
         await expect(res.status).toBe(200);
         await expect(res.json()).resolves.toStrictEqual({
           link: expect.stringMatching(
-            /^http:\/\/localhost:3000\/buddy\/[\d\w-]+\/comments$/
+            /^http:\/\/localhost:3000\/buddies\/[\d\w-]+$/
           ),
         });
       },
@@ -160,7 +160,7 @@ describe("POST API", () => {
           const secondJson = (await res.json()) as ShareLink;
           await expect(secondJson).toStrictEqual({
             link: expect.stringMatching(
-              /^http:\/\/localhost:3000\/buddy\/[\d\w-]+\/comments$/
+              /^http:\/\/localhost:3000\/buddies\/[\d\w-]+$/
             ),
           });
           await expect(secondJson).toStrictEqual({

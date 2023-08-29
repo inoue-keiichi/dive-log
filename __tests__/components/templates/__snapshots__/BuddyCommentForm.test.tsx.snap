@@ -41,36 +41,42 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
           <div
             class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
           >
-            <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
-              data-shrink="false"
-              for="name"
-            >
-              名前
-            </label>
             <div
-              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+              class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
             >
-              <input
-                aria-invalid="false"
-                class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                id="name"
-                name="name"
-                type="text"
-                value=""
-              />
-              <fieldset
-                aria-hidden="true"
-                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+              <label
+                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
+                data-shrink="true"
+                for="name"
+                id="name-label"
               >
-                <legend
-                  class="css-yjsfm1"
+                名前
+              </label>
+              <div
+                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl Mui-readOnly MuiInputBase-readOnly css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+              >
+                <input
+                  aria-invalid="false"
+                  class="MuiInputBase-input MuiOutlinedInput-input Mui-readOnly MuiInputBase-readOnly css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                  id="name"
+                  name="name"
+                  readonly=""
+                  type="text"
+                  value="JAI"
+                />
+                <fieldset
+                  aria-hidden="true"
+                  class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
                 >
-                  <span>
-                    名前
-                  </span>
-                </legend>
-              </fieldset>
+                  <legend
+                    class="css-14lo706"
+                  >
+                    <span>
+                      名前
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
             </div>
             <p
               class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
@@ -155,7 +161,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
                 <p
                   class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-83ijpv-MuiTypography-root"
                 >
-                  鈴木 / Tue Aug 01 2023 09:00:00 GMT+0900 (日本標準時)
+                  鈴木 — 2023/8/1 9:00
                 </p>
               </div>
             </li>
@@ -178,7 +184,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
                 <p
                   class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-83ijpv-MuiTypography-root"
                 >
-                  原田 / Tue Aug 01 2023 09:00:00 GMT+0900 (日本標準時)
+                  原田 — 2023/8/1 9:00
                 </p>
               </div>
             </li>
@@ -224,36 +230,42 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
         <div
           class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
         >
-          <label
-            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
-            data-shrink="false"
-            for="name"
-          >
-            名前
-          </label>
           <div
-            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+            class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
           >
-            <input
-              aria-invalid="false"
-              class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-              id="name"
-              name="name"
-              type="text"
-              value=""
-            />
-            <fieldset
-              aria-hidden="true"
-              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+            <label
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
+              data-shrink="true"
+              for="name"
+              id="name-label"
             >
-              <legend
-                class="css-yjsfm1"
+              名前
+            </label>
+            <div
+              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl Mui-readOnly MuiInputBase-readOnly css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+            >
+              <input
+                aria-invalid="false"
+                class="MuiInputBase-input MuiOutlinedInput-input Mui-readOnly MuiInputBase-readOnly css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                id="name"
+                name="name"
+                readonly=""
+                type="text"
+                value="JAI"
+              />
+              <fieldset
+                aria-hidden="true"
+                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
               >
-                <span>
-                  名前
-                </span>
-              </legend>
-            </fieldset>
+                <legend
+                  class="css-14lo706"
+                >
+                  <span>
+                    名前
+                  </span>
+                </legend>
+              </fieldset>
+            </div>
           </div>
           <p
             class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
@@ -338,7 +350,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
               <p
                 class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-83ijpv-MuiTypography-root"
               >
-                鈴木 / Tue Aug 01 2023 09:00:00 GMT+0900 (日本標準時)
+                鈴木 — 2023/8/1 9:00
               </p>
             </div>
           </li>
@@ -361,7 +373,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
               <p
                 class="MuiTypography-root MuiTypography-body2 MuiListItemText-secondary css-83ijpv-MuiTypography-root"
               >
-                原田 / Tue Aug 01 2023 09:00:00 GMT+0900 (日本標準時)
+                原田 — 2023/8/1 9:00
               </p>
             </div>
           </li>

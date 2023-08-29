@@ -39,7 +39,7 @@ export default async function handler(
 
     if (exist) {
       return res.status(200).json({
-        link: `${process.env.NEXT_PUBLIC_HOST}/buddy/${exist.uuid}/comments`,
+        link: `${process.env.NEXT_PUBLIC_HOST}/buddies/${exist.uuid}`,
       });
     }
 
@@ -51,7 +51,7 @@ export default async function handler(
       },
     });
     return res.status(200).json({
-      link: `${process.env.NEXT_PUBLIC_HOST}/buddy/${newLink.uuid}/comments`,
+      link: `${process.env.NEXT_PUBLIC_HOST}/buddies/${newLink.uuid}`,
     });
   }
 

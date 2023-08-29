@@ -3,6 +3,10 @@ import handler from "@/pages/api/share/diveLogs/[uuid]";
 import dayjs from "dayjs";
 import { testApiHandler } from "next-test-api-route-handler";
 
+beforeEach(async () => {
+  await prisma.buddy.deleteMany();
+});
+
 describe("GET API", () => {
   it("succeeds in getting a comment", async () => {
     // コメントを登録できるようにdiveLogとdiveLogLinkを事前に作成しておく
@@ -190,7 +194,7 @@ describe("GET API", () => {
     });
   });
 
-  it("suceeds in getting not any comment", async () => {
+  it("succeeds in getting not any comment", async () => {
     // コメントを登録できるようにdiveLogとdiveLogLinkを事前に作成しておく
     const { id, userId } = await prisma.diveLog.create({
       data: {
@@ -262,7 +266,7 @@ describe("GET API", () => {
     });
   });
 
-  it("suceeds in getting not any comment when there is not any baddy", async () => {
+  it("succeeds in getting not any comment when there is not any baddy", async () => {
     // コメントを登録できるようにdiveLogとdiveLogLinkを事前に作成しておく
     const { id, userId } = await prisma.diveLog.create({
       data: {

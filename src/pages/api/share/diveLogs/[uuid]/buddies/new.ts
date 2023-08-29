@@ -1,15 +1,18 @@
 import { prisma } from "@/clients/prisma";
-import { buddyCommentQuerySchema, buddySchema } from "@/schemas/buudy";
+import { buddySchema, diveLogLinkSchema } from "@/schemas/buudy";
+import { ResponseError } from "@/utils/type";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const MAX_COMMENT_COUNT = 10;
+export type NewBuddy = {
+  buddyId: number;
+};
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<{}>
+  res: NextApiResponse<NewBuddy | ResponseError>
 ) {
   if (req.method === "POST") {
-    const parsedQuery = buddyCommentQuerySchema.safeParse({
+    const parsedQuery = diveLogLinkSchema.safeParse({
       uuid: req.query.uuid,
     });
     if (!parsedQuery.success) {
@@ -51,7 +54,17 @@ export default async function handler(
 
     const { diveLogId, userId } = result;
 
-    await prisma.buddy.create({
+    const guest = await prisma.guestBuddy.findFirst({
+      where: {
+        name: parsed.data.name,
+      },
+    });
+
+    if (guest) {
+      return res.status(200).json({ buddyId: guest.buddyId });
+    }
+
+    const buddy = await prisma.buddy.create({
       data: {
         diveLogId,
         userId,
@@ -63,8 +76,8 @@ export default async function handler(
       },
     });
 
-    return res.status(201).json({});
+    return res.status(201).json({ buddyId: buddy.id });
   }
 
-  return res.status(400).json({});
+  return res.status(400).json({ code: "invaid_http_method" });
 }

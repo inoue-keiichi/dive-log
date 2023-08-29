@@ -17,34 +17,23 @@ describe("BuddyCommentForm", () => {
       point: null,
       divingStartTime: null,
       divingEndTime: null,
-      buddyComments: [],
+      buddies: [
+        {
+          id: 1,
+          name: "JAI",
+          comments: [],
+        },
+      ],
     };
 
-    render(<BuddyCommentForm diveLog={diveLog} onSubmit={submit} />);
-    fill(screen.getByLabelText("名前"), "JAI");
+    render(
+      <BuddyCommentForm diveLog={diveLog} onSubmit={submit} commenter={"JAI"} />
+    );
     fill(screen.getByLabelText("コメント"), "楽しいダイビングだった。");
     const submitButton = screen.getByText("送信");
     fireEvent.click(submitButton);
     // react-hook-form によって submit が呼び出されるまで待機
     await waitFor(() => expect(submit).toHaveBeenCalledTimes(1));
-  });
-
-  test("cannot submit in a comment when without name", async () => {
-    const diveLog: ShareDiveLog = {
-      date: "2023-08-23",
-      place: null,
-      point: null,
-      divingStartTime: null,
-      divingEndTime: null,
-      buddyComments: [],
-    };
-
-    render(<BuddyCommentForm diveLog={diveLog} onSubmit={submit} />);
-    fill(screen.getByLabelText("コメント"), "楽しいダイビングだった。");
-    const submitButton = screen.getByText("送信");
-    fireEvent.click(submitButton);
-    // react-hook-form によって submit が呼び出されるまで待機
-    await waitFor(() => expect(submit).toHaveBeenCalledTimes(0));
   });
 
   test("cannot submit without a comment", async () => {
@@ -54,11 +43,18 @@ describe("BuddyCommentForm", () => {
       point: null,
       divingStartTime: null,
       divingEndTime: null,
-      buddyComments: [],
+      buddies: [
+        {
+          id: 1,
+          name: "JAI",
+          comments: [],
+        },
+      ],
     };
 
-    render(<BuddyCommentForm diveLog={diveLog} onSubmit={submit} />);
-    fill(screen.getByLabelText("名前"), "JAI");
+    render(
+      <BuddyCommentForm diveLog={diveLog} onSubmit={submit} commenter={"JAI"} />
+    );
     const submitButton = screen.getByText("送信");
     fireEvent.click(submitButton);
     // react-hook-form によって submit が呼び出されるまで待機
@@ -74,24 +70,34 @@ describe("BuddyCommentForm snapshot", () => {
       point: "湾内",
       divingStartTime: "09:30",
       divingEndTime: "10:00",
-      buddyComments: [
+      buddies: [
         {
           id: 1,
           name: "鈴木",
-          text: "今日の海は味噌汁だった。",
-          createdAt: new Date("2023-08-01"),
+          comments: [
+            {
+              id: 1,
+              text: "今日の海は味噌汁だった。",
+              createdAt: new Date("2023-08-01"),
+            },
+          ],
         },
         {
           id: 2,
           name: "原田",
-          text: "海底はまだ冷たくて早く陸に帰りたかった...",
-          createdAt: new Date("2023-08-01"),
+          comments: [
+            {
+              id: 2,
+              text: "海底はまだ冷たくて早く陸に帰りたかった...",
+              createdAt: new Date("2023-08-01"),
+            },
+          ],
         },
       ],
     };
 
     const tree = render(
-      <BuddyCommentForm diveLog={diveLog} onSubmit={submit} />
+      <BuddyCommentForm diveLog={diveLog} onSubmit={submit} commenter={"JAI"} />
     );
     expect(tree).toMatchSnapshot();
   });
