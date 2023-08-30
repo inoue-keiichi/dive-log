@@ -35,7 +35,7 @@ function Buddy(props: Props) {
     const { buddyId } = (await res.json()) as NewBuddy;
 
     router.push({
-      pathname: `/buddies/${uuid}/comments`,
+      pathname: `${uuid}/comments`,
       query: { buddyId, buddyName: data.name },
     });
   };

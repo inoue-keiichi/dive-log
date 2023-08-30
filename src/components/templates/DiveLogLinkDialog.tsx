@@ -1,14 +1,14 @@
 import Button from "@mui/material/Button";
-import DialogTitle from "@mui/material/DialogTitle";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
+import DialogTitle from "@mui/material/DialogTitle";
 import Divider from "@mui/material/Divider";
-import copy from "copy-to-clipboard";
+import InputBase from "@mui/material/InputBase";
+import Paper from "@mui/material/Paper";
 import Tooltip from "@mui/material/Tooltip";
+import copy from "copy-to-clipboard";
 import { useState } from "react";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 type Props = {
   open: boolean;
@@ -30,7 +30,7 @@ function DiveLogLinkDialog(props: Props) {
         <InputBase
           sx={{ ml: 1, flex: 1 }}
           defaultValue={link}
-          inputProps={{ "aria-label": "search google maps", readOnly: true }}
+          inputProps={{ "aria-label": "copy-path", readOnly: true }}
         />
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
         <ClickAwayListener onClickAway={() => setShowCopied(false)}>

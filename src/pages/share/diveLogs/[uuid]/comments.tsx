@@ -67,12 +67,10 @@ function BuddyComment(props: Props) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   console.log(`url: ${context.resolvedUrl}`);
+
   const uuid = context.resolvedUrl
-    .replace("/buddies", "")
-    .replace("/buddies", "")
-    .replace("/comments", "")
-    .replace(/\/\d$/, "")
-    .replace(/\//, "");
+    .replace("/share/diveLogs/", "")
+    .replace(/\/comments\?buddyId=\d+\&buddyName=.+$/, "");
 
   console.log(`uuid: ${uuid}`);
   const res = await fetch(

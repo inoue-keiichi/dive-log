@@ -55,10 +55,21 @@ export default async function handler(
     const { diveLogId, userId } = result;
 
     const guest = await prisma.guestBuddy.findFirst({
+      include: {
+        buddy: true,
+      },
       where: {
         name: parsed.data.name,
+        buddy: {
+          diveLogId: diveLogId,
+        },
       },
     });
+    // const guest = await prisma.guestBuddy.findFirst({
+    //   where: {
+    //     name: parsed.data.name,
+    //   },
+    // });
 
     if (guest) {
       return res.status(200).json({ buddyId: guest.buddyId });
