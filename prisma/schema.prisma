@@ -45,6 +45,7 @@ model Buddy {
   guest     GuestBuddy?
   comments  BuddyComment[]
 
+  @@unique(fields: [id, diveLogId, userId], name: "buddy_identifier")
   @@map("buddies")
 }
 
@@ -59,10 +60,14 @@ model BuddyComment {
 }
 
 model GuestBuddy {
-  buddy   Buddy  @relation(fields: [buddyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  buddyId Int    @id @unique @map("buddy_id")
-  name    String
+  buddy     Buddy  @relation(fields: [buddyId, diveLogId, userId], references: [id, diveLogId, userId], onDelete: Cascade, onUpdate: Cascade)
+  buddyId   Int    @unique @map("buddy_id")
+  diveLogId Int    @map("dive_log_id")
+  userId    String @map("user_id")
+  name      String
 
+  @@id([buddyId, diveLogId, userId])
+  @@unique([diveLogId, userId, name])
   @@map("guest_buddies")
 }
 

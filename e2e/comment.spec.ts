@@ -3,7 +3,7 @@ import { PagePilot } from "./__utils__/diveLog";
 
 const account = {
   // 同じアカウントだと前のテストで追加したログブックの影響を受けてテストが落ちるので新規のアカウントでテストする
-  email: `example+e2e_${Date.now()}@gmail.com`,
+  email: `comment+e2e_${Date.now()}@gmail.com`,
   password: "e2etest",
 };
 

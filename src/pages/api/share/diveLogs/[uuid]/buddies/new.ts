@@ -65,11 +65,6 @@ export default async function handler(
         },
       },
     });
-    // const guest = await prisma.guestBuddy.findFirst({
-    //   where: {
-    //     name: parsed.data.name,
-    //   },
-    // });
 
     if (guest) {
       return res.status(200).json({ buddyId: guest.buddyId });
