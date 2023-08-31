@@ -266,7 +266,7 @@ describe("GET API", () => {
     });
   });
 
-  it("succeeds in getting not any comment when there is not any baddy", async () => {
+  it("succeeds in getting not any comment when there is not any buddy", async () => {
     // コメントを登録できるようにdiveLogとdiveLogLinkを事前に作成しておく
     const { id, userId } = await prisma.diveLog.create({
       data: {

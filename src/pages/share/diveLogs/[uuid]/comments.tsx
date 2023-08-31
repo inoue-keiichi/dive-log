@@ -66,13 +66,20 @@ function BuddyComment(props: Props) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  console.log(`url: ${context.resolvedUrl}`);
-
   const uuid = context.resolvedUrl
     .replace("/share/diveLogs/", "")
-    .replace(/\/comments\?buddyId=\d+\&buddyName=.+$/, "");
+    .replace(/\/comments(\?buddyId=\d+\&buddyName=.+)?$/, "");
 
-  console.log(`uuid: ${uuid}`);
+  // /shere/${uuid}/commentsに直接URL指定した場合は名前を指定してないので名前入力画面にリダイレクトする
+  if (!context.resolvedUrl.match(/\?buddyId=\d+\&buddyName=.+$/)) {
+    return {
+      redirect: {
+        destination: `/share/diveLogs/${uuid}`,
+        permanent: false,
+      },
+    };
+  }
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${uuid}`
   );

@@ -3,6 +3,8 @@ import { buddySchema, diveLogLinkSchema } from "@/schemas/buudy";
 import { ResponseError } from "@/utils/type";
 import type { NextApiRequest, NextApiResponse } from "next";
 
+const MAX_BUDDY_COUNT = 10;
+
 export type NewBuddy = {
   buddyId: number;
 };
@@ -68,6 +70,20 @@ export default async function handler(
 
     if (guest) {
       return res.status(200).json({ buddyId: guest.buddyId });
+    }
+
+    const buddyCount = await prisma.buddy.count({
+      where: {
+        diveLogId,
+        userId,
+      },
+    });
+
+    if (buddyCount >= MAX_BUDDY_COUNT) {
+      return res.status(400).json({
+        code: "resource_limit_exceeded",
+        message: "登録できるバディの人数は10人までです。",
+      });
     }
 
     const buddy = await prisma.buddy.create({
