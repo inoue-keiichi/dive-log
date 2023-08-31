@@ -25,7 +25,13 @@ function DiveLogLinkDialog(props: Props) {
     <Dialog sx={{ p: "50px" }} onClose={() => onClose(false)} open={open}>
       <DialogTitle>バディにコメントをもらう</DialogTitle>
       <Paper
-        sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 400 }}
+        sx={{
+          p: "2px 4px",
+          m: "0 10px 0 10px",
+          display: "flex",
+          alignItems: "center",
+          width: 400,
+        }}
       >
         <InputBase
           sx={{ ml: 1, flex: 1 }}

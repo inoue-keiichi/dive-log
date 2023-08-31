@@ -9,6 +9,7 @@ import {
   InputLabel,
   OutlinedInput,
   Stack,
+  Typography,
 } from "@mui/material";
 import { FC } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
@@ -47,6 +48,7 @@ const BuddyForm: FC<Props> = (props) => {
         onSubmit(buddy);
       })}
     >
+      <Typography variant="h6">あなたの名前を入力してください</Typography>
       <FormControl>
         <InputLabel htmlFor="name">名前</InputLabel>
         <OutlinedInput
