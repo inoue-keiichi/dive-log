@@ -1,5 +1,5 @@
 import { ShareDiveLog } from "@/pages/api/share/diveLogs/[uuid]";
-import { buddyCommentSchema } from "@/schemas/buudy";
+import { BuddyComment, buddyCommentSchema } from "@/schemas/buudy";
 import { DiveLog } from "@/schemas/diveLog";
 import { ResponseError } from "@/utils/type";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,11 +26,11 @@ const hasInvalidField = (errors: FieldErrors<DiveLog>) => {
   return Object.values(errors).filter((v) => v.message).length > 0;
 };
 
-type BuddyComment = {
-  name: string;
-  text: string;
-  createdAt: Date;
-};
+// type BuddyComment = {
+//   name: string;
+//   text: string;
+//   createdAt: Date;
+// };
 
 type Props = {
   commenter: string;
@@ -94,11 +94,7 @@ const BuddyCommentForm: FC<Props> = (props) => {
             InputProps={{
               readOnly: true,
             }}
-            {...register("name")}
           />
-          <FormHelperText error={!!errors.name?.message}>
-            {errors.name?.message ?? ""}
-          </FormHelperText>
         </FormControl>
         <FormControl>
           <InputLabel htmlFor="text">コメント</InputLabel>

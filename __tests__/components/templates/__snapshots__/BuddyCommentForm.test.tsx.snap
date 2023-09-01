@@ -59,7 +59,6 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
                   aria-invalid="false"
                   class="MuiInputBase-input MuiOutlinedInput-input Mui-readOnly MuiInputBase-readOnly css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
                   id="name"
-                  name="name"
                   readonly=""
                   type="text"
                   value="JAI"
@@ -78,9 +77,6 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
                 </fieldset>
               </div>
             </div>
-            <p
-              class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
-            />
           </div>
           <div
             class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
@@ -248,7 +244,6 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
                 aria-invalid="false"
                 class="MuiInputBase-input MuiOutlinedInput-input Mui-readOnly MuiInputBase-readOnly css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
                 id="name"
-                name="name"
                 readonly=""
                 type="text"
                 value="JAI"
@@ -267,9 +262,6 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
               </fieldset>
             </div>
           </div>
-          <p
-            class="MuiFormHelperText-root MuiFormHelperText-sizeMedium MuiFormHelperText-contained css-1wc848c-MuiFormHelperText-root"
-          />
         </div>
         <div
           class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
