@@ -5,24 +5,21 @@ import styles from "@/styles/Home.module.css";
 import { ResponseError } from "@/utils/type";
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { useState } from "react";
 import { z } from "zod";
 
 type Props = {
   diveLog: ShareDiveLog;
+  uuid: string;
   buddyId: number;
   buddyName: string;
 };
 
 function BuddyComment(props: Props) {
-  const { diveLog: initDivelog, buddyId, buddyName } = props;
+  const { diveLog: initDivelog, uuid, buddyId, buddyName } = props;
 
   const [diveLog, setDiveLog] = useState(initDivelog);
   const [error, setError] = useState<ResponseError>();
-
-  const router = useRouter();
-  const uuid = router.query.uuid;
 
   const handleSubmit = async (data: BuddyComment) => {
     const res = await fetch(
@@ -71,30 +68,38 @@ function BuddyComment(props: Props) {
 }
 
 const querySchema = z.object({
+  uuid: z.string(),
   buddyId: z.coerce.number(),
   buddyName: z.string(),
 });
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const uuid = context.resolvedUrl
-    .replace("/share/diveLogs/", "")
-    .replace(/\/comments.+?$/, "");
-
   // /shere/${uuid}/commentsに直接URL指定した場合は名前を指定してないので名前入力画面にリダイレクトする
   const parse = querySchema.safeParse(context.query);
   if (!parse.success) {
     return {
       redirect: {
-        destination: `/share/diveLogs/${uuid}`,
+        destination: `/share/diveLogs/${context.query.uuid}`,
         permanent: false,
       },
     };
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${uuid}`
+    `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${parse.data.uuid}`
   );
+  if (!res.ok) {
+    // TODO: エラーページに遷移させた方がいい
+    return {
+      redirect: {
+        destination: `/share/diveLogs/${context.query.uuid}`,
+        permanent: false,
+      },
+    };
+  }
+
   const diveLog = (await res.json()) as ShareDiveLog;
+  console.log(diveLog);
   return { props: { diveLog, ...parse.data } };
 }
 
