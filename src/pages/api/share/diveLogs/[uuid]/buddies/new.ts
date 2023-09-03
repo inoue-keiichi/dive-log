@@ -82,7 +82,7 @@ export default async function handler(
     if (buddyCount >= MAX_BUDDY_COUNT) {
       return res.status(400).json({
         code: "resource_limit_exceeded",
-        message: "登録できるバディの人数は10人までです。",
+        message: `登録できるバディの人数は${MAX_BUDDY_COUNT}人までです。`,
       });
     }
 
