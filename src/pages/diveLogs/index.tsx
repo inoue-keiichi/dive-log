@@ -1,10 +1,13 @@
-import Head from "next/head";
-import styles from "@/styles/Home.module.css";
+import DiveLogLinkDialog from "@/components/templates/DiveLogLinkDialog";
 import DiveLogList from "@/components/templates/DiveLogList";
-import { useRouter } from "next/router";
-import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { GetServerSidePropsContext } from "next";
 import { DiveLog } from "@/schemas/diveLog";
+import styles from "@/styles/Home.module.css";
+import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { useUser } from "@supabase/auth-helpers-react";
+import { GetServerSidePropsContext } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useState } from "react";
 
 type Props = {
   diveLogs: (DiveLog & { id: number })[];
@@ -13,7 +16,12 @@ type Props = {
 export default function DivingLogs(props: Props) {
   const { diveLogs } = props;
 
+  const [openShareDialog, setOpenShareDialog] = useState<boolean>(false);
+  const [link, setLink] = useState<string>("");
+
   const router = useRouter();
+
+  const user = useUser();
 
   return (
     <>
@@ -24,6 +32,11 @@ export default function DivingLogs(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
+        <DiveLogLinkDialog
+          open={openShareDialog}
+          link={link}
+          onClose={setOpenShareDialog}
+        />
         <DiveLogList
           data-test-id={"dive-log-card-list"}
           diveLogs={diveLogs}
@@ -31,6 +44,28 @@ export default function DivingLogs(props: Props) {
           onEdit={(id: number) =>
             router.push({ pathname: "/diveLogs/[id]", query: { id } })
           }
+          onShare={async (id: number) => {
+            if (!user) {
+              await router.replace("/");
+              return;
+            }
+
+            const res = await fetch(
+              `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs/${id}/buddy/shareLink/issue`,
+              { method: "POST" }
+            );
+            if (!res.ok) {
+              // TODO: エラー処理かく.link取得できない場合、リカバリー策あるか？
+              throw new Error();
+            }
+            const result = (await res.json()) as { link: string } | null;
+            if (!result) {
+              // TODO: エラー処理かく.link取得できない場合、リカバリー策あるか？
+              throw new Error();
+            }
+            setLink(result.link);
+            setOpenShareDialog(true);
+          }}
         />
       </main>
     </>

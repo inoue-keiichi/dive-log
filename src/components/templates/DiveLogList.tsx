@@ -13,10 +13,11 @@ type Props = {
   diveLogs: (DiveLog & { id: number })[];
   onAddNew: () => void;
   onEdit: (id: number) => void;
+  onShare: (id: number) => void;
 };
 
 const DiveLogList: FC<Props> = (props) => {
-  const { diveLogs, onAddNew, onEdit } = props;
+  const { diveLogs, onAddNew, onEdit, onShare } = props;
 
   return (
     <Stack spacing={2} sx={{ width: "50%" }}>
@@ -46,6 +47,14 @@ const DiveLogList: FC<Props> = (props) => {
                 onClick={() => onEdit(diveLog.id)}
               >
                 編集
+              </Button>
+              <Button
+                variant="contained"
+                color="inherit"
+                size="small"
+                onClick={() => onShare(diveLog.id)}
+              >
+                バディにコメントをもらう
               </Button>
             </CardActions>
           </Card>

@@ -1,4 +1,4 @@
-import { Primitive, ZodLiteral, ZodTypeAny, ZodUnion, z } from "zod";
+import { z } from "zod";
 
 const text = (between: { max: number }) => {
   const { max } = between;
@@ -92,4 +92,3 @@ export type DiveLog = z.infer<typeof diveLogSchema>;
 export type TankKind = z.infer<typeof tankKind>;
 export type Suit = z.infer<typeof suit>;
 export type Weather = z.infer<typeof weather>;
-//export type DiveLogQuery = z.infer<typeof diveLogQuerySchema>;
