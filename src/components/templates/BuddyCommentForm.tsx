@@ -26,12 +26,6 @@ const hasInvalidField = (errors: FieldErrors<DiveLog>) => {
   return Object.values(errors).filter((v) => v.message).length > 0;
 };
 
-// type BuddyComment = {
-//   name: string;
-//   text: string;
-//   createdAt: Date;
-// };
-
 type Props = {
   commenter: string;
   diveLog: ShareDiveLog;

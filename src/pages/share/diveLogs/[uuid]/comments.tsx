@@ -7,13 +7,18 @@ import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { z } from "zod";
 
 type Props = {
   diveLog: ShareDiveLog;
+  buddyId: number;
+  buddyName: string;
 };
 
 function BuddyComment(props: Props) {
-  const [diveLog, setDiveLog] = useState(props.diveLog);
+  const { diveLog: initDivelog, buddyId, buddyName } = props;
+
+  const [diveLog, setDiveLog] = useState(initDivelog);
   const [error, setError] = useState<ResponseError>();
 
   const router = useRouter();
@@ -21,7 +26,7 @@ function BuddyComment(props: Props) {
 
   const handleSubmit = async (data: BuddyComment) => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${uuid}/buddies/${router.query.buddyId}/comments/new`,
+      `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${uuid}/buddies/${buddyId}/comments/new`,
       {
         method: "POST",
         body: JSON.stringify({ ...data }),
@@ -58,20 +63,26 @@ function BuddyComment(props: Props) {
           diveLog={diveLog}
           onSubmit={handleSubmit}
           error={error}
-          commenter={router.query.buddyName as string}
+          commenter={buddyName}
         />
       </main>
     </>
   );
 }
 
+const querySchema = z.object({
+  buddyId: z.coerce.number(),
+  buddyName: z.string(),
+});
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const uuid = context.resolvedUrl
     .replace("/share/diveLogs/", "")
-    .replace(/\/comments(\?buddyId=\d+\&buddyName=.+)?$/, "");
+    .replace(/\/comments.+?$/, "");
 
   // /shere/${uuid}/commentsに直接URL指定した場合は名前を指定してないので名前入力画面にリダイレクトする
-  if (!context.resolvedUrl.match(/\?buddyId=\d+\&buddyName=.+$/)) {
+  const parse = querySchema.safeParse(context.query);
+  if (!parse.success) {
     return {
       redirect: {
         destination: `/share/diveLogs/${uuid}`,
@@ -84,7 +95,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${uuid}`
   );
   const diveLog = (await res.json()) as ShareDiveLog;
-  return { props: { diveLog } };
+  return { props: { diveLog, ...parse.data } };
 }
 
 export default BuddyComment;
