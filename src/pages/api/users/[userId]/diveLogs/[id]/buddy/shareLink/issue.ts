@@ -39,7 +39,7 @@ export default async function handler(
 
     if (exist) {
       return res.status(200).json({
-        link: `${process.env.NEXT_PUBLIC_HOST}/share/diveLogs/${exist.uuid}`,
+        link: `${process.env.NEXT_PUBLIC_BASE_URL}/share/diveLogs/${exist.uuid}`,
       });
     }
 
@@ -51,7 +51,7 @@ export default async function handler(
       },
     });
     return res.status(200).json({
-      link: `${process.env.NEXT_PUBLIC_HOST}/share/diveLogs/${newLink.uuid}`,
+      link: `${process.env.NEXT_PUBLIC_BASE_URL}/share/diveLogs/${newLink.uuid}`,
     });
   }
 

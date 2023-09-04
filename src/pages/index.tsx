@@ -26,7 +26,7 @@ export default function Home() {
       <main className={styles.main}>
         <Stack>
           <Auth
-            redirectTo={`${process.env.APP_BASE_URL}/diveLogs`}
+            redirectTo={`${process.env.NEXT_PUBLIC_BASE_URL}/diveLogs`}
             appearance={{ theme: ThemeSupa }}
             supabaseClient={supabaseClient}
             providers={["google", "github"]}

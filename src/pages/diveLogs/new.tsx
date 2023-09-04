@@ -1,9 +1,9 @@
-import Head from "next/head";
-import styles from "@/styles/Home.module.css";
 import DiveLogForm from "@/components/templates/DiveLogForm";
-import { useRouter } from "next/router";
-import { useUser } from "@supabase/auth-helpers-react";
 import { DiveLog } from "@/schemas/diveLog";
+import styles from "@/styles/Home.module.css";
+import { useUser } from "@supabase/auth-helpers-react";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function New() {
   const router = useRouter();
@@ -13,7 +13,7 @@ export default function New() {
       return await router.replace("/");
     }
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user.id}/diveLogs`,
       {
         method: "POST",
         body: JSON.stringify({ ...data }),

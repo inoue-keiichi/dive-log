@@ -21,7 +21,7 @@ function Buddy(props: Props) {
 
   const handleSubmit = async (data: Buddy) => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${uuid}/buddies/new`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/share/diveLogs/${uuid}/buddies/new`,
       {
         method: "POST",
         body: JSON.stringify({ ...data }),
@@ -60,7 +60,7 @@ function Buddy(props: Props) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const uuid = context.resolvedUrl.replace("/buddies", "");
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${uuid}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/share/diveLogs/${uuid}`
   );
   return {
     props: {

@@ -59,7 +59,7 @@ export default function DivingLogs(props: Props) {
             }
 
             const res = await fetch(
-              `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs/${id}/buddy/shareLink/issue`,
+              `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user.id}/diveLogs/${id}/buddy/shareLink/issue`,
               { method: "POST" }
             );
             if (!res.ok) {
@@ -96,7 +96,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user.id}/diveLogs`
   );
   const diveLogs = (await res.json()) as DiveLog[];
   return { props: { diveLogs } };
