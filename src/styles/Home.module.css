@@ -1,10 +1,19 @@
 .main {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  /* flex-direction: column; */
+  /* justify-content: space-between; */
+  align-items: start;
+  justify-content: center;
   padding: 6rem;
+  width: 40%;
   min-height: 100vh;
+  margin: auto;
+
+  @media screen and (max-width: 768px) {
+    /* 768pxまでの幅の場合に適応される */
+    padding: 1rem 0 1rem 0;
+    width: 100%;
+  }
 }
 
 .description {
@@ -97,7 +106,7 @@
 
 .center::before,
 .center::after {
-  content: '';
+  content: "";
   left: 50%;
   position: absolute;
   filter: blur(45px);
@@ -125,7 +134,7 @@
 
 .thirteen::before,
 .thirteen::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: -1;
 }

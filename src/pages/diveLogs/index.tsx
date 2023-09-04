@@ -42,7 +42,7 @@ export default function DivingLogs(props: Props) {
             title={"ログブックにコメントを書いてね！"}
             url={link}
           >
-            <LineIcon size={32} borderRadius={10} />
+            <LineIcon size={40} borderRadius={10} />
           </LineShareButton>
         </DiveLogLinkDialog>
         <DiveLogList

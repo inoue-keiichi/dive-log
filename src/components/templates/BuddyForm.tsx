@@ -38,7 +38,7 @@ const BuddyForm: FC<Props> = (props) => {
     <Stack
       spacing={2}
       sx={{
-        width: "50%",
+        width: "100%",
         backgroundColor: "white",
         padding: "20px 40px 20px 40px",
         borderRadius: 2,
@@ -48,7 +48,7 @@ const BuddyForm: FC<Props> = (props) => {
         onSubmit(buddy);
       })}
     >
-      <Typography variant="h6">あなたの名前を入力してください</Typography>
+      <Typography>あなたの名前を入力してください</Typography>
       <FormControl>
         <InputLabel htmlFor="name">名前</InputLabel>
         <OutlinedInput
