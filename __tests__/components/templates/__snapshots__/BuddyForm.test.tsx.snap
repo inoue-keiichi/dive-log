@@ -6,13 +6,13 @@ exports[`BuddyForm snapshot 1`] = `
   "baseElement": <body>
     <div>
       <form
-        class="MuiStack-root css-1ayxqvd-MuiStack-root"
+        class="MuiStack-root css-3e3hnu-MuiStack-root"
       >
-        <h6
-          class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+        <p
+          class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
         >
           あなたの名前を入力してください
-        </h6>
+        </p>
         <div
           class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
         >
@@ -69,13 +69,13 @@ exports[`BuddyForm snapshot 1`] = `
   </body>,
   "container": <div>
     <form
-      class="MuiStack-root css-1ayxqvd-MuiStack-root"
+      class="MuiStack-root css-3e3hnu-MuiStack-root"
     >
-      <h6
-        class="MuiTypography-root MuiTypography-h6 css-2ulfj5-MuiTypography-root"
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"
       >
         あなたの名前を入力してください
-      </h6>
+      </p>
       <div
         class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
       >

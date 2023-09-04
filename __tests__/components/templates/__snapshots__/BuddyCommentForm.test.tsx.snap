@@ -6,7 +6,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
   "baseElement": <body>
     <div>
       <div
-        class="MuiStack-root css-1mihki0-MuiStack-root"
+        class="MuiStack-root css-89v2n4-MuiStack-root"
       >
         <form
           class="MuiStack-root css-10w7mp6-MuiStack-root"
@@ -191,7 +191,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
   </body>,
   "container": <div>
     <div
-      class="MuiStack-root css-1mihki0-MuiStack-root"
+      class="MuiStack-root css-89v2n4-MuiStack-root"
     >
       <form
         class="MuiStack-root css-10w7mp6-MuiStack-root"
