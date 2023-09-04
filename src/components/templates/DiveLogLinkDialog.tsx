@@ -68,7 +68,6 @@ function DiveLogLinkDialog(props: Props) {
           {props.children}
         </Stack>
       </DialogContent>
-
       <DialogActions>
         <Button onClick={() => onClose(false)}>キャンセル</Button>
       </DialogActions>
