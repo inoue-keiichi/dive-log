@@ -1,3 +1,4 @@
+import { DialogContent, Stack, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import ClickAwayListener from "@mui/material/ClickAwayListener";
 import Dialog from "@mui/material/Dialog";
@@ -14,6 +15,7 @@ type Props = {
   open: boolean;
   link: string;
   onClose: (open: boolean) => void;
+  children?: React.ReactNode;
 };
 
 function DiveLogLinkDialog(props: Props) {
@@ -24,43 +26,48 @@ function DiveLogLinkDialog(props: Props) {
   return (
     <Dialog sx={{ p: "50px" }} onClose={() => onClose(false)} open={open}>
       <DialogTitle>バディにコメントをもらう</DialogTitle>
-      <Paper
-        sx={{
-          p: "2px 4px",
-          m: "0 10px 0 10px",
-          display: "flex",
-          alignItems: "center",
-          width: 400,
-        }}
-      >
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          defaultValue={link}
-          inputProps={{ "aria-label": "copy-path", readOnly: true }}
-        />
-        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <ClickAwayListener onClickAway={() => setShowCopied(false)}>
-          <Tooltip
-            title="コピー完了！"
-            open={showCopied}
-            onClose={() => setShowCopied(false)}
-            placement="top"
-            arrow
-            disableFocusListener
-            disableHoverListener
-            disableTouchListener
+      <DialogContent dividers>
+        <Stack spacing={2}>
+          <Paper
+            sx={{
+              p: "2px 4px",
+              display: "flex",
+              alignItems: "center",
+              width: 400,
+            }}
           >
-            <Button
-              onClick={() => {
-                copy(link);
-                setShowCopied(true);
-              }}
-            >
-              コピー
-            </Button>
-          </Tooltip>
-        </ClickAwayListener>
-      </Paper>
+            <InputBase
+              sx={{ ml: 1, flex: 1 }}
+              defaultValue={link}
+              inputProps={{ "aria-label": "copy-path", readOnly: true }}
+            />
+            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+            <ClickAwayListener onClickAway={() => setShowCopied(false)}>
+              <Tooltip
+                title="コピー完了！"
+                open={showCopied}
+                onClose={() => setShowCopied(false)}
+                placement="top"
+                arrow
+                disableFocusListener
+                disableHoverListener
+                disableTouchListener
+              >
+                <Button
+                  onClick={() => {
+                    copy(link);
+                    setShowCopied(true);
+                  }}
+                >
+                  コピー
+                </Button>
+              </Tooltip>
+            </ClickAwayListener>
+          </Paper>
+          <Typography>SNSで共有する</Typography>
+          {props.children}
+        </Stack>
+      </DialogContent>
       <DialogActions>
         <Button onClick={() => onClose(false)}>キャンセル</Button>
       </DialogActions>
