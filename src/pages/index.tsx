@@ -1,10 +1,10 @@
-import Head from "next/head";
 import styles from "@/styles/Home.module.css";
-import { useRouter } from "next/router";
 import { Stack } from "@mui/material";
-import { Auth } from "@supabase/auth-ui-react";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const router = useRouter();
@@ -26,7 +26,7 @@ export default function Home() {
       <main className={styles.main}>
         <Stack>
           <Auth
-            redirectTo="http://localhost:3000/diveLogs"
+            redirectTo={`${process.env.APP_BASE_URL}/diveLogs`}
             appearance={{ theme: ThemeSupa }}
             supabaseClient={supabaseClient}
             providers={["google", "github"]}
