@@ -60,7 +60,7 @@ const BuddyCommentForm: FC<Props> = (props) => {
 
   return (
     <Stack
-      sx={{ width: "50%", backgroundColor: "white", borderRadius: 2 }}
+      sx={{ width: "100%", backgroundColor: "white", borderRadius: 2 }}
       spacing={2}
     >
       <Stack

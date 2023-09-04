@@ -5,38 +5,38 @@ import {
   Weather,
   diveLogSchema,
 } from "@/schemas/diveLog";
+import { getSimpleDate } from "@/utils/commons";
+import { zodResolver } from "@hookform/resolvers/zod";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import DeleteIcon from "@mui/icons-material/Delete";
 import {
   Button,
   FormControl,
-  Stack,
-  FormHelperText,
-  InputLabel,
-  InputAdornment,
-  OutlinedInput,
-  IconButton,
-  Grid,
-  FormLabel,
-  RadioGroup,
   FormControlLabel,
+  FormHelperText,
+  FormLabel,
+  Grid,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
   Radio,
+  RadioGroup,
+  Stack,
 } from "@mui/material";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { TimePicker } from "@mui/x-date-pickers/TimePicker";
+import dayjs from "dayjs";
 import { FC } from "react";
 import { Controller, FieldErrors, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { getSimpleDate } from "@/utils/commons";
-import DeleteIcon from "@mui/icons-material/Delete";
 import {
-  WiDaySunny,
   WiCloud,
   WiDayCloudy,
+  WiDaySunny,
   WiRain,
   WiSnow,
 } from "react-icons/wi";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
 
 const DIVING_TIME_FORMAT = "HH:mm";
 
@@ -66,7 +66,7 @@ const DiveLogForm: FC<Props> = (props) => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Stack spacing={2}>
+      <Stack spacing={2} sx={{ width: "100%" }}>
         <Grid container justifyContent={"space-between"}>
           <Grid item>
             <IconButton
@@ -95,7 +95,11 @@ const DiveLogForm: FC<Props> = (props) => {
           onSubmit={handleSubmit((divelog) => {
             onSubmit(divelog);
           })}
-          sx={{ backgroundColor: "white", padding: "50px", borderRadius: 5 }}
+          sx={{
+            backgroundColor: "white",
+            padding: "50px",
+            borderRadius: 2,
+          }}
         >
           <FormControl>
             <InputLabel htmlFor="date">日付</InputLabel>

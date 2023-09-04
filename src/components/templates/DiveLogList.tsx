@@ -20,7 +20,7 @@ const DiveLogList: FC<Props> = (props) => {
   const { diveLogs, onAddNew, onEdit, onShare } = props;
 
   return (
-    <Stack spacing={2} sx={{ width: "50%" }}>
+    <Stack spacing={2} sx={{ width: "100%" }}>
       <Button
         sx={{ width: "100px", marginLeft: "auto", marginRight: "auto" }}
         variant="contained"
