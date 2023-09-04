@@ -1,7 +1,5 @@
 .main {
   display: flex;
-  /* flex-direction: column; */
-  /* justify-content: space-between; */
   align-items: start;
   justify-content: center;
   padding: 6rem;
