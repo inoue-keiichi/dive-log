@@ -8,6 +8,7 @@ import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { LineIcon, LineShareButton } from "react-share";
 
 type Props = {
   diveLogs: (DiveLog & { id: number })[];
@@ -36,7 +37,14 @@ export default function DivingLogs(props: Props) {
           open={openShareDialog}
           link={link}
           onClose={setOpenShareDialog}
-        />
+        >
+          <LineShareButton
+            title={"ログブックにコメントを書いてね！"}
+            url={link}
+          >
+            <LineIcon size={32} borderRadius={10} />
+          </LineShareButton>
+        </DiveLogLinkDialog>
         <DiveLogList
           data-test-id={"dive-log-card-list"}
           diveLogs={diveLogs}
