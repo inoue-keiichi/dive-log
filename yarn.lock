@@ -1271,13 +1271,6 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/clipboardy@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@types/clipboardy/-/clipboardy-2.0.1.tgz#91f694d47c0e716da7549d3baeca58a29a46d2b4"
-  integrity sha512-vLJm1iL6jFfEd+3/J4WTC65ppyGyaRTjpoB8bPhtiSrOCD0LFDr9GQYhoYNAsbt6JaY0amYacloIEEEOYUkkFg==
-  dependencies:
-    clipboardy "*"
-
 "@types/eslint@8.21.3":
   version "8.21.3"
   resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-8.21.3.tgz#5794b3911f0f19e34e3a272c49cbdf48d6f543f2"
@@ -2037,7 +2030,7 @@ client-only@0.0.1:
   resolved "https://registry.yarnpkg.com/client-only/-/client-only-0.0.1.tgz#38bba5d403c41ab150bff64a95c85013cf73bca1"
   integrity sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==
 
-clipboardy@*, clipboardy@^3.0.0:
+clipboardy@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/clipboardy/-/clipboardy-3.0.0.tgz#f3876247404d334c9ed01b6f269c11d09a5e3092"
   integrity sha512-Su+uU5sr1jkUy1sGRpLKjKrvEOVXgSgiSInwa/qeID6aJ07yh+5NWc3h2QfjHjBnfX4LhtFcuAWKUsJ3r+fjbg==
