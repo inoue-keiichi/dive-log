@@ -1,5 +1,6 @@
 import { prisma } from "@/clients/prisma";
 import { diveLogQuerySchema } from "@/schemas/diveLog";
+import { SITE_URL } from "@/utils/commons";
 import { ResponseError } from "@/utils/type";
 import dayjs from "dayjs";
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -39,7 +40,7 @@ export default async function handler(
 
     if (exist) {
       return res.status(200).json({
-        link: `${process.env.NEXT_PUBLIC_BASE_URL}/share/diveLogs/${exist.uuid}`,
+        link: `${SITE_URL}/share/diveLogs/${exist.uuid}`,
       });
     }
 
@@ -51,7 +52,7 @@ export default async function handler(
       },
     });
     return res.status(200).json({
-      link: `${process.env.NEXT_PUBLIC_BASE_URL}/share/diveLogs/${newLink.uuid}`,
+      link: `${SITE_URL}/share/diveLogs/${newLink.uuid}`,
     });
   }
 
