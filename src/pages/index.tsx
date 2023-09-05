@@ -17,6 +17,7 @@ export default function Home() {
   return (
     <Stack>
       <Auth
+        providers={[]}
         redirectTo={SITE_URL}
         appearance={{ theme: ThemeSupa }}
         supabaseClient={supabaseClient}
