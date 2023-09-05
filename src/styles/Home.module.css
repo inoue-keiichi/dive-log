@@ -6,6 +6,7 @@
   width: 40%;
   min-height: 100vh;
   margin: auto;
+  overflow: hidden;
 
   @media screen and (max-width: 768px) {
     /* 768pxまでの幅の場合に適応される */
