@@ -23,7 +23,7 @@ function BuddyComment(props: Props) {
 
   const handleSubmit = async (data: BuddyComment) => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${uuid}/buddies/${buddyId}/comments/new`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/share/diveLogs/${uuid}/buddies/${buddyId}/comments/new`,
       {
         method: "POST",
         body: JSON.stringify({ ...data }),
@@ -37,7 +37,7 @@ function BuddyComment(props: Props) {
     // 自分や他ユーザーが追加したコメントを表示できるようにコメントを再取得する
     // コメントのポストに失敗しても他ユーザーがコメントしている可能性がある
     const resDiveLog = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${uuid}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/share/diveLogs/${uuid}`
     );
     if (!resDiveLog.ok) {
       setError(await res.json());
@@ -86,7 +86,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/share/diveLogs/${parse.data.uuid}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/share/diveLogs/${parse.data.uuid}`
   );
   if (!res.ok) {
     // TODO: エラーページに遷移させた方がいい

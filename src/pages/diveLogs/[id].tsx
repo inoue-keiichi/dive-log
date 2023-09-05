@@ -1,11 +1,11 @@
-import Head from "next/head";
-import styles from "@/styles/Home.module.css";
 import DiveLogForm from "@/components/templates/DiveLogForm";
-import { useRouter } from "next/router";
 import { DiveLog } from "@/schemas/diveLog";
-import { useUser } from "@supabase/auth-helpers-react";
+import styles from "@/styles/Home.module.css";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { useUser } from "@supabase/auth-helpers-react";
 import { GetServerSidePropsContext } from "next";
+import Head from "next/head";
+import { useRouter } from "next/router";
 
 type Props = {
   diveLog: DiveLog;
@@ -22,7 +22,7 @@ function Exist(props: Props) {
       return await router.replace("/");
     }
     await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs/${router.query.id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user.id}/diveLogs/${router.query.id}`,
       {
         method: "PUT",
         body: JSON.stringify(data),
@@ -36,7 +36,7 @@ function Exist(props: Props) {
       return await router.replace("/");
     }
     await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs/${router.query.id}`,
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user.id}/diveLogs/${router.query.id}`,
       {
         method: "DELETE",
       }
@@ -79,7 +79,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     };
   }
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/users/${user.id}/diveLogs/${context.query.id}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${user.id}/diveLogs/${context.query.id}`
   );
   const diveLog = (await res.json()) as DiveLog;
   return { props: { diveLog } };
