@@ -6,7 +6,7 @@ import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LineIcon, LineShareButton } from "react-share";
 
 type Props = {
@@ -22,6 +22,11 @@ export default function DivingLogs(props: Props) {
   const router = useRouter();
 
   const user = useUser();
+
+  useEffect(() => {
+    router.prefetch("/diveLogs/new");
+    router.prefetch("/diveLogs/[id]");
+  }, [router]);
 
   return (
     <>

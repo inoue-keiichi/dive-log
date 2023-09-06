@@ -3,6 +3,7 @@ import { DiveLog } from "@/schemas/diveLog";
 import { SITE_URL } from "@/utils/commons";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function New() {
   const router = useRouter();
@@ -19,6 +20,10 @@ export default function New() {
       router.push("/diveLogs");
     }
   };
+
+  useEffect(() => {
+    router.prefetch("/diveLogs");
+  }, [router]);
 
   return (
     <DiveLogForm
