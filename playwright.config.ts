@@ -46,18 +46,18 @@ const config: PlaywrightTestConfig = {
   },
 
   projects: [
-    // {
-    //   name: "Desktop Chrome",
-    //   use: {
-    //     ...devices["Desktop Chrome"],
-    //   },
-    // },
     {
-      name: "Desktop Firefox",
+      name: "Desktop Chrome",
       use: {
-        ...devices["Desktop Firefox"],
+        ...devices["Desktop Chrome"],
       },
     },
+    // {
+    //   name: "Desktop Firefox",
+    //   use: {
+    //     ...devices["Desktop Firefox"],
+    //   },
+    // },
     // {
     //   name: 'Desktop Safari',
     //   use: {

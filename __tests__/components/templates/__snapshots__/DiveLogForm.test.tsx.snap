@@ -6,7 +6,7 @@ exports[`snapshot test existing Dive log form 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="MuiStack-root css-1p5q5e5-MuiStack-root"
+        class="MuiStack-root css-f779bt-MuiStack-root"
       >
         <div
           class="MuiGrid-root MuiGrid-container css-1xzqqmo-MuiGrid-root"
@@ -38,7 +38,7 @@ exports[`snapshot test existing Dive log form 1`] = `
           </div>
         </div>
         <form
-          class="MuiStack-root css-16gsovv-MuiStack-root"
+          class="MuiStack-root css-nh988t-MuiStack-root"
         >
           <div
             class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
@@ -1225,7 +1225,7 @@ exports[`snapshot test existing Dive log form 1`] = `
   </body>,
   "container": <div>
     <div
-      class="MuiStack-root css-1p5q5e5-MuiStack-root"
+      class="MuiStack-root css-f779bt-MuiStack-root"
     >
       <div
         class="MuiGrid-root MuiGrid-container css-1xzqqmo-MuiGrid-root"
@@ -1257,7 +1257,7 @@ exports[`snapshot test existing Dive log form 1`] = `
         </div>
       </div>
       <form
-        class="MuiStack-root css-16gsovv-MuiStack-root"
+        class="MuiStack-root css-nh988t-MuiStack-root"
       >
         <div
           class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
@@ -2501,7 +2501,7 @@ exports[`snapshot test new Dive log form 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="MuiStack-root css-1p5q5e5-MuiStack-root"
+        class="MuiStack-root css-f779bt-MuiStack-root"
       >
         <div
           class="MuiGrid-root MuiGrid-container css-1xzqqmo-MuiGrid-root"
@@ -2533,7 +2533,7 @@ exports[`snapshot test new Dive log form 1`] = `
           </div>
         </div>
         <form
-          class="MuiStack-root css-16gsovv-MuiStack-root"
+          class="MuiStack-root css-nh988t-MuiStack-root"
         >
           <div
             class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
@@ -3715,7 +3715,7 @@ exports[`snapshot test new Dive log form 1`] = `
   </body>,
   "container": <div>
     <div
-      class="MuiStack-root css-1p5q5e5-MuiStack-root"
+      class="MuiStack-root css-f779bt-MuiStack-root"
     >
       <div
         class="MuiGrid-root MuiGrid-container css-1xzqqmo-MuiGrid-root"
@@ -3747,7 +3747,7 @@ exports[`snapshot test new Dive log form 1`] = `
         </div>
       </div>
       <form
-        class="MuiStack-root css-16gsovv-MuiStack-root"
+        class="MuiStack-root css-nh988t-MuiStack-root"
       >
         <div
           class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"

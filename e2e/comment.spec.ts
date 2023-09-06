@@ -22,7 +22,12 @@ const diveLog = {
   memo: "Good Diving!!",
 };
 
-test("create a new DiveLog with sign up", async ({ page }) => {
+test("create a new DiveLog with sign up", async ({ context, page }) => {
+  // 権限を追加する
+  await context.grantPermissions([
+    "clipboard-write", // ブラウザの操作で必要
+    "clipboard-read", // テストでの検証で必要
+  ]);
   const pagePilot = new PagePilot(page);
 
   // Start from the index page (the baseURL is set via the webServer in the playwright.config.ts)
@@ -48,9 +53,13 @@ test("create a new DiveLog with sign up", async ({ page }) => {
     .getByTestId("dive-log-card-0")
     .getByText("バディにコメントをもらう")
     .click();
-  await page.getByText("コピー").click();
+  await page.getByText("コメントページのリンクをコピー").click();
+  // クリップボードの中身を取得して検証
+  const url = await page.evaluate(async () => {
+    return await navigator.clipboard.readText();
+  });
+  expect(url).toMatch(/http:\/\/localhost:3000\/share\/diveLogs\/[\d\w-]+/);
 
-  const url = await page.getByLabel("copy-path").getAttribute("value");
   await page.goto(url!);
   await page.getByLabel("名前").fill(`井上`);
   await page.getByText("次へ").click();
