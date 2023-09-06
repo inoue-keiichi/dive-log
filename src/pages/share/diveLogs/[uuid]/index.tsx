@@ -3,6 +3,7 @@ import { NewBuddy } from "@/pages/api/share/diveLogs/[uuid]/buddies/new";
 import { Buddy } from "@/schemas/buudy";
 import { SITE_URL } from "@/utils/commons";
 import { ResponseError } from "@/utils/type";
+import { CircularProgress, Fade } from "@mui/material";
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -14,6 +15,7 @@ type Props = {
 function Buddy(props: Props) {
   const [uuidValid, setUuidValid] = useState(props.uuidValid);
   const [error, setError] = useState<ResponseError>();
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
   const uuid = router.query.uuid;
@@ -41,7 +43,21 @@ function Buddy(props: Props) {
 
   // TODO: uuidが正しいか確認する処理を追加する。正しくない場合はエラーページに遷移させる
 
-  return <BuddyForm onSubmit={handleSubmit} error={error} />;
+  return (
+    <>
+      <Fade in={loading}>
+        <CircularProgress />
+      </Fade>
+      <BuddyForm
+        onSubmit={(data) => {
+          setLoading(true);
+          handleSubmit(data);
+          setLoading(false);
+        }}
+        error={error}
+      />
+    </>
+  );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
