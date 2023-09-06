@@ -5,6 +5,7 @@ import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 type Props = {
   diveLog: DiveLog;
@@ -42,6 +43,10 @@ function Exist(props: Props) {
     );
     router.push("/diveLogs");
   };
+
+  useEffect(() => {
+    router.prefetch("/diveLogs");
+  }, [router]);
 
   return (
     <DiveLogForm
