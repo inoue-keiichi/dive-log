@@ -2,9 +2,7 @@ import DiveLogLinkDialog from "@/components/templates/DiveLogLinkDialog";
 import DiveLogList from "@/components/templates/DiveLogList";
 import { DiveLog } from "@/schemas/diveLog";
 import { SITE_URL } from "@/utils/commons";
-import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
-import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { LineIcon, LineShareButton } from "react-share";
@@ -38,14 +36,14 @@ export default function DivingLogs() {
     })();
   }, [user]);
 
-  // if (!router.isReady) {
-  //   return <CircularProgress />;
-  // }
+  if (!router.isReady) {
+    return <></>;
+  }
 
-  // if (!user) {
-  //   router.push("/");
-  //   return;
-  // }
+  if (!user) {
+    router.push("/");
+    return;
+  }
 
   return (
     <>
@@ -90,21 +88,4 @@ export default function DivingLogs() {
       />
     </>
   );
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const supabaseServerClient = createServerSupabaseClient(context);
-  const {
-    data: { user },
-  } = await supabaseServerClient.auth.getUser();
-
-  if (!user) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-  return { props: {} };
 }

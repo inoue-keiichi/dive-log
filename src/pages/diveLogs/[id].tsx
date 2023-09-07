@@ -5,17 +5,31 @@ import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-type Props = {
-  diveLog: DiveLog;
-};
+// type Props = {
+//   diveLog: DiveLog;
+// };
 
-function Exist(props: Props) {
-  const { diveLog } = props;
+function Exist() {
+  // const { diveLog } = props;
+  const [diveLog, setDiveLog] = useState<DiveLog>();
 
   const user = useUser();
   const router = useRouter();
+
+  useEffect(() => {
+    (async () => {
+      if (!user) {
+        return;
+      }
+      const res = await fetch(
+        `${SITE_URL}/api/users/${user.id}/diveLogs/${router.query.id}`
+      );
+      const diveLog = (await res.json()) as DiveLog;
+      setDiveLog(diveLog);
+    })();
+  }, [user, router]);
 
   const onSubmit = async (data: DiveLog) => {
     if (!user) {
@@ -72,11 +86,11 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
-  const res = await fetch(
-    `${SITE_URL}/api/users/${user.id}/diveLogs/${context.query.id}`
-  );
-  const diveLog = (await res.json()) as DiveLog;
-  return { props: { diveLog } };
+  // const res = await fetch(
+  //   `${SITE_URL}/api/users/${user.id}/diveLogs/${context.query.id}`
+  // );
+  // const diveLog = (await res.json()) as DiveLog;
+  return { props: {} };
 }
 
 export default Exist;
