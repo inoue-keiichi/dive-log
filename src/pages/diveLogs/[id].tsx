@@ -5,10 +5,6 @@ import { useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-// type Props = {
-//   diveLog: DiveLog;
-// };
-
 function Exist() {
   // const { diveLog } = props;
   const [diveLog, setDiveLog] = useState<DiveLog>();
