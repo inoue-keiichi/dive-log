@@ -3,22 +3,46 @@ import { ShareDiveLog } from "@/pages/api/share/diveLogs/[uuid]";
 import { BuddyComment } from "@/schemas/buudy";
 import { SITE_URL } from "@/utils/commons";
 import { ResponseError } from "@/utils/type";
-import { GetServerSidePropsContext } from "next";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 
-type Props = {
-  diveLog: ShareDiveLog;
-  uuid: string;
-  buddyId: number;
-  buddyName: string;
-};
-
-function BuddyComment(props: Props) {
-  const { diveLog: initDivelog, uuid, buddyId, buddyName } = props;
-
-  const [diveLog, setDiveLog] = useState(initDivelog);
+function BuddyComment() {
+  const [diveLog, setDiveLog] = useState<ShareDiveLog>();
   const [error, setError] = useState<ResponseError>();
+
+  const router = useRouter();
+  const { uuid } = router.query;
+
+  useEffect(() => {
+    if (!uuid) {
+      return;
+    }
+
+    (async () => {
+      const res = await fetch(`${SITE_URL}/api/share/diveLogs/${uuid}`);
+      if (!res.ok) {
+        // TODO: エラーページに遷移させた方がいい
+        setError(await res.json());
+        return;
+      }
+
+      const diveLog = (await res.json()) as ShareDiveLog;
+      setDiveLog(diveLog);
+    })();
+  }, [uuid]);
+
+  if (!router.isReady) {
+    return <></>;
+  }
+
+  const parse = querySchema.safeParse(router.query);
+  if (!parse.success) {
+    router.push(`/share/diveLogs/${uuid}`);
+    return;
+  }
+
+  const { buddyId, buddyName } = parse.data;
 
   const handleSubmit = async (data: BuddyComment) => {
     const res = await fetch(
@@ -44,12 +68,16 @@ function BuddyComment(props: Props) {
     setDiveLog(diveLog);
   };
 
+  if (!diveLog || !buddyName) {
+    return <></>;
+  }
+
   return (
     <BuddyCommentForm
       diveLog={diveLog}
       onSubmit={handleSubmit}
       error={error}
-      commenter={buddyName}
+      commenter={buddyName as string}
     />
   );
 }
@@ -59,33 +87,5 @@ const querySchema = z.object({
   buddyId: z.coerce.number(),
   buddyName: z.string(),
 });
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  // /shere/${uuid}/commentsに直接URL指定した場合は名前を指定してないので名前入力画面にリダイレクトする
-  const parse = querySchema.safeParse(context.query);
-  if (!parse.success) {
-    return {
-      redirect: {
-        destination: `/share/diveLogs/${context.query.uuid}`,
-        permanent: false,
-      },
-    };
-  }
-
-  const res = await fetch(`${SITE_URL}/api/share/diveLogs/${parse.data.uuid}`);
-  if (!res.ok) {
-    // TODO: エラーページに遷移させた方がいい
-    return {
-      redirect: {
-        destination: `/share/diveLogs/${context.query.uuid}`,
-        permanent: false,
-      },
-    };
-  }
-
-  const diveLog = (await res.json()) as ShareDiveLog;
-  console.log(diveLog);
-  return { props: { diveLog, ...parse.data } };
-}
 
 export default BuddyComment;
