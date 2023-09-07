@@ -9,13 +9,8 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { LineIcon, LineShareButton } from "react-share";
 
-type Props = {
-  diveLogs: (DiveLog & { id: number })[];
-};
-
-export default function DivingLogs(props: Props) {
-  const { diveLogs } = props;
-
+export default function DivingLogs() {
+  const [diveLogs, setDiveLogs] = useState<(DiveLog & { id: number })[]>([]);
   const [openShareDialog, setOpenShareDialog] = useState<boolean>(false);
   const [link, setLink] = useState<string>("");
 
@@ -27,6 +22,30 @@ export default function DivingLogs(props: Props) {
     router.prefetch("/diveLogs/new");
     router.prefetch("/diveLogs/[id]");
   }, [router]);
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+    (async () => {
+      const res = await fetch(`${SITE_URL}/api/users/${user.id}/diveLogs`);
+      if (!res.ok) {
+        // TODO: エラーページ遷移
+        return;
+      }
+      const diveLogs = (await res.json()) as (DiveLog & { id: number })[];
+      setDiveLogs(diveLogs);
+    })();
+  }, [user]);
+
+  // if (!router.isReady) {
+  //   return <CircularProgress />;
+  // }
+
+  // if (!user) {
+  //   router.push("/");
+  //   return;
+  // }
 
   return (
     <>
@@ -87,8 +106,5 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
-
-  const res = await fetch(`${SITE_URL}/api/users/${user.id}/diveLogs`);
-  const diveLogs = (await res.json()) as DiveLog[];
-  return { props: { diveLogs } };
+  return { props: {} };
 }
