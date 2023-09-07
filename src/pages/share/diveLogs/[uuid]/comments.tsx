@@ -3,9 +3,9 @@ import { ShareDiveLog } from "@/pages/api/share/diveLogs/[uuid]";
 import { BuddyComment } from "@/schemas/buudy";
 import { SITE_URL } from "@/utils/commons";
 import { ResponseError } from "@/utils/type";
-import { CircularProgress, Fade } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import { GetServerSidePropsContext } from "next";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { z } from "zod";
 
 type Props = {
@@ -48,19 +48,18 @@ function BuddyComment(props: Props) {
 
   return (
     <>
-      <Fade in={loading}>
-        <CircularProgress />
-      </Fade>
-      <BuddyCommentForm
-        diveLog={diveLog}
-        onSubmit={(data) => {
-          setLoading(true);
-          handleSubmit(data);
-          setLoading(false);
-        }}
-        error={error}
-        commenter={buddyName}
-      />
+      <Suspense fallback={<CircularProgress />}>
+        <BuddyCommentForm
+          diveLog={diveLog}
+          onSubmit={(data) => {
+            setLoading(true);
+            handleSubmit(data);
+            setLoading(false);
+          }}
+          error={error}
+          commenter={buddyName}
+        />
+      </Suspense>
     </>
   );
 }

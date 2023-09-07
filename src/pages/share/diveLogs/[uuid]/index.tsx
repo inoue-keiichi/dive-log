@@ -3,10 +3,10 @@ import { NewBuddy } from "@/pages/api/share/diveLogs/[uuid]/buddies/new";
 import { Buddy } from "@/schemas/buudy";
 import { SITE_URL } from "@/utils/commons";
 import { ResponseError } from "@/utils/type";
-import { CircularProgress, Fade } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 type Props = {
   uuidValid: boolean;
@@ -21,24 +21,40 @@ function Buddy(props: Props) {
   const uuid = router.query.uuid;
 
   const handleSubmit = async (data: Buddy) => {
-    const res = await fetch(
-      `${SITE_URL}/api/share/diveLogs/${uuid}/buddies/new`,
-      {
-        method: "POST",
-        body: JSON.stringify({ ...data }),
+    throw fetch(`${SITE_URL}/api/share/diveLogs/${uuid}/buddies/new`, {
+      method: "POST",
+      body: JSON.stringify({ ...data }),
+    }).then(async (res) => {
+      if (!res.ok) {
+        setError(await res.json());
+        return;
       }
-    );
-    if (!res.ok) {
-      setError(await res.json());
-      return;
-    }
+      const { buddyId } = (await res.json()) as NewBuddy;
 
-    const { buddyId } = (await res.json()) as NewBuddy;
-
-    router.push({
-      pathname: "[uuid]/comments",
-      query: { uuid, buddyId, buddyName: data.name },
+      router.push({
+        pathname: "[uuid]/comments",
+        query: { uuid, buddyId, buddyName: data.name },
+      });
     });
+
+    // const res = await fetch(
+    //   `${SITE_URL}/api/share/diveLogs/${uuid}/buddies/new`,
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify({ ...data }),
+    //   }
+    // );
+    // if (!res.ok) {
+    //   setError(await res.json());
+    //   return;
+    // }
+
+    // const { buddyId } = (await res.json()) as NewBuddy;
+
+    // router.push({
+    //   pathname: "[uuid]/comments",
+    //   query: { uuid, buddyId, buddyName: data.name },
+    // });
   };
 
   useEffect(() => {
@@ -49,17 +65,14 @@ function Buddy(props: Props) {
 
   return (
     <>
-      <Fade in={loading}>
-        <CircularProgress />
-      </Fade>
-      <BuddyForm
-        onSubmit={(data) => {
-          setLoading(true);
-          handleSubmit(data);
-          setLoading(false);
-        }}
-        error={error}
-      />
+      <Suspense fallback={<CircularProgress />}>
+        <BuddyForm
+          onSubmit={(data) => {
+            throw handleSubmit(data);
+          }}
+          error={error}
+        />
+      </Suspense>
     </>
   );
 }
