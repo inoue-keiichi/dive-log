@@ -4,11 +4,16 @@ import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function Home() {
   const router = useRouter();
   const supabaseClient = useSupabaseClient();
   const user = useUser();
+
+  useEffect(() => {
+    router.prefetch("/diveLogs");
+  }, [router]);
 
   if (user) {
     router.push("/diveLogs");

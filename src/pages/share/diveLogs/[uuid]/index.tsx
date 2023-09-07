@@ -6,7 +6,7 @@ import { ResponseError } from "@/utils/type";
 import { CircularProgress, Fade } from "@mui/material";
 import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   uuidValid: boolean;
@@ -36,10 +36,14 @@ function Buddy(props: Props) {
     const { buddyId } = (await res.json()) as NewBuddy;
 
     router.push({
-      pathname: `${uuid}/comments`,
-      query: { buddyId, buddyName: data.name },
+      pathname: "[uuid]/comments",
+      query: { uuid, buddyId, buddyName: data.name },
     });
   };
+
+  useEffect(() => {
+    router.prefetch("[uuid]/comments");
+  }, [router]);
 
   // TODO: uuidが正しいか確認する処理を追加する。正しくない場合はエラーページに遷移させる
 

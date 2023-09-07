@@ -4,7 +4,7 @@ import { SITE_URL } from "@/utils/commons";
 import { CircularProgress, Fade } from "@mui/material";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function New() {
   const router = useRouter();
@@ -23,6 +23,10 @@ export default function New() {
       router.push("/diveLogs");
     }
   };
+
+  useEffect(() => {
+    router.prefetch("/diveLogs");
+  }, [router]);
 
   return (
     <>
