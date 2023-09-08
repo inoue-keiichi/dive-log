@@ -1,6 +1,5 @@
 import DiveLogForm from "@/components/templates/DiveLogForm";
 import { DiveLog } from "@/schemas/diveLog";
-import styles from "@/styles/Home.module.css";
 import { SITE_URL } from "@/utils/commons";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
@@ -27,11 +26,9 @@ export default function New() {
   }, [router]);
 
   return (
-    <main className={styles.main}>
-      <DiveLogForm
-        onSubmit={handleSubmit}
-        onBack={() => router.push("/diveLogs")}
-      />
-    </main>
+    <DiveLogForm
+      onSubmit={handleSubmit}
+      onBack={() => router.push("/diveLogs")}
+    />
   );
 }

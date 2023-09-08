@@ -1,6 +1,5 @@
 import DiveLogForm from "@/components/templates/DiveLogForm";
 import { DiveLog } from "@/schemas/diveLog";
-import styles from "@/styles/Home.module.css";
 import { SITE_URL } from "@/utils/commons";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
@@ -66,14 +65,12 @@ function Exist() {
   }
 
   return (
-    <main className={styles.main}>
-      <DiveLogForm
-        diveLog={diveLog}
-        onSubmit={onSubmit}
-        onBack={() => router.push("/diveLogs")}
-        onDelete={onDelete}
-      />
-    </main>
+    <DiveLogForm
+      diveLog={diveLog}
+      onSubmit={onSubmit}
+      onBack={() => router.push("/diveLogs")}
+      onDelete={onDelete}
+    />
   );
 }
 

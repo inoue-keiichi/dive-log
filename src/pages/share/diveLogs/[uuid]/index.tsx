@@ -1,7 +1,6 @@
 import BuddyForm from "@/components/templates/BuddyForm";
 import { NewBuddy } from "@/pages/api/share/diveLogs/[uuid]/buddies/new";
 import { Buddy } from "@/schemas/buudy";
-import styles from "@/styles/Home.module.css";
 import { SITE_URL } from "@/utils/commons";
 import { ResponseError } from "@/utils/type";
 import { useRouter } from "next/router";
@@ -51,11 +50,7 @@ function Buddy() {
 
   // TODO: uuidが正しいか確認する処理を追加する。正しくない場合はエラーページに遷移させる
 
-  return (
-    <main className={styles.main}>
-      <BuddyForm onSubmit={handleSubmit} error={error} />
-    </main>
-  );
+  return <BuddyForm onSubmit={handleSubmit} error={error} />;
 }
 
 export default Buddy;
