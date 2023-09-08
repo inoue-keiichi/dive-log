@@ -1,6 +1,7 @@
 import DiveLogLinkDialog from "@/components/templates/DiveLogLinkDialog";
 import DiveLogList from "@/components/templates/DiveLogList";
 import { DiveLog } from "@/schemas/diveLog";
+import styles from "@/styles/Home.module.css";
 import { SITE_URL } from "@/utils/commons";
 import { useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
@@ -46,7 +47,7 @@ export default function DivingLogs() {
   }
 
   return (
-    <>
+    <main className={styles.main}>
       <DiveLogLinkDialog
         open={openShareDialog}
         link={link}
@@ -86,6 +87,6 @@ export default function DivingLogs() {
           setOpenShareDialog(true);
         }}
       />
-    </>
+    </main>
   );
 }

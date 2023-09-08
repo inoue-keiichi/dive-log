@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import styles from "@/styles/Home.module.css";
+
 import "@/styles/globals.css";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
@@ -25,9 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
           />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <main className={styles.main}>
-          <Component {...pageProps} />
-        </main>
+        <Component {...pageProps} />
       </Layout>
     </SessionContextProvider>
   );

@@ -1,17 +1,14 @@
 import BuddyForm from "@/components/templates/BuddyForm";
 import { NewBuddy } from "@/pages/api/share/diveLogs/[uuid]/buddies/new";
 import { Buddy } from "@/schemas/buudy";
+import styles from "@/styles/Home.module.css";
 import { SITE_URL } from "@/utils/commons";
 import { ResponseError } from "@/utils/type";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-type Props = {
-  uuidValid: boolean;
-};
-
-function Buddy(props: Props) {
-  const [uuidValid, setUuidValid] = useState(props.uuidValid);
+function Buddy() {
+  const [uuidValid, setUuidValid] = useState(true);
   const [error, setError] = useState<ResponseError>();
 
   const router = useRouter();
@@ -54,7 +51,11 @@ function Buddy(props: Props) {
 
   // TODO: uuidが正しいか確認する処理を追加する。正しくない場合はエラーページに遷移させる
 
-  return <BuddyForm onSubmit={handleSubmit} error={error} />;
+  return (
+    <main className={styles.main}>
+      <BuddyForm onSubmit={handleSubmit} error={error} />
+    </main>
+  );
 }
 
 export default Buddy;
