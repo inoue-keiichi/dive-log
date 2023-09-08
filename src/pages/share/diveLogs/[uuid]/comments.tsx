@@ -1,4 +1,3 @@
-import Loading from "@/components/molecules/Loading";
 import BuddyCommentForm from "@/components/templates/BuddyCommentForm";
 import { ShareDiveLog } from "@/pages/api/share/diveLogs/[uuid]";
 import { BuddyComment } from "@/schemas/buudy";
@@ -70,7 +69,7 @@ function BuddyComment() {
   };
 
   if (!diveLog || !buddyName) {
-    return <Loading />;
+    return <></>;
   }
 
   return (
