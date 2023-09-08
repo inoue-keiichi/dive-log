@@ -1,8 +1,6 @@
-import Loading from "@/components/molecules/Loading";
 import BuddyCommentForm from "@/components/templates/BuddyCommentForm";
 import { ShareDiveLog } from "@/pages/api/share/diveLogs/[uuid]";
 import { BuddyComment } from "@/schemas/buudy";
-import styles from "@/styles/Home.module.css";
 import { SITE_URL } from "@/utils/commons";
 import { ResponseError } from "@/utils/type";
 import { useRouter } from "next/router";
@@ -71,18 +69,16 @@ function BuddyComment() {
   };
 
   if (!diveLog || !buddyName) {
-    return <Loading />;
+    return <></>;
   }
 
   return (
-    <main className={styles.main}>
-      <BuddyCommentForm
-        diveLog={diveLog}
-        onSubmit={handleSubmit}
-        error={error}
-        commenter={buddyName as string}
-      />
-    </main>
+    <BuddyCommentForm
+      diveLog={diveLog}
+      onSubmit={handleSubmit}
+      error={error}
+      commenter={buddyName as string}
+    />
   );
 }
 

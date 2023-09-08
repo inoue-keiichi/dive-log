@@ -1,4 +1,3 @@
-import styles from "@/styles/Home.module.css";
 import { SITE_URL } from "@/utils/commons";
 import { Stack } from "@mui/material";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
@@ -21,16 +20,14 @@ export default function Home() {
   }
 
   return (
-    <main className={styles.main}>
-      <Stack>
-        <Auth
-          providers={[]}
-          redirectTo={SITE_URL}
-          appearance={{ theme: ThemeSupa }}
-          supabaseClient={supabaseClient}
-          socialLayout="horizontal"
-        />
-      </Stack>
-    </main>
+    <Stack>
+      <Auth
+        providers={[]}
+        redirectTo={SITE_URL}
+        appearance={{ theme: ThemeSupa }}
+        supabaseClient={supabaseClient}
+        socialLayout="horizontal"
+      />
+    </Stack>
   );
 }
