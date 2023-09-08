@@ -49,6 +49,7 @@ const BuddyCommentForm: FC<Props> = (props) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<BuddyComment>({
     resolver: zodResolver(buddyCommentSchema),
   });
@@ -72,6 +73,7 @@ const BuddyCommentForm: FC<Props> = (props) => {
         component="form"
         onSubmit={handleSubmit((buddyComment) => {
           onSubmit(buddyComment);
+          reset({ text: "" });
         })}
       >
         <Typography variant="h5">{`${diveLog.date} ${divingBetweenTimeStr}`}</Typography>

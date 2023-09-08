@@ -3,7 +3,6 @@ import { NewBuddy } from "@/pages/api/share/diveLogs/[uuid]/buddies/new";
 import { Buddy } from "@/schemas/buudy";
 import { SITE_URL } from "@/utils/commons";
 import { ResponseError } from "@/utils/type";
-import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
@@ -17,6 +16,20 @@ function Buddy(props: Props) {
 
   const router = useRouter();
   const uuid = router.query.uuid;
+
+  useEffect(() => {
+    if (!uuid) {
+      return;
+    }
+    (async () => {
+      const res = await fetch(`${SITE_URL}/api/share/diveLogs/${uuid}`);
+      setUuidValid(res.ok);
+    })();
+  }, [uuid]);
+
+  useEffect(() => {
+    router.prefetch("[uuid]/comments");
+  }, [router]);
 
   const handleSubmit = async (data: Buddy) => {
     const res = await fetch(
@@ -39,23 +52,9 @@ function Buddy(props: Props) {
     });
   };
 
-  useEffect(() => {
-    router.prefetch("[uuid]/comments");
-  }, [router]);
-
   // TODO: uuidが正しいか確認する処理を追加する。正しくない場合はエラーページに遷移させる
 
   return <BuddyForm onSubmit={handleSubmit} error={error} />;
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const uuid = context.resolvedUrl.replace("/buddies", "");
-  const res = await fetch(`${SITE_URL}/api/share/diveLogs/${uuid}`);
-  return {
-    props: {
-      uuidValid: res.ok,
-    },
-  };
 }
 
 export default Buddy;

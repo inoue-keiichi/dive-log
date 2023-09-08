@@ -2,20 +2,13 @@ import DiveLogLinkDialog from "@/components/templates/DiveLogLinkDialog";
 import DiveLogList from "@/components/templates/DiveLogList";
 import { DiveLog } from "@/schemas/diveLog";
 import { SITE_URL } from "@/utils/commons";
-import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { useUser } from "@supabase/auth-helpers-react";
-import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { LineIcon, LineShareButton } from "react-share";
 
-type Props = {
-  diveLogs: (DiveLog & { id: number })[];
-};
-
-export default function DivingLogs(props: Props) {
-  const { diveLogs } = props;
-
+export default function DivingLogs() {
+  const [diveLogs, setDiveLogs] = useState<(DiveLog & { id: number })[]>([]);
   const [openShareDialog, setOpenShareDialog] = useState<boolean>(false);
   const [link, setLink] = useState<string>("");
 
@@ -27,6 +20,30 @@ export default function DivingLogs(props: Props) {
     router.prefetch("/diveLogs/new");
     router.prefetch("/diveLogs/[id]");
   }, [router]);
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+    (async () => {
+      const res = await fetch(`${SITE_URL}/api/users/${user.id}/diveLogs`);
+      if (!res.ok) {
+        // TODO: エラーページ遷移
+        return;
+      }
+      const diveLogs = (await res.json()) as (DiveLog & { id: number })[];
+      setDiveLogs(diveLogs);
+    })();
+  }, [user]);
+
+  if (!router.isReady) {
+    return <></>;
+  }
+
+  if (!user) {
+    router.push("/");
+    return;
+  }
 
   return (
     <>
@@ -71,24 +88,4 @@ export default function DivingLogs(props: Props) {
       />
     </>
   );
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const supabaseServerClient = createServerSupabaseClient(context);
-  const {
-    data: { user },
-  } = await supabaseServerClient.auth.getUser();
-
-  if (!user) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  const res = await fetch(`${SITE_URL}/api/users/${user.id}/diveLogs`);
-  const diveLogs = (await res.json()) as DiveLog[];
-  return { props: { diveLogs } };
 }
