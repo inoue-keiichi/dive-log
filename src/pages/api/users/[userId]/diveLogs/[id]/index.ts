@@ -7,7 +7,6 @@ export default async function handler(
   res: NextApiResponse<{}>
 ) {
   if (req.method === "PUT") {
-    console.log(JSON.stringify(req.query));
     const parsedQuery = diveLogQuerySchema.safeParse({
       id: req.query.id,
       userId: req.query.userId,

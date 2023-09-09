@@ -6,24 +6,24 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 function Exist() {
-  // const { diveLog } = props;
   const [diveLog, setDiveLog] = useState<DiveLog>();
 
   const user = useUser();
   const router = useRouter();
+  const id = router.query.id;
 
   useEffect(() => {
     (async () => {
-      if (!user) {
+      if (!user || !id) {
         return;
       }
       const res = await fetch(
-        `${SITE_URL}/api/users/${user.id}/diveLogs/${router.query.id}`
+        `${SITE_URL}/api/users/${user.id}/diveLogs/${id}`
       );
-      const diveLog = (await res.json()) as DiveLog;
-      setDiveLog(diveLog);
+      const json = (await res.json()) as DiveLog;
+      setDiveLog(json);
     })();
-  }, [user, router]);
+  }, [user, id]);
 
   useEffect(() => {
     router.prefetch("/diveLogs");
@@ -66,12 +66,16 @@ function Exist() {
   }
 
   return (
-    <DiveLogForm
-      diveLog={diveLog}
-      onSubmit={onSubmit}
-      onBack={() => router.push("/diveLogs")}
-      onDelete={onDelete}
-    />
+    <>
+      {diveLog && (
+        <DiveLogForm
+          diveLog={diveLog}
+          onSubmit={onSubmit}
+          onBack={() => router.push("/diveLogs")}
+          onDelete={onDelete}
+        />
+      )}
+    </>
   );
 }
 
