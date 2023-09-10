@@ -41,7 +41,6 @@ export default function DivingLogs() {
   }
 
   if (!user) {
-    router.push("/");
     return;
   }
 

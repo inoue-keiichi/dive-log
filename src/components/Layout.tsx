@@ -25,7 +25,7 @@ export default function Layout({ children }: Props) {
               color="inherit"
               onClick={async () => {
                 await supabaseClient.auth.signOut();
-                router.replace("/");
+                router.push("/login");
               }}
             >
               Logout
