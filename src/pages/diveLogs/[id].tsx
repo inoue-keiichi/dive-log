@@ -60,11 +60,6 @@ function Exist() {
     return <></>;
   }
 
-  if (!user) {
-    router.push("/");
-    return;
-  }
-
   return (
     <>
       {diveLog && (

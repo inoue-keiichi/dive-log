@@ -1,9 +1,9 @@
 import { expect, test } from "@playwright/test";
+import { prisma } from "../src/clients/prisma";
 import { PagePilot } from "./__utils__/diveLog";
 
 const account = {
-  // 同じアカウントだと前のテストで追加したログブックの影響を受けてテストが落ちるので新規のアカウントでテストする
-  email: `comment+e2e_${Date.now()}@gmail.com`,
+  email: "example+e2e_20230910C@gmail.com",
   password: "e2etest",
 };
 
@@ -22,6 +22,10 @@ const diveLog = {
   memo: "Good Diving!!",
 };
 
+test.beforeEach(async () => {
+  await prisma.diveLog.deleteMany();
+});
+
 test("create a new DiveLog with sign up", async ({ context, page }) => {
   // 権限を追加する
   await context.grantPermissions([
@@ -32,11 +36,10 @@ test("create a new DiveLog with sign up", async ({ context, page }) => {
 
   // Start from the index page (the baseURL is set via the webServer in the playwright.config.ts)
   await page.goto("http://localhost:3000/");
-  // Sign up
-  await page.getByText("Don't have an account? Sign up").click();
+  // Sign in
   await page.getByLabel("Email address").fill(account.email);
-  await page.getByLabel("Create a Password").fill(account.password);
-  await page.getByText("Sign up").click();
+  await page.getByLabel("Your password").fill(account.password);
+  await page.getByText("Sign in").click();
 
   // Move to diveLogs page.
   await expect(page).toHaveURL("http://localhost:3000/diveLogs");
