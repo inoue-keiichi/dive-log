@@ -2,7 +2,6 @@ import { createMiddlewareSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  console.log(`path: ${req.nextUrl.pathname}`);
   const res = NextResponse.next();
   if (req.nextUrl.pathname.startsWith("/share/")) {
     return res;
