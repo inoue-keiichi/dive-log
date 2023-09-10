@@ -1,4 +1,3 @@
-import { SITE_URL } from "@/utils/commons";
 import { Stack } from "@mui/material";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { Auth } from "@supabase/auth-ui-react";
@@ -23,7 +22,7 @@ export default function Home() {
     <Stack>
       <Auth
         providers={[]}
-        redirectTo={SITE_URL}
+        //redirectTo={SITE_URL}
         appearance={{ theme: ThemeSupa }}
         supabaseClient={supabaseClient}
         socialLayout="horizontal"
