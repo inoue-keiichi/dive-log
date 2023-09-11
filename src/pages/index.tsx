@@ -14,15 +14,16 @@ export default function Home() {
     router.prefetch("/diveLogs");
   }, [router]);
 
-  if (user) {
-    router.push("/diveLogs");
-  }
+  useEffect(() => {
+    if (user) {
+      router.push("/diveLogs");
+    }
+  }, [router, user]);
 
   return (
     <Stack>
       <Auth
         providers={[]}
-        //redirectTo={SITE_URL}
         appearance={{ theme: ThemeSupa }}
         supabaseClient={supabaseClient}
         socialLayout="horizontal"
