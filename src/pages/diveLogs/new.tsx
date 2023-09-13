@@ -1,14 +1,17 @@
+import { supabaseClient } from "@/clients/supabase";
 import DiveLogForm from "@/components/templates/DiveLogForm";
 import { DiveLog } from "@/schemas/diveLog";
 import { SITE_URL } from "@/utils/commons";
-import { useUser } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 export default function New() {
   const router = useRouter();
-  const user = useUser();
+
   const handleSubmit = async (data: DiveLog) => {
+    const {
+      data: { user },
+    } = await supabaseClient.auth.getUser();
     if (!user) {
       return await router.replace("/");
     }
