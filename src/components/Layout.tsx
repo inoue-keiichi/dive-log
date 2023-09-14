@@ -1,5 +1,5 @@
 import { supabaseClient } from "@/clients/supabase";
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Link, Toolbar, Typography } from "@mui/material";
 import { Session } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/router";
 import { ReactNode, useEffect, useState } from "react";
@@ -30,9 +30,9 @@ export default function Layout({ children }: Props) {
           </Typography>
           {session && (
             <form action="/auth/signout" method="post">
-              <button className="button block" type="submit">
+              <Link component="button" color="inherit" variant="body1">
                 Sign out
-              </button>
+              </Link>
             </form>
           )}
         </Toolbar>
