@@ -17,15 +17,14 @@ type Props = {
   onSignUp: (param: { email: string; password: string }) => void;
   onRestPassword: (email: string) => void;
 };
+export type FormKind = "SIGNIN" | "SIGNUP" | "RESET_PASSWORD";
 
 export default function AuthForm({
   onSignIn,
   onSignUp,
   onRestPassword,
 }: Props) {
-  const [account, setAccout] = useState<"SIGNIN" | "SIGNUP" | "RESET_PASSWORD">(
-    "SIGNIN"
-  );
+  const [account, setAccout] = useState<FormKind>("SIGNIN");
   const {
     register,
     handleSubmit,
@@ -40,6 +39,7 @@ export default function AuthForm({
     formState: {
       errors: resetPasswordErrors,
       isSubmitting: isResetPasswordSubmitting,
+      isSubmitSuccessful: isResetPasswordSubmitSuccessful,
     },
   } = useForm<Email>({
     resolver: zodResolver(emailSchema),
@@ -49,7 +49,11 @@ export default function AuthForm({
     <>
       {account === "SIGNIN" && (
         <Stack spacing={2}>
-          <Stack spacing={2} component="form">
+          <Stack
+            spacing={2}
+            component="form"
+            onSubmit={handleSubmit((account) => onSignIn(account))}
+          >
             <FormControl>
               <TextField
                 label="メールアドレス"
@@ -67,15 +71,13 @@ export default function AuthForm({
                 type="password"
                 {...register("password")}
               />
-              <FormHelperText error={!!errors}>
-                {errors.password?.message ?? ""}
-              </FormHelperText>
+              {errors.password && (
+                <FormHelperText error={true}>
+                  {errors.password.message}
+                </FormHelperText>
+              )}
             </FormControl>
-            <Button
-              variant="contained"
-              disabled={isSubmitting}
-              onClick={handleSubmit((account) => onSignIn(account))}
-            >
+            <Button variant="contained" disabled={isSubmitting} type="submit">
               ログイン
             </Button>
           </Stack>
@@ -101,7 +103,11 @@ export default function AuthForm({
       )}
       {account === "SIGNUP" && (
         <Stack spacing={2}>
-          <Stack spacing={2} component="form">
+          <Stack
+            spacing={2}
+            component="form"
+            onSubmit={handleSubmit((account) => onSignUp(account))}
+          >
             <FormControl>
               <TextField
                 label="メールアドレス"
@@ -123,11 +129,7 @@ export default function AuthForm({
                 {errors.password?.message ?? ""}
               </FormHelperText>
             </FormControl>
-            <Button
-              variant="contained"
-              disabled={isSubmitting}
-              onClick={handleSubmit((account) => onSignUp(account))}
-            >
+            <Button variant="contained" disabled={isSubmitting} type="submit">
               アカウント登録
             </Button>
           </Stack>
@@ -144,7 +146,13 @@ export default function AuthForm({
       )}
       {account === "RESET_PASSWORD" && (
         <Stack spacing={2}>
-          <Stack spacing={2} component="form">
+          <Stack
+            spacing={2}
+            component="form"
+            onSubmit={resetPasswordHandleSubmit(({ email }) =>
+              onRestPassword(email)
+            )}
+          >
             <FormControl>
               <TextField
                 label="メールアドレス"
@@ -158,12 +166,15 @@ export default function AuthForm({
             <Button
               variant="contained"
               disabled={isResetPasswordSubmitting}
-              onClick={resetPasswordHandleSubmit(({ email }) =>
-                onRestPassword(email)
-              )}
+              type="submit"
             >
               送信
             </Button>
+            {isResetPasswordSubmitSuccessful && (
+              <FormHelperText>
+                メールを送信しました。メールに記載されたリンクからパスワードを変更してください
+              </FormHelperText>
+            )}
           </Stack>
           <Link
             component="button"

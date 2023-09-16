@@ -31,7 +31,7 @@ export default function Layout({ children }: Props) {
           {session && (
             <form action="/auth/signout" method="post">
               <Link component="button" color="inherit" variant="body1">
-                Sign out
+                ログアウト
               </Link>
             </form>
           )}

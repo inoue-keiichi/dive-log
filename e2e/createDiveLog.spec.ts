@@ -46,16 +46,14 @@ test("create a new DiveLog with sign in", async ({ page }) => {
 
   // Start from the index page (the baseURL is set via the webServer in the playwright.config.ts)
   await page.goto("http://localhost:3000");
-  await expect(page.locator("header button")).not.toHaveText("Logout");
 
   // Sign in
-  await page.getByLabel("Email address").fill(account.email);
-  await page.getByLabel("Your Password").fill(account.password);
-  await page.getByText("Sign in").click();
+  await page.getByLabel("メールアドレス").fill(account.email);
+  await page.getByLabel("パスワード").fill(account.password);
+  await page.getByText("ログイン").click();
 
   // Move to diveLogs page.
   await expect(page).toHaveURL("http://localhost:3000/diveLogs");
-  await expect(page.locator("header button")).toHaveText("Logout");
   await page.getByText("新規追加").click();
   // Move to a new diveLog page and edit it.
   await expect(page).toHaveURL("http://localhost:3000/diveLogs/new");

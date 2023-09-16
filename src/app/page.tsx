@@ -4,6 +4,8 @@ import { SITE_URL } from "@/utils/commons";
 import { useRouter } from "next/navigation";
 import AuthForm from "./auth-form";
 
+export type FormKind = "SIGNIN" | "SIGNUP" | "RESET_PASSWORD";
+
 export default function Home() {
   const router = useRouter();
 
@@ -42,7 +44,6 @@ export default function Home() {
     await supabaseClient.auth.resetPasswordForEmail(email, {
       redirectTo: "https://github.com/inoue-keiichi/dive-log/pull/44/files",
     });
-    console.log("hoge");
   };
 
   return (

@@ -1,29 +1,7 @@
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { NextRequest, NextResponse } from "next/server";
 
-// export async function middleware(req: NextRequest) {
-//   console.log("middleware");
-//   const res = NextResponse.next();
-//   const supabase = createMiddlewareClient({ req, res });
-//   const result = await supabase.auth.getUser();
-//   console.log(result.data.user);
-//   if (result.data.user) {
-//     return res;
-//   }
-
-//   if (req.nextUrl.pathname.startsWith("/diveLogs")) {
-//     const redirectUrl = req.nextUrl.clone();
-//     redirectUrl.pathname = "/";
-//     redirectUrl.searchParams.set(`redirectedFrom`, req.nextUrl.pathname);
-//     return NextResponse.redirect(redirectUrl);
-//   }
-
-//   // root
-//   return res;
-// }
-
 export async function middleware(req: NextRequest) {
-  console.log("middleware");
   const res = NextResponse.next();
   const supabase = createMiddlewareClient({ req, res });
 
