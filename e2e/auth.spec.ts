@@ -1,4 +1,4 @@
-import { test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import { prisma } from "../src/clients/prisma";
 import { PagePilot } from "./__utils__/diveLog";
 
