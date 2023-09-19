@@ -16,13 +16,6 @@ export default function DivingLogs() {
 
   const router = useRouter();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const res = await supabaseClient.auth.getUser();
-  //     setUser(res.data.user);
-  //   })();
-  // }, []);
-
   useEffect(() => {
     router.prefetch("/diveLogs/new");
     router.prefetch("/diveLogs/[id]");

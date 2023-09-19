@@ -33,7 +33,7 @@ const config: PlaywrightTestConfig = {
     baseURL,
 
     // Remove comment out if you want to show a browser.
-    headless: false,
+    // headless: false,
 
     // Retry a test if its failing with enabled tracing. This allows you to analyse the DOM, console logs, network traffic etc.
     // More information: https://playwright.dev/docs/trace-viewer

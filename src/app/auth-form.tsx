@@ -2,6 +2,7 @@
 import { Account, Email, accountSchema, emailSchema } from "@/schemas/account";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
+  Box,
   Button,
   FormControl,
   FormHelperText,
@@ -46,7 +47,14 @@ export default function AuthForm({
   });
 
   return (
-    <>
+    <Box
+      sx={{
+        width: "100%",
+        backgroundColor: "white",
+        padding: "50px 30px 50px 30px",
+        borderRadius: "10px",
+      }}
+    >
       {account === "SIGNIN" && (
         <Stack spacing={2}>
           <Stack
@@ -187,6 +195,6 @@ export default function AuthForm({
           </Link>
         </Stack>
       )}
-    </>
+    </Box>
   );
 }
