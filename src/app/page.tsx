@@ -42,7 +42,7 @@ export default function Home() {
 
   const handleResetPassword = async (email: string) => {
     await supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: "https://github.com/inoue-keiichi/dive-log/pull/44/files",
+      redirectTo: `${SITE_URL}/update-password`,
     });
   };
 
