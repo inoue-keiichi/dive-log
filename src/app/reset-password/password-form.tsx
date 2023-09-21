@@ -5,9 +5,11 @@ import {
   Button,
   FormControl,
   FormHelperText,
+  Link,
   Stack,
   TextField,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 type Props = {
@@ -15,10 +17,11 @@ type Props = {
 };
 
 export default function PasswordForm({ onSubmit }: Props) {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
   } = useForm<Password>({
     resolver: zodResolver(passwordSchema),
   });
@@ -55,6 +58,20 @@ export default function PasswordForm({ onSubmit }: Props) {
             変更
           </Button>
         </Stack>
+        {isSubmitSuccessful && (
+          <>
+            <FormHelperText>パスワード更新が完了しました</FormHelperText>
+            <Link
+              component="button"
+              variant="body2"
+              onClick={() => {
+                router.push("/");
+              }}
+            >
+              ログイン画面へ
+            </Link>
+          </>
+        )}
       </Stack>
     </Box>
   );

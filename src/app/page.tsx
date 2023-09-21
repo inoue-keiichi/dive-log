@@ -42,7 +42,7 @@ export default function Home() {
 
   const handleResetPassword = async (email: string) => {
     await supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: `${SITE_URL}/update-password`,
+      redirectTo: `${SITE_URL}/reset-password`,
     });
   };
 

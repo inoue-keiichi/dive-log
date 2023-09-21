@@ -25,6 +25,11 @@ export const passwordSchema = z.object({
     .max(31, "パスワードは31文字以下にしてください"),
 });
 
+export const passwordRequestSchema = passwordSchema.merge(
+  z.object({ code: z.string() })
+);
+
 export type Account = z.infer<typeof accountSchema>;
 export type Email = z.infer<typeof emailSchema>;
 export type Password = z.infer<typeof passwordSchema>;
+export type PasswordRequest = z.infer<typeof passwordRequestSchema>;
