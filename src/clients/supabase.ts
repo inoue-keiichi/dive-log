@@ -1,7 +1,3 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-// TODO: zod と env のライブラリで型つけたい
-export const supabase = createClient(
-  process.env.SUPABASE_URL!,
-  process.env.SUPABASE_API_KEY!
-);
+export const supabaseClient = createClientComponentClient();

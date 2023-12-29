@@ -1,8 +1,9 @@
+import { supabaseClient } from "@/clients/supabase";
 import DiveLogLinkDialog from "@/components/templates/DiveLogLinkDialog";
 import DiveLogList from "@/components/templates/DiveLogList";
 import { DiveLog } from "@/schemas/diveLog";
 import { SITE_URL } from "@/utils/commons";
-import { useUser } from "@supabase/auth-helpers-react";
+import { User } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { LineIcon, LineShareButton } from "react-share";
@@ -11,10 +12,9 @@ export default function DivingLogs() {
   const [diveLogs, setDiveLogs] = useState<(DiveLog & { id: number })[]>([]);
   const [openShareDialog, setOpenShareDialog] = useState<boolean>(false);
   const [link, setLink] = useState<string>("");
+  const [user, setUser] = useState<User | null>(null);
 
   const router = useRouter();
-
-  const user = useUser();
 
   useEffect(() => {
     router.prefetch("/diveLogs/new");
@@ -22,10 +22,14 @@ export default function DivingLogs() {
   }, [router]);
 
   useEffect(() => {
-    if (!user) {
-      return;
-    }
     (async () => {
+      const {
+        data: { user },
+      } = await supabaseClient.auth.getUser();
+      setUser(user);
+      if (!user) {
+        return;
+      }
       const res = await fetch(`${SITE_URL}/api/users/${user.id}/diveLogs`);
       if (!res.ok) {
         // TODO: エラーページ遷移
@@ -34,7 +38,7 @@ export default function DivingLogs() {
       const diveLogs = (await res.json()) as (DiveLog & { id: number })[];
       setDiveLogs(diveLogs);
     })();
-  }, [user]);
+  }, []);
 
   if (!router.isReady) {
     return <></>;

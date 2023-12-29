@@ -1,19 +1,22 @@
+import { supabaseClient } from "@/clients/supabase";
 import DiveLogForm from "@/components/templates/DiveLogForm";
 import { DiveLog } from "@/schemas/diveLog";
 import { SITE_URL } from "@/utils/commons";
-import { useUser } from "@supabase/auth-helpers-react";
+import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 function Exist() {
   const [diveLog, setDiveLog] = useState<DiveLog>();
-
-  const user = useUser();
+  const [user, setUser] = useState<User>();
   const router = useRouter();
   const id = router.query.id;
 
   useEffect(() => {
     (async () => {
+      const {
+        data: { user },
+      } = await supabaseClient.auth.getUser();
       if (!user || !id) {
         return;
       }
@@ -22,8 +25,9 @@ function Exist() {
       );
       const json = (await res.json()) as DiveLog;
       setDiveLog(json);
+      setUser(user);
     })();
-  }, [user, id]);
+  }, [id]);
 
   useEffect(() => {
     router.prefetch("/diveLogs");

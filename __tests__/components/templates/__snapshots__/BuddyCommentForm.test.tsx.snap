@@ -6,10 +6,10 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
   "baseElement": <body>
     <div>
       <div
-        class="MuiStack-root css-89v2n4-MuiStack-root"
+        class="MuiStack-root css-3pmboq-MuiStack-root"
       >
         <form
-          class="MuiStack-root css-10w7mp6-MuiStack-root"
+          class="MuiStack-root css-1eha75w-MuiStack-root"
         >
           <h5
             class="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
@@ -17,10 +17,10 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
             2023-08-23 09:30~10:00
           </h5>
           <div
-            class="MuiStack-root css-w4z10b-MuiStack-root"
+            class="MuiStack-root css-niqf4j-MuiStack-root"
           >
             <div
-              class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-filledPrimary css-1sz23ua-MuiChip-root"
+              class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-filledPrimary css-uy9ylj-MuiChip-root"
             >
               <span
                 class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
@@ -29,7 +29,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
               </span>
             </div>
             <div
-              class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-filledPrimary css-1sz23ua-MuiChip-root"
+              class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-filledPrimary css-uy9ylj-MuiChip-root"
             >
               <span
                 class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
@@ -45,7 +45,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
               class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
             >
               <label
-                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
+                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
                 data-shrink="true"
                 for="name"
                 id="name-label"
@@ -82,7 +82,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
             class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
           >
             <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
               data-shrink="false"
               for="text"
             >
@@ -102,7 +102,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
                 aria-hidden="true"
                 class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputMultiline css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input"
                 readonly=""
-                style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); padding: 0px; width: 100%;"
+                style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); padding-top: 0px; padding-bottom: 0px; width: 100%;"
                 tabindex="-1"
               />
               <fieldset
@@ -191,10 +191,10 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
   </body>,
   "container": <div>
     <div
-      class="MuiStack-root css-89v2n4-MuiStack-root"
+      class="MuiStack-root css-3pmboq-MuiStack-root"
     >
       <form
-        class="MuiStack-root css-10w7mp6-MuiStack-root"
+        class="MuiStack-root css-1eha75w-MuiStack-root"
       >
         <h5
           class="MuiTypography-root MuiTypography-h5 css-ag7rrr-MuiTypography-root"
@@ -202,10 +202,10 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
           2023-08-23 09:30~10:00
         </h5>
         <div
-          class="MuiStack-root css-w4z10b-MuiStack-root"
+          class="MuiStack-root css-niqf4j-MuiStack-root"
         >
           <div
-            class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-filledPrimary css-1sz23ua-MuiChip-root"
+            class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-filledPrimary css-uy9ylj-MuiChip-root"
           >
             <span
               class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
@@ -214,7 +214,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
             </span>
           </div>
           <div
-            class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-filledPrimary css-1sz23ua-MuiChip-root"
+            class="MuiChip-root MuiChip-filled MuiChip-sizeMedium MuiChip-colorPrimary MuiChip-filledPrimary css-uy9ylj-MuiChip-root"
           >
             <span
               class="MuiChip-label MuiChip-labelMedium css-6od3lo-MuiChip-label"
@@ -230,7 +230,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
             class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
           >
             <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
+              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiFormLabel-filled MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-sizeMedium MuiInputLabel-outlined css-1jy569b-MuiFormLabel-root-MuiInputLabel-root"
               data-shrink="true"
               for="name"
               id="name-label"
@@ -267,7 +267,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
           class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
         >
           <label
-            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-sizeMedium MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
             data-shrink="false"
             for="text"
           >
@@ -287,7 +287,7 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
               aria-hidden="true"
               class="MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputMultiline css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input"
               readonly=""
-              style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); padding: 0px; width: 100%;"
+              style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0); padding-top: 0px; padding-bottom: 0px; width: 100%;"
               tabindex="-1"
             />
             <fieldset

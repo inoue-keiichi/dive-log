@@ -20,18 +20,26 @@ const DiveLogList: FC<Props> = (props) => {
   const { diveLogs, onAddNew, onEdit, onShare } = props;
 
   return (
-    <Stack spacing={2} sx={{ width: "100%" }}>
-      <Button
-        sx={{ width: "100px", marginLeft: "auto", marginRight: "auto" }}
-        variant="contained"
-        onClick={onAddNew}
-      >
+    <Stack
+      spacing={2}
+      sx={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Button sx={{ width: "100px" }} variant="contained" onClick={onAddNew}>
         新規追加
       </Button>
       {diveLogs.map((diveLog, i) => {
         const { id, point, date } = diveLog;
         return (
-          <Card data-testid={`dive-log-card-${i}`} key={id}>
+          <Card
+            sx={{ width: "100%" }}
+            data-testid={`dive-log-card-${i}`}
+            key={id}
+          >
             <CardContent>
               <Typography variant="h6" color="text.secondary">
                 {date}
