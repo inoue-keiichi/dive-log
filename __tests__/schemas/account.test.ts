@@ -16,6 +16,7 @@ describe("accountSchema", () => {
     ["no domain", "example"],
     ["no local", "@example.com"],
     ["no @", "exampleexample.com"],
+    ["upper limit", "m".repeat(255 - "@example.com".length) + "@example.com"],
   ])("fail when email is %s", async (_, email) => {
     const actual = accountSchema.safeParse({ ...account, email });
     expect(actual.success).toBeFalsy();

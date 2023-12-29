@@ -9,15 +9,14 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 type Props = {
   onSubmit: (password: string) => void;
+  onBack: () => void;
 };
 
-export default function PasswordForm({ onSubmit }: Props) {
-  const router = useRouter();
+export default function PasswordForm({ onSubmit, onBack }: Props) {
   const {
     register,
     handleSubmit,
@@ -43,7 +42,7 @@ export default function PasswordForm({ onSubmit }: Props) {
         >
           <FormControl>
             <TextField
-              label="パスワード"
+              label="新しいパスワード"
               variant="outlined"
               type="password"
               {...register("password")}
@@ -61,13 +60,7 @@ export default function PasswordForm({ onSubmit }: Props) {
         {isSubmitSuccessful && (
           <>
             <FormHelperText>パスワード更新が完了しました</FormHelperText>
-            <Link
-              component="button"
-              variant="body2"
-              onClick={() => {
-                router.push("/");
-              }}
-            >
+            <Link component="button" variant="body2" onClick={onBack}>
               ログイン画面へ
             </Link>
           </>

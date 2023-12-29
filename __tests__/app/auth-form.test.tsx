@@ -57,6 +57,11 @@ describe("AuthForm sign in", () => {
   test.each([
     ["invalid", "example", "メールアドレスが不正です"],
     ["empty", "", "メールアドレスを入力してください"],
+    [
+      "upper limit",
+      "m".repeat(255 - "@example.com".length) + "@example.com",
+      "メールアドレスは254文字以下にしてください",
+    ],
   ])("fails when email is %s", async (_, email, error) => {
     render(
       <AuthForm

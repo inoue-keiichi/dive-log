@@ -1,13 +1,14 @@
 "use client";
 import { SITE_URL } from "@/utils/commons";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import PasswordForm from "./password-form";
 
 export type FormKind = "SIGNIN" | "SIGNUP" | "RESET_PASSWORD";
 
 export default function Home() {
-  const router = useSearchParams();
-  const code = router?.get("code");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const code = searchParams?.get("code");
 
   const handleSubmit = async (newPassword: string) => {
     await fetch(`${SITE_URL}/auth/reset-password`, {
@@ -16,5 +17,7 @@ export default function Home() {
     });
   };
 
-  return <PasswordForm onSubmit={handleSubmit} />;
+  return (
+    <PasswordForm onSubmit={handleSubmit} onBack={() => router.push("/")} />
+  );
 }
