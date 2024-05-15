@@ -41,15 +41,16 @@ test.beforeEach(async () => {
   await prisma.diveLog.deleteMany();
 });
 
-test("create a new DiveLog with sign up", async ({ page }) => {
+test("create a new DiveLog with sign in", async ({ page }) => {
   const pagePilot = new PagePilot(page);
 
   // Start from the index page (the baseURL is set via the webServer in the playwright.config.ts)
-  await page.goto("http://localhost:3000/login");
+  await page.goto("http://localhost:3000");
+
   // Sign in
-  await page.getByLabel("Email address").fill(account.email);
-  await page.getByLabel("Your Password").fill(account.password);
-  await page.getByText("Sign in").click();
+  await page.getByLabel("メールアドレス").fill(account.email);
+  await page.getByLabel("パスワード").fill(account.password);
+  await page.getByText("ログイン").click();
 
   // Move to diveLogs page.
   await expect(page).toHaveURL("http://localhost:3000/diveLogs");

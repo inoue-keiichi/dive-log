@@ -34,6 +34,9 @@ describe("BuddyCommentForm", () => {
     fireEvent.click(submitButton);
     // react-hook-form によって submit が呼び出されるまで待機
     await waitFor(() => expect(submit).toHaveBeenCalledTimes(1));
+    expect(submit.mock.calls[0][0]).toStrictEqual({
+      text: "楽しいダイビングだった。",
+    });
   });
 
   test("cannot submit without a comment", async () => {
