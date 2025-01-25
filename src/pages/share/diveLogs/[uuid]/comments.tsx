@@ -1,6 +1,6 @@
 import BuddyCommentForm from "@/components/templates/BuddyCommentForm";
 import { ShareDiveLog } from "@/pages/api/share/diveLogs/[uuid]";
-import { BuddyComment } from "@/schemas/buudy";
+import { BuddyComment as BuddyCommentSchema } from "@/schemas/buudy";
 import { SITE_URL } from "@/utils/commons";
 import { ResponseError } from "@/utils/type";
 import { useRouter } from "next/router";
@@ -44,7 +44,7 @@ function BuddyComment() {
 
   const { buddyId, buddyName } = parse.data;
 
-  const handleSubmit = async (data: BuddyComment) => {
+  const handleSubmit = async (data: BuddyCommentSchema) => {
     const res = await fetch(
       `${SITE_URL}/api/share/diveLogs/${uuid}/buddies/${buddyId}/comments/new`,
       {

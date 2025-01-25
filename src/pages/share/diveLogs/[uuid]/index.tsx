@@ -1,6 +1,6 @@
 import BuddyForm from "@/components/templates/BuddyForm";
 import { NewBuddy } from "@/pages/api/share/diveLogs/[uuid]/buddies/new";
-import { Buddy } from "@/schemas/buudy";
+import { Buddy as BuddySchema } from "@/schemas/buudy";
 import { SITE_URL } from "@/utils/commons";
 import { ResponseError } from "@/utils/type";
 import { useRouter } from "next/router";
@@ -31,7 +31,7 @@ function Buddy(props: Props) {
     router.prefetch("[uuid]/comments");
   }, [router]);
 
-  const handleSubmit = async (data: Buddy) => {
+  const handleSubmit = async (data: BuddySchema) => {
     const res = await fetch(
       `${SITE_URL}/api/share/diveLogs/${uuid}/buddies/new`,
       {
