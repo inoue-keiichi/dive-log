@@ -19,7 +19,7 @@ import {
   Typography,
 } from "@mui/material";
 import dayjs from "dayjs";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 
 const hasInvalidField = (errors: FieldErrors<DiveLog>) => {
@@ -29,12 +29,14 @@ const hasInvalidField = (errors: FieldErrors<DiveLog>) => {
 type Props = {
   commenter: string;
   diveLog: ShareDiveLog;
-  onSubmit: (buddyComment: BuddyComment) => void;
+  onSubmit: (buddyComment: BuddyComment) => Promise<void>;
   error?: ResponseError;
 };
 
 const BuddyCommentForm: FC<Props> = (props) => {
   const { commenter, onSubmit, diveLog, error } = props;
+
+  const [loading, setLoading] = useState(false);
 
   const buddyComments = diveLog.buddies.flatMap((buddy) =>
     buddy.comments.map((comment) => ({
@@ -72,8 +74,10 @@ const BuddyCommentForm: FC<Props> = (props) => {
         }}
         component="form"
         onSubmit={handleSubmit((buddyComment) => {
-          onSubmit(buddyComment);
-          reset({ text: "" });
+          setLoading(true);
+          onSubmit(buddyComment)
+            .then(() => reset())
+            .finally(() => setLoading(false));
         })}
       >
         <Typography variant="h5">{`${diveLog.date} ${divingBetweenTimeStr}`}</Typography>
@@ -115,6 +119,8 @@ const BuddyCommentForm: FC<Props> = (props) => {
           disabled={!!error || hasInvalidField(errors)}
           variant="contained"
           type="submit"
+          loading={loading}
+          loadingPosition="end"
         >
           送信
         </Button>
