@@ -13,7 +13,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<NewBuddy | ResponseError>
 ) {
-  await new Promise((r) => setTimeout(r, 3000));
   if (req.method === "POST") {
     const parsedQuery = diveLogLinkSchema.safeParse({
       uuid: req.query.uuid,

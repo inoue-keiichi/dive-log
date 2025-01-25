@@ -9,7 +9,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<{}>
 ) {
-  await new Promise((r) => setTimeout(r, 3000));
   if (req.method === "POST") {
     const parsedQuery = buddyCommentQuerySchema.safeParse({
       uuid: req.query.uuid,

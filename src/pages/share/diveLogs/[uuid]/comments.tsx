@@ -45,14 +45,12 @@ function BuddyComment(props: Props) {
   };
 
   return (
-    <>
-      <BuddyCommentForm
-        diveLog={diveLog}
-        onSubmit={handleSubmit}
-        error={error}
-        commenter={buddyName}
-      />
-    </>
+    <BuddyCommentForm
+      diveLog={diveLog}
+      onSubmit={handleSubmit}
+      error={error}
+      commenter={buddyName}
+    />
   );
 }
 
