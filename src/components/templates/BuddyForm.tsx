@@ -11,7 +11,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 
 const hasInvalidField = (errors: FieldErrors<DiveLog>) => {
@@ -19,12 +19,14 @@ const hasInvalidField = (errors: FieldErrors<DiveLog>) => {
 };
 
 type Props = {
-  onSubmit: (buddy: Buddy) => void;
+  onSubmit: (buddy: Buddy) => Promise<void>;
   error?: ResponseError;
 };
 
 const BuddyForm: FC<Props> = (props) => {
   const { onSubmit, error } = props;
+
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -45,7 +47,10 @@ const BuddyForm: FC<Props> = (props) => {
       }}
       component="form"
       onSubmit={handleSubmit((buddy) => {
-        onSubmit(buddy);
+        setLoading(true);
+        onSubmit(buddy).finally(() => {
+          setLoading(false);
+        });
       })}
     >
       <Typography>あなたの名前を入力してください</Typography>
@@ -68,6 +73,8 @@ const BuddyForm: FC<Props> = (props) => {
         disabled={!!error || hasInvalidField(errors)}
         variant="contained"
         type="submit"
+        loading={loading}
+        loadingPosition="end"
       >
         次へ
       </Button>

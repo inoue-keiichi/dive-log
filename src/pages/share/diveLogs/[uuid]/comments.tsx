@@ -1,11 +1,10 @@
 import BuddyCommentForm from "@/components/templates/BuddyCommentForm";
 import { ShareDiveLog } from "@/pages/api/share/diveLogs/[uuid]";
-import { BuddyComment } from "@/schemas/buudy";
+import { BuddyComment as BuddyCommentSchema } from "@/schemas/buudy";
 import { SITE_URL } from "@/utils/commons";
 import { ResponseError } from "@/utils/type";
-import { CircularProgress } from "@mui/material";
 import { GetServerSidePropsContext } from "next";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { z } from "zod";
 
 type Props = {
@@ -20,9 +19,8 @@ function BuddyComment(props: Props) {
 
   const [diveLog, setDiveLog] = useState(initDivelog);
   const [error, setError] = useState<ResponseError>();
-  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (data: BuddyComment) => {
+  const handleSubmit = async (data: BuddyCommentSchema) => {
     const res = await fetch(
       `${SITE_URL}/api/share/diveLogs/${uuid}/buddies/${buddyId}/comments/new`,
       {
@@ -48,18 +46,12 @@ function BuddyComment(props: Props) {
 
   return (
     <>
-      <Suspense fallback={<CircularProgress />}>
-        <BuddyCommentForm
-          diveLog={diveLog}
-          onSubmit={(data) => {
-            setLoading(true);
-            handleSubmit(data);
-            setLoading(false);
-          }}
-          error={error}
-          commenter={buddyName}
-        />
-      </Suspense>
+      <BuddyCommentForm
+        diveLog={diveLog}
+        onSubmit={handleSubmit}
+        error={error}
+        commenter={buddyName}
+      />
     </>
   );
 }
