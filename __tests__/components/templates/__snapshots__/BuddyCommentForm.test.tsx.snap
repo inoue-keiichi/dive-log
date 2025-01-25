@@ -126,12 +126,16 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
             />
           </div>
           <button
-            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-1kla93i-MuiButtonBase-root-MuiButton-root"
+            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-14ammhu-MuiButtonBase-root-MuiButton-root"
             id=":r5:"
             tabindex="0"
             type="submit"
           >
             送信
+            <span
+              class="MuiButton-loadingWrapper"
+              style="display: contents;"
+            />
           </button>
         </form>
         <ul
@@ -309,12 +313,16 @@ exports[`BuddyCommentForm snapshot Comment Form with other bubby comments and th
           />
         </div>
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-1kla93i-MuiButtonBase-root-MuiButton-root"
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-14ammhu-MuiButtonBase-root-MuiButton-root"
           id=":r5:"
           tabindex="0"
           type="submit"
         >
           送信
+          <span
+            class="MuiButton-loadingWrapper"
+            style="display: contents;"
+          />
         </button>
       </form>
       <ul

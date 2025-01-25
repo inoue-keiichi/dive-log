@@ -55,12 +55,16 @@ exports[`BuddyForm snapshot 1`] = `
           class="MuiFormHelperText-root css-18y2hez-MuiFormHelperText-root"
         />
         <button
-          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-1kla93i-MuiButtonBase-root-MuiButton-root"
+          class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-14ammhu-MuiButtonBase-root-MuiButton-root"
           id=":r2:"
           tabindex="0"
           type="submit"
         >
           次へ
+          <span
+            class="MuiButton-loadingWrapper"
+            style="display: contents;"
+          />
         </button>
       </form>
     </div>
@@ -116,12 +120,16 @@ exports[`BuddyForm snapshot 1`] = `
         class="MuiFormHelperText-root css-18y2hez-MuiFormHelperText-root"
       />
       <button
-        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-1kla93i-MuiButtonBase-root-MuiButton-root"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-colorPrimary css-14ammhu-MuiButtonBase-root-MuiButton-root"
         id=":r2:"
         tabindex="0"
         type="submit"
       >
         次へ
+        <span
+          class="MuiButton-loadingWrapper"
+          style="display: contents;"
+        />
       </button>
     </form>
   </div>,
