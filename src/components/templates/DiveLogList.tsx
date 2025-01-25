@@ -1,9 +1,11 @@
 import { DiveLog } from "@/schemas/diveLog";
+import AddIcon from "@mui/icons-material/Add";
 import {
   Button,
   Card,
   CardActions,
   CardContent,
+  Fab,
   Stack,
   Typography,
 } from "@mui/material";
@@ -21,13 +23,20 @@ const DiveLogList: FC<Props> = (props) => {
 
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
-      <Button
-        sx={{ width: "100px", marginLeft: "auto", marginRight: "auto" }}
-        variant="contained"
+      <Fab
+        color="primary"
+        aria-label="add"
+        variant="extended"
         onClick={onAddNew}
+        sx={{
+          position: "fixed",
+          bottom: 32,
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
       >
-        新規追加
-      </Button>
+        <AddIcon /> 新規追加
+      </Fab>
       {diveLogs.map((diveLog, i) => {
         const { id, point, date } = diveLog;
         return (
